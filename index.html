@@ -97,8 +97,8 @@ const destinations = [
   {name:'Kolin kansallispuisto', length:['paiva','yo','pitka'], season:['kesa','talvi'], lat:63.1, lon:29.8, link:'https://www.luontoon.fi/koli', desc:'Suomen ikonisin vaaramaisema.'},
   {name:'Hossan kansallispuisto', length:['paiva','yo','pitka'], season:['kesa','talvi'], lat:64.4, lon:29.3, link:'https://www.luontoon.fi/hossa', desc:'Julma-Ölkyn rotkojärvi.'},
   {name:'Repoveden kansallispuisto', length:['paiva','yo'], season:['kesa','talvi'], lat:61.6, lon:26.5, link:'https://www.luontoon.fi/repovesi', desc:'Jyrkät kalliot ja riippusillat.'},
-  {name:'Oulangan kansallispuisto – Karhunkierros', length:['yo','pitka'], season:['kesa','talvi'], lat:66.3, lon:29.3, link:'https://www.luontoon.fi/fi/kohteet/oulangan-kansallispuisto', desc:'Suomen tunnetuin vaellusreitti.'},
-  {name:'Urho Kekkosen kansallispuisto', length:['pitka'], season:['kesa','talvi'], lat:68.2, lon:27.6, link:'https://www.luontoon.fi/fi/kohteet/urho-kekkosen-kansallispuisto', desc:'Tuntureita ja erämaata.'}
+  {name:'Oulangan kansallispuisto – Karhunkierros', length:['yo','pitka'], season:['kesa','talvi'], lat:66.3, lon:29.3, link:'https://www.luontoon.fi/oulanka', desc:'Suomen tunnetuin vaellusreitti.'},
+  {name:'Urho Kekkosen kansallispuisto', length:['pitka'], season:['kesa','talvi'], lat:68.2, lon:27.6, link:'https://www.luontoon.fi/urhokekkonen', desc:'Tuntureita ja erämaata.'}
 ];
 
 let map;
@@ -150,30 +150,82 @@ function initPackingList(){
       'Puukko',
       'Matkapuhelin + varavirtalähde'
     ];
-    html += '<ul>';
-    dayItems.forEach((item,i)=>{
-      const key = 'day_'+i;
-      const checked = localStorage.getItem(key)==='true' ? 'checked' : '';
-      html += '<li><label><input type="checkbox" data-key="'+key+'" '+checked+'> '+item+'</label></li>';
-    });
-    html += '</ul>';
+    html += buildChecklist(dayItems,'day_');
     document.getElementById('packingList').innerHTML = html;
     bindCheckboxes();
     return;
   }
 
-  // Laajempi lista muille
-  const items = ['Reppu / rinkka','Vedenpitävät kuivasäkit','Vaelluskengät','Varasukat','Sadetakki','Ensiapulaukku','Ruoka','Juomapullo','Makuupussi (jos yöpyminen)','Otsalamppu','Kartta ja kompassi','Matkapuhelin + varavirtalähde'];
-  html += '<ul>';
-  items.forEach((item,i)=>{
-    const key = 'full_'+i;
-    const checked = localStorage.getItem(key)==='true' ? 'checked' : '';
-    html += '<li><label><input type="checkbox" data-key="'+key+'" '+checked+'> '+item+'</label></li>';
-  });
-  html += '</ul>';
+  // Yön yli ja pidemmät vaellukset (kesä / sula maa)
+  let fullItems = [
+    'Reppu / rinkka',
+    'Vedenpitävät kuivasäkit',
+    'Vaelluskengät',
+    'Shortsit (kesällä)',
+    'Hengittävä merinovillainen t-paita + vaihtopaita',
+    'Varasukat',
+    'Sadetakki ja -housut',
+    'Taukovaatetus',
+    'Pipo viileämmille keleille',
+    'Majoite – teltta tai riippumatto',
+    'Riippumaton lisävarusteet (narut, kiinnikkeet, aluspeite)',
+    'Makuupussi',
+    'Makuualusta',
+    'Otsalamppu',
+    'Kartta ja kompassi',
+    'GPS (valinnainen)',
+    'Vaellussauvat (valinnainen)',
+    'Ruoka pakattuna päiväannoksiin',
+    'Vettä tarpeen mukaan',
+    'Vedenpuhdistin tai tabletit',
+    'Tulitikkuja vedenpitävässä rasiassa',
+    'Katkaistu tiskiharja ja biohajoava pesuaine',
+    'Muki ja ruokailuvälineet',
+    'Pakkauspussi ruoalle',
+    'Ensiaputarvikkeet',
+    'Rakkolaastarit',
+    'Lääkkeet',
+    'Hammasharja ja -tahna',
+    'Aurinkorasva ja huulirasva',
+    'Vessapaperi vesitiiviissä pussissa',
+    'Käsidesi',
+    'Pyyhe',
+    'Hyttysmyrkky tai hyttyshattu',
+    'Puukko',
+    'Matkapuhelin + varavirtalähde'
+  ];
+
+  // Talvella poistetaan hyttysvarusteet
+  if(season==='talvi'){
+    fullItems = fullItems.filter(item => !item.toLowerCase().includes('hyttys'));
+  }
+
+  html += '<p><em>Voit muokata listaa: lisää tai poista omia varusteita.</em></p>';
+  html += '<input id="newItem" placeholder="Lisää oma varuste"> <button onclick="addCustomItem()">Lisää</button>';
+  html += buildChecklist(fullItems,'full_');
 
   document.getElementById('packingList').innerHTML = html;
   bindCheckboxes();
+}
+
+function buildChecklist(items,prefix){
+  let html = '<div>';
+  items.forEach((item,i)=>{
+    const key = prefix+i;
+    const checked = localStorage.getItem(key)==='true' ? 'checked' : '';
+    html += '<div><label><input type="checkbox" data-key="'+key+'" '+checked+'> '+item+'</label></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function addCustomItem(){
+  const input = document.getElementById('newItem');
+  if(!input.value) return;
+  let custom = JSON.parse(localStorage.getItem('customItems')||'[]');
+  custom.push(input.value);
+  localStorage.setItem('customItems',JSON.stringify(custom));
+  initPackingList();
 }
 
 function bindCheckboxes(){
@@ -185,9 +237,7 @@ function bindCheckboxes(){
 }
 
 // ===== PDF ja jakaminen =====
-function printPDF(){ window.print(); }
-
-function shareLink(){
+function shareLink(){(){
   navigator.clipboard.writeText(window.location.href);
   alert('Linkki kopioitu!');
 }
@@ -195,5 +245,3 @@ function shareLink(){
 
 </body>
 </html>
-
-
