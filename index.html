@@ -82,7 +82,10 @@
 // ===== Näyttöjen vaihto =====
 function showScreen(n){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('screen'+n).classList.add('active');
+  const target = document.getElementById('screen'+n);
+  if(target){
+    target.classList.add('active');
+  }
   if(n===3){ initMap(); }
   if(n===4){ initPackingList(); }
 }
@@ -156,7 +159,7 @@ function initPackingList(){
     return;
   }
 
-  // Yön yli ja pidemmät vaellukset (kesä / sula maa)
+  // Yön yli ja pidemmät vaellukset
   let fullItems = [
     'Reppu / rinkka',
     'Vedenpitävät kuivasäkit',
@@ -221,7 +224,7 @@ function buildChecklist(items,prefix){
 
 function addCustomItem(){
   const input = document.getElementById('newItem');
-  if(!input.value) return;
+  if(!input || !input.value) return;
   let custom = JSON.parse(localStorage.getItem('customItems')||'[]');
   custom.push(input.value);
   localStorage.setItem('customItems',JSON.stringify(custom));
@@ -237,10 +240,28 @@ function bindCheckboxes(){
 }
 
 // ===== PDF ja jakaminen =====
-function shareLink(){(){
+function printPDF(){
+  window.print();
+}
+
+function shareLink(){
   navigator.clipboard.writeText(window.location.href);
   alert('Linkki kopioitu!');
 }
+
+// ===== Yksinkertaiset testit =====
+function runTests(){
+  console.log('Running basic tests...');
+  // Test 1: showScreen exists
+  console.assert(typeof showScreen === 'function', 'showScreen should be defined');
+  // Test 2: No duplicate screen IDs
+  const ids = Array.from(document.querySelectorAll('[id]')).map(el=>el.id);
+  const duplicates = ids.filter((id,index)=>ids.indexOf(id)!==index);
+  console.assert(duplicates.length===0, 'There should be no duplicate IDs: '+duplicates.join(','));
+  console.log('Tests completed');
+}
+
+window.addEventListener('load', runTests);
 </script>
 
 </body>
