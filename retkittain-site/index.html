@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retkittäin – Etusivu</title>
+
+    <style>
+        :root {
+            --bg: #eef3ef;
+            --brand: #2f5d50;
+            --brand2: #3c7a6a;
+            --card: #f7faf8;
+            --text: #12322b;
+            --muted: #4a625b;
+            --border: #d9e3df;
+            --shadow: 0 10px 30px rgba(0,0,0,0.10);
+            --radius: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        header {
+            background: var(--brand);
+            padding: 14px 18px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+
+        .topbar {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            letter-spacing: .2px;
+            font-size: 20px;
+            white-space: nowrap;
+        }
+
+            .brand img {
+                height: 34px;
+                width: auto;
+                display: block;
+            }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            margin-left: 14px;
+            opacity: .95;
+        }
+
+            nav a:hover {
+                opacity: 1;
+                text-decoration: underline;
+            }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 18px;
+        }
+
+        /* HERO */
+        .hero {
+            margin-top: 18px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 0;
+        }
+
+        .hero-content {
+            padding: 26px;
+        }
+
+        .kicker {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #e8f2ee;
+            color: var(--brand);
+            font-weight: 800;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 8px 0 10px;
+            color: var(--brand);
+            font-size: clamp(28px, 3.2vw, 44px);
+            line-height: 1.08;
+        }
+
+        .lead {
+            margin: 0 0 16px;
+            color: var(--muted);
+            font-size: 16px;
+            max-width: 52ch;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 0;
+            cursor: pointer;
+            font-weight: 800;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+            .btn.primary {
+                background: var(--brand);
+                color: #fff;
+            }
+
+                .btn.primary:hover {
+                    background: #264b41;
+                }
+
+            .btn.secondary {
+                background: #e8f2ee;
+                color: var(--brand);
+                border: 1px solid var(--border);
+            }
+
+                .btn.secondary:hover {
+                    background: #dceee7;
+                }
+
+        .hero-meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .chip {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: #fff;
+        }
+
+        .hero-media {
+            position: relative;
+            min-height: 280px;
+            background: linear-gradient(135deg, #1f3e36, #3c7a6a);
+        }
+
+            .hero-media img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: .92;
+            }
+
+            .hero-media .overlay {
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at 20% 20%, rgba(255,255,255,.22), rgba(0,0,0,.15));
+            }
+
+            .hero-media .badge {
+                position: absolute;
+                bottom: 16px;
+                left: 16px;
+                right: 16px;
+                padding: 12px 14px;
+                border-radius: 12px;
+                background: rgba(255,255,255,.92);
+                border: 1px solid rgba(255,255,255,.6);
+                font-weight: 800;
+                color: var(--brand);
+            }
+
+                .hero-media .badge small {
+                    display: block;
+                    font-weight: 700;
+                    color: var(--muted);
+                    margin-top: 2px;
+                }
+
+        /* SECTIONS */
+        .section {
+            margin-top: 22px;
+        }
+
+            .section h2 {
+                margin: 0 0 10px;
+                color: var(--brand);
+                font-size: 24px;
+            }
+
+        .muted {
+            color: var(--muted);
+            margin: 0 0 14px;
+            max-width: 75ch;
+        }
+
+        .grid3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+        }
+
+            .card h3 {
+                margin: 0 0 6px;
+                color: var(--brand);
+                font-size: 18px;
+            }
+
+            .card p {
+                margin: 0;
+                color: var(--muted);
+                font-size: 14px;
+            }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8f2ee;
+            color: var(--brand);
+            font-weight: 900;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            user-select: none;
+        }
+
+        /* ABOUT + CTA BLOCK */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .cta-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+        }
+
+            .cta-block h3 {
+                margin: 0 0 8px;
+                color: var(--brand);
+            }
+
+            .cta-block p {
+                margin: 0 0 12px;
+                color: var(--muted);
+            }
+
+        footer {
+            margin-top: 34px;
+            padding: 22px 18px;
+            background: var(--brand);
+            color: #fff;
+            text-align: center;
+        }
+
+            footer a {
+                color: #fff;
+                font-weight: 800;
+            }
+
+        /* Responsive */
+        @media (max-width: 920px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-media {
+                min-height: 240px;
+            }
+
+            .grid3 {
+                grid-template-columns: 1fr;
+            }
+
+            .split {
+                grid-template-columns: 1fr;
+            }
+
+            nav a {
+                margin-left: 10px;
+            }
+        }
+        /* Blogi-osion kortit etusivulle */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .blog-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+        }
+
+            .blog-card .thumb {
+                width: 100%;
+                height: 160px;
+                object-fit: cover;
+                display: block;
+                background: #e8f2ee;
+            }
+
+            .blog-card .content {
+                padding: 14px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .blog-card h3 {
+                margin: 0;
+                color: var(--brand);
+                font-size: 18px;
+                line-height: 1.15;
+            }
+
+            .blog-card .meta {
+                color: var(--muted);
+                font-size: 13px;
+            }
+
+            .blog-card p {
+                margin: 0;
+                color: var(--muted);
+                font-size: 14px;
+            }
+
+            .blog-card a {
+                margin-top: 8px;
+                font-weight: 800;
+                color: var(--brand);
+                text-decoration: none;
+            }
+
+                .blog-card a:hover {
+                    text-decoration: underline;
+                }
+
+        @media (max-width: 920px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="topbar">
+            <a class="brand" href="index.html">
+                <!-- Jos sinulla on logo, vaihda src esim. "logo.png" -->
+                <img src="img/leveabanneri_white.png" alt="Retkittäin logo">
+            </a>
+
+            <nav>
+                <a href="index.html">Etusivu</a>
+                <a href="tyokalu.html">Retkityökalu</a>
+                <a href="blog.html">Blogi</a>
+                <a href="palvelut.html">Palvelut</a>
+                <a href="minusta.html">Minusta</a>
+                <a href="yhteys.html">Yhteys</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="kicker">Retkittäin • retken suunnittelu</div>
+                <h1>Suunnittele retkesi helposti – ilman stressiä</h1>
+                <p class="lead">
+                    Valitse retken kesto ja vuodenaika, ja saat sopivia kohdevinkkejä kartalta sekä
+                    pakkauslistan, jota voit muokata ja tallentaa.
+                </p>
+
+                <div class="cta-row">
+                    <a class="btn primary" href="tyokalu.html">🧭 Suunnittele retki</a>
+                    <a class="btn secondary" href="#miksi">Miksi tämä toimii?</a>
+                </div>
+
+                <div class="hero-meta">
+                    <span class="chip">Ei kirjautumista</span>
+                    <span class="chip">Toimii selaimessa</span>
+                    <span class="chip">Pakkauslista + kartta</span>
+                </div>
+            </div>
+
+            <div class="hero-media" aria-hidden="true">
+                <!-- Vaihda tähän oma hero-kuvasi: esim. hero.jpg -->
+                <img src="img/hero.jpg" alt="">
+                <div class="overlay"></div>
+                <div class="badge">
+                    Yksi työkalu, kaksi tärkeintä asiaa
+                    <small>Kohde + pakkauslista samalla kertaa</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY -->
+        <section class="section" id="miksi">
+            <h2>Miksi Retkittäin?</h2>
+            <p class="muted">
+                Olen opettaja ja erä- ja luonto-opas. Olen huomannut, että monelle retkelle lähtö kaatuu epävarmuuteen:
+                mitä pakataan, ja onko valittu kohde sopiva. Rakensin Retkityökalun helpottamaan juuri tätä.
+            </p>
+
+            <div class="grid3">
+                <div class="card">
+                    <div class="icon">🗺️</div>
+                    <h3>Sopivat kohteet</h3>
+                    <p>Saat kohdevinkkejä retken keston ja vuodenajan mukaan – suoraan kartalta.</p>
+                </div>
+
+                <div class="card">
+                    <div class="icon">✅</div>
+                    <h3>Selkeä pakkauslista</h3>
+                    <p>Lista mukautuu valintoihisi. Voit lisätä omia varusteita ja tallentaa retken.</p>
+                </div>
+
+                <div class="card">
+                    <div class="icon">🌿</div>
+                    <h3>Matala kynnys lähteä</h3>
+                    <p>Ei kirjautumista tai sovellusta – toimii suoraan puhelimella ja tietokoneella.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="uusimmat">
+            <h2>Uusimmat blogit</h2>
+            <p class="muted">Retkivinkkejä, kokemuksia ja käytännön neuvoja retkeilyyn.</p>
+
+            <div id="blogPosts" class="blog-grid">
+                <div class="card">Ladataan blogipostauksia…</div>
+            </div>
+
+            <div class="cta-row" style="margin-top:12px;">
+                <a class="btn secondary" href="https://retkittain.wordpress.com" target="_blank" rel="noopener">
+                    Siirry blogiin
+                </a>
+            </div>
+        </section>
+
+
+        <!-- CTA BLOCK -->
+        <section class="section">
+            <div class="split">
+                <div class="cta-block">
+                    <h3>Valmiina suunnittelemaan?</h3>
+                    <p>
+                        Aloita valitsemalla kesto ja vuodenaika. Työkalu ehdottaa kohteita ja kokoaa pakkauslistan.
+                    </p>
+                    <a class="btn primary" href="tyokalu.html">🧭 Avaa Retkityökalu</a>
+                </div>
+
+                <div class="cta-block">
+                    <h3>Haluatko myös ohjatun elämyksen?</h3>
+                    <p>
+                        Retkittäin tarjoaa myös ohjattuja retkiä ja luontoelämyksiä. Työkalu on osa samaa ajatusta:
+                        helpottaa luontoon lähtemistä ja madaltaa kynnystä.
+                    </p>
+                    <a class="btn secondary" href="palvelut.html">Tutustu palveluihin</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SMALL TRUST STRIP -->
+        <section class="section">
+            <div class="card">
+                <h3>Vinkki</h3>
+                <p>
+                    Jos retkisuunnittelu tuntuu vaikealta, aloita päiväretkestä ja lähiluonnosta.
+                    Pieni onnistuminen tekee seuraavasta retkestä helpomman.
+                </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="offer-box">
+                <div class="offer-text">
+                    <h2>Haluaisitko ohjatun retken?</h2>
+                    <p>
+                        Jos kaipaat tukea retken suunnitteluun tai haluat lähteä luontoon
+                        ohjatusti, voin auttaa. Retki suunnitellaan ryhmän, vuodenajan ja
+                        toiveiden mukaan.
+                    </p>
+
+                    <ul class="offer-list">
+                        <li>🌲 Päiväretket ja yön yli -retket</li>
+                        <li>🧭 Rauhallinen tahti ja selkeä suunnitelma</li>
+                        <li>⛺ Varuste- ja reittineuvonta mukana</li>
+                    </ul>
+
+                    <div class="cta-row">
+                        <a class="btn primary" href="palvelut.html#ota-yhteytta">
+                            Pyydä tarjous
+                        </a>
+                        <a class="btn secondary" href="palvelut.html">
+                            Lue lisää palveluista
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        © Retkittäin • <a href="tyokalu.html">Retkityökalu</a>
+    </footer>
+    <script>async function loadLatestPosts() {
+    const container = document.getElementById("blogPosts");
+    if (!container) return;
+
+    const site = "retkittain.wordpress.com";
+    const api = `https://public-api.wordpress.com/rest/v1.1/sites/${encodeURIComponent(site)}/posts/?number=3&fields=title,URL,date,excerpt,featured_image`;
+
+    try {
+      const res = await fetch(api);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+
+      if (!data.posts || data.posts.length === 0) {
+        container.innerHTML = `<div class="card">Ei postauksia vielä.</div>`;
+        return;
+      }
+
+      const html = data.posts.map(post => {
+        const date = new Date(post.date).toLocaleDateString("fi-FI");
+        const img = post.featured_image || "";
+        const excerptText = stripHtml(post.excerpt || "").trim();
+
+        return `
+          <article class="blog-card">
+            ${img ? `<img class="thumb" src="${escapeAttr(img)}" alt="">` : `<div class="thumb"></div>`}
+            <div class="content">
+              <h3>${escapeHtml(post.title || "Uusi julkaisu")}</h3>
+              <div class="meta">${date}</div>
+              <p>${escapeHtml(truncate(excerptText, 160))}</p>
+              <a href="${escapeAttr(post.URL)}" target="_blank" rel="noopener">Lue lisää →</a>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      container.innerHTML = html;
+    } catch (err) {
+      console.warn("Blogien lataus epäonnistui:", err);
+      container.innerHTML = `
+        <div class="card">
+          Blogipostauksia ei saatu ladattua juuri nyt.
+          <br><br>
+          <a class="btn secondary" href="https://retkittain.wordpress.com" target="_blank" rel="noopener">
+            Avaa blogi
+          </a>
+        </div>
+      `;
+    }
+  }
+
+  function stripHtml(html) {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+  }
+
+  function truncate(text, maxLen) {
+    if (!text) return "";
+    if (text.length <= maxLen) return text;
+    return text.slice(0, maxLen - 1) + "…";
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function escapeAttr(str) {
+    return escapeHtml(str);
+  }
+
+  window.addEventListener("load", loadLatestPosts);</script>
+
+</body>
+</html>

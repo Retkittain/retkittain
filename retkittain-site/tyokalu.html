@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retkittäin – Retkityökalu</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef3ef;
+            margin: 0;
+        }
+
+        header {
+            background: #2f5d50;
+            padding: 15px;
+        }
+
+            header nav a {
+                color: white;
+                margin-right: 15px;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            margin-right: 20px;
+            display: inline-block;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .screen {
+            display: none;
+            padding: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+        }
+
+            .screen.active {
+                display: block;
+            }
+
+        h1, h2, h3 {
+            color: #2f5d50;
+        }
+
+        button {
+            padding: 10px 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            background: #2f5d50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+
+            button.secondary {
+                background: #3c7a6a;
+            }
+
+        .card {
+            background: #f7faf8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+            gap: 15px;
+        }
+
+        .dest-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+            .dest-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+            }
+
+            .dest-card img {
+                width: 100%;
+                height: 160px;
+                object-fit: cover;
+                display: block;
+            }
+
+            .dest-card .content {
+                padding: 10px;
+            }
+
+        #map {
+            height: 400px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        select, input[type=text] {
+            padding: 6px;
+            margin: 5px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 6px 10px;
+            background: #e8f2ee;
+            border-radius: 999px;
+            margin-top: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #2f5d50;
+            color: white;
+            margin-top: 40px;
+        }
+        .muted {
+            color: #4a625b;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .card.subtle {
+            background: #f7faf8;
+            border: 1px solid #d9e3df;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+            .btn.primary {
+                background: #2f5d50;
+                color: #fff;
+            }
+
+            .btn.secondary {
+                background: #e8f2ee;
+                color: #2f5d50;
+                border: 1px solid #d9e3df;
+            }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="logo">Retkittäin</span>
+        <nav>
+            <a href="index.html">Etusivu</a>
+            <a href="tyokalu.html">Retkityökalu</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Retkityökalu</h1>
+        <p>Suunnittele retkesi: valitse kesto ja vuodenaika – saat kohdevinkit ja pakkauslistan.</p>
+
+        <div class="screen active" id="screen1">
+            <h2>Aloitetaan</h2>
+            <button onclick="showScreen(2)">Aloita suunnittelu</button>
+        </div>
+
+        <div id="screen2" class="screen">
+            <h2>Retken tiedot</h2>
+
+            <p>Retken kesto:</p>
+            <select id="lengthSelect">
+                <option value="päivä">Päiväretki</option>
+                <option value="yö">Yön yli</option>
+                <option value="pitkä">Useampi päivä</option>
+            </select>
+
+            <p>Vuodenaika:</p>
+            <select id="seasonSelect">
+                <option value="kesä">Kesä / sulan maan aika</option>
+                <option value="talvi">Talvi</option>
+            </select>
+
+            <button onclick="showScreen(3)">Siirry kartalle</button>
+            <button class="secondary" onclick="showScreen(1)">Peruuta</button>
+        </div>
+
+        <div id="screen3" class="screen">
+            <h2>Valitse kohde</h2>
+            <div id="map"></div>
+
+            <div id="destinationResults"></div>
+
+            <p>
+                <button onclick="confirmDestination()">Valitse tämä kohde</button>
+                <span class="pill" id="selectedDestNotice" aria-live="polite"></span>
+            </p>
+
+            <button onclick="showScreen(4)">Siirry pakkauslistaan</button>
+            <button class="secondary" onclick="showScreen(1)">Aloita alusta</button>
+        </div>
+
+        <div id="screen4" class="screen">
+            <h2>Pakkauslista</h2>
+
+            <div id="packingList"></div>
+
+            <div class="card">
+                <h3>Tallenna retki</h3>
+                <input type="text" id="tripName" placeholder="Anna retkelle nimi" style="width:260px;">
+                <button onclick="saveTrip()">💾 Tallenna retki</button>
+                <br><br>
+                <select id="savedTrips" onchange="loadTrip()">
+                    <option value="">Avaa tallennettu retki</option>
+                </select>
+            </div>
+            <div class="card subtle">
+                <h3>Haluatko ohjatun retken tai apua suunnitteluun?</h3>
+                <p class="muted">
+                    Jos kaipaat varmuutta reittiin, varusteisiin tai haluat lähteä luontoon ohjatusti,
+                    voit pyytää ehdotuksen tai tarjouksen Retkittäimeltä.
+                </p>
+                <div class="cta-row">
+                    <a class="btn primary" href="palvelut.html#ota-yhteytta">Pyydä tarjous</a>
+                    <a class="btn secondary" href="yhteys.html">Ota yhteyttä</a>
+                </div>
+            </div>
+
+            <button onclick="printPDF()">Tulosta / Tallenna PDF</button>
+            <button onclick="clearChecklist()">Tyhjennä valinnat</button>
+            <button onclick="shareList()">Kopioi jakolinkki</button>
+            <button class="secondary" onclick="showScreen(3)">Takaisin karttaan</button>
+        </div>
+    </main>
+
+    <footer>© Retkittäin</footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>// ===== Näyttöjen vaihtaminen =====
+        function showScreen(n) {
+            document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+            var target = document.getElementById('screen' + n);
+            if (target) target.classList.add('active');
+            if (n === 3) initMap();
+            if (n === 4) { initPackingList(); populateSavedTrips(); }
+        }
+
+        // ===== RETKIKOHTEET (palautettu täydempänä) =====
+        var destinations = [
+            { name: 'Nuuksion kansallispuisto', length: ['päivä', 'yö'], season: ['kesä', 'talvi'], lat: 60.32, lon: 24.55, link: 'https://www.luontoon.fi/nuuksio', desc: 'Etelä-Suomen suosituin retkikohde.', img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Teijon kansallispuisto', length: ['päivä', 'yö'], season: ['kesä', 'talvi'], lat: 60.23, lon: 23.30, link: 'https://www.luontoon.fi/teijo', desc: 'Järviä ja ruukkimiljöötä.', img: 'https://images.unsplash.com/photo-1520962917960-8b3b35d1f19b?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Kurjenrahkan kansallispuisto', length: ['päivä', 'yö', 'pitkä'], season: ['kesä', 'talvi'], lat: 60.72, lon: 22.35, link: 'https://www.luontoon.fi/kurjenrahka', desc: 'Suomaisemaa Varsinais-Suomessa.', img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Selkämeren kansallispuisto', length: ['päivä', 'yö'], season: ['kesä', 'talvi'], lat: 61.11, lon: 21.45, link: 'https://www.luontoon.fi/selkameri', desc: 'Merellisiä maisemia ja saaristoa.', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Kauhanevan–Pohjankankaan kansallispuisto', length: ['päivä', 'yö'], season: ['kesä', 'talvi'], lat: 62.24, lon: 22.35, link: 'https://www.luontoon.fi/kauhanevapohjankangas', desc: 'Suota, harjuja ja pitkospuita.', img: 'https://images.unsplash.com/photo-1519817650390-64a93db511aa?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Kolin kansallispuisto', length: ['päivä', 'yö', 'pitkä'], season: ['kesä', 'talvi'], lat: 63.1, lon: 29.8, link: 'https://www.luontoon.fi/koli', desc: 'Suomen ikonisin vaaramaisema.', img: 'https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Petkeljärven kansallispuisto', length: ['päivä', 'yö'], season: ['kesä', 'talvi'], lat: 62.33, lon: 30.86, link: 'https://www.luontoon.fi/petkeljarvi', desc: 'Harjuja ja kirkasvetisiä järviä.', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Koloveden kansallispuisto', length: ['päivä', 'yö'], season: ['kesä'], lat: 62.14, lon: 28.56, link: 'https://www.luontoon.fi/kolovesi', desc: 'Saimaan saaristoa ja jylhiä kallioita.', img: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Ruunaan retkeilyalue', length: ['päivä', 'yö', 'pitkä'], season: ['kesä', 'talvi'], lat: 63.25, lon: 30.17, link: 'https://www.luontoon.fi/ruunaa', desc: 'Koskimaisemia ja retkeilyreittejä.', img: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Patvinsuon kansallispuisto', length: ['päivä', 'yö', 'pitkä'], season: ['kesä', 'talvi'], lat: 63.04, lon: 30.62, link: 'https://www.luontoon.fi/patvinsuo', desc: 'Suota, hiljaisuutta ja erämaata.', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Punkaharju', length: ['päivä', 'yö'], season: ['kesä', 'talvi'], lat: 61.81, lon: 29.32, link: 'https://www.luontoon.fi/punkaharju', desc: 'Harjuja ja järvimaisemaa.', img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Hossan kansallispuisto', length: ['päivä', 'yö', 'pitkä'], season: ['kesä', 'talvi'], lat: 64.4, lon: 29.3, link: 'https://www.luontoon.fi/hossa', desc: 'Julma-Ölkyn rotkojärvi.', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Oulangan kansallispuisto – Karhunkierros', length: ['yö', 'pitkä'], season: ['kesä', 'talvi'], lat: 66.3, lon: 29.3, link: 'https://www.luontoon.fi/oulanka', desc: 'Suomen tunnetuin vaellusreitti.', img: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60' },
+            { name: 'Urho Kekkosen kansallispuisto', length: ['pitkä'], season: ['kesä', 'talvi'], lat: 68.2, lon: 27.6, link: 'https://www.luontoon.fi/urhokekkonen', desc: 'Tuntureita ja erämaata.', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=60' }
+        ];
+
+        // ===== KOHTEEN VALINTA (D: valinta erillisellä napilla) =====
+        var map;
+        var previewDest = null;
+        var selectedDest = null;
+
+        function updateSelectedNotice() {
+            var el = document.getElementById('selectedDestNotice');
+            if (!el) return;
+            if (selectedDest) el.textContent = 'Valittu kohde: ' + selectedDest.name;
+            else if (previewDest) el.textContent = 'Valittavissa: ' + previewDest.name;
+            else el.textContent = 'Ei kohdetta valittuna';
+        }
+
+        function previewDestination(dest) {
+            previewDest = dest;
+            updateSelectedNotice();
+        }
+
+        function confirmDestination() {
+            if (!previewDest) {
+                alert('Klikkaa ensin kartan markkeria tai kohdekorttia.');
+                return;
+            }
+            selectedDest = previewDest;
+            updateSelectedNotice();
+        }
+
+        function initMap() {
+            if (typeof L === 'undefined') {
+                document.getElementById('destinationResults').innerHTML = '<div class="card">Karttakirjasto ei latautunut. Yritä päivittää sivu.</div>';
+                return;
+            }
+
+            var length = document.getElementById('lengthSelect').value;
+            var season = document.getElementById('seasonSelect').value;
+
+            if (!map) {
+                map = L.map('map').setView([64.5, 26.0], 4);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+            }
+
+            // Poista vanhat markerit
+            map.eachLayer(function (layer) { if (layer instanceof L.Marker) map.removeLayer(layer); });
+
+            var filtered = destinations.filter(function (d) { return d.length.indexOf(length) !== -1 && d.season.indexOf(season) !== -1; });
+
+            var results = document.getElementById('destinationResults');
+            var html = '<h3>Sopivat kohteet</h3><div class="grid">';
+
+            filtered.forEach(function (d) {
+                L.marker([d.lat, d.lon]).addTo(map)
+                    .on('click', function () { previewDestination(d); })
+                    .bindPopup('<b>' + d.name + '</b><br><a href="' + d.link + '" target="_blank">Avaa tiedot</a>');
+
+                html += '<div class="dest-card" data-name="' + d.name + '">' +
+                    '<img src="' + d.img + '" alt="' + d.name + '">' +
+                    '<div class="content"><h4>' + d.name + '</h4><p>' + d.desc + '</p></div>' +
+                    '</div>';
+            });
+
+            html += '</div>';
+            results.innerHTML = html;
+
+            // korttien klikkaukset (ei inline onclick, ei escaping-ongelmia)
+            Array.prototype.slice.call(results.querySelectorAll('.dest-card')).forEach(function (card) {
+                card.addEventListener('click', function () {
+                    var name = card.getAttribute('data-name');
+                    var d = destinations.find(function (x) { return x.name === name; });
+                    if (d) previewDestination(d);
+                });
+            });
+
+            // Jos valittu kohde ei enää sovi suodatukseen, nollaa
+            if (selectedDest && !filtered.some(function (d) { return d.name === selectedDest.name; })) {
+                selectedDest = null;
+            }
+            previewDest = null;
+            updateSelectedNotice();
+        }
+
+        // ===== PAKKAUSLISTA (palautettu näkyväksi) =====
+        function initPackingList() {
+            var length = document.getElementById('lengthSelect').value;
+            var season = document.getElementById('seasonSelect').value;
+
+            var html = '<p>Retken kesto: ' + length + ' | Vuodenaika: ' + season + '</p>';
+
+            var categories = {
+                'Perusvarusteet': ['Reppu / rinkka', 'Vaelluskengät', 'Varasukat', 'Sadetakki ja -housut', 'Taukovaatetus', 'Kartta ja kompassi', 'Puukko', 'Matkapuhelin + varavirtalähde', 'Vedenpitäviä säilytyspusseja'],
+                'Ruokailu': ['Ruoka', 'Vesipullo', 'Muki ja ruokailuvälineet', 'Polttoaine keitintä varten'],
+                'Yöpyminen': ['Majoite – teltta tai riippumatto', 'Makuupussi', 'Makuualusta'],
+                'Hygienia & ensiapu': ['Ensiaputarvikkeet', 'Käsidesi', 'Vessapaperi', 'Aurinkorasva ja huulirasva']
+            };
+
+            if (season === 'talvi') {
+                categories['Talvivarusteet'] = ['Lämmin takki', 'Toppahousut', 'Hanskat', 'Pipo', 'Välikerrasto', 'Monot ja sukset', 'Ahkio tai muu kuljetusväline', 'Routamatto telttaa varten'];
+            }
+
+            html += buildCategoryLists(categories, 'list_');
+            html += buildCustomSection();
+
+            document.getElementById('packingList').innerHTML = html;
+            bindCheckboxes();
+            renderCustomItems();
+            updateSelectedNotice();
+        }
+
+        function buildCategoryLists(categories, prefix) {
+            var html = '';
+            Object.keys(categories).forEach(function (cat) {
+                html += '<div class="card"><h3>' + cat + '</h3>';
+                categories[cat].forEach(function (item, i) {
+                    var id = prefix + cat.split(' ').join('') + '_' + i;
+                    html += '<div><label><input type="checkbox" data-id="' + id + '"> ' + item + '</label></div>';
+                });
+                html += '</div>';
+            });
+            return html;
+        }
+
+        function buildCustomSection() {
+            return '<div class="card"><h3>Omat varusteet</h3>' +
+                '<input type="text" id="customItemInput" placeholder="Lisää oma varuste"> ' +
+                '<button onclick="addCustomItem()">Lisää</button>' +
+                '<div id="customItems"></div></div>';
+        }
+
+        function addCustomItem() {
+            var input = document.getElementById('customItemInput');
+            if (!input || !input.value.trim()) return;
+            var items = JSON.parse(localStorage.getItem('customItems') || '[]');
+            items.push(input.value.trim());
+            localStorage.setItem('customItems', JSON.stringify(items));
+            input.value = '';
+            renderCustomItems();
+        }
+
+        function renderCustomItems() {
+            var container = document.getElementById('customItems');
+            if (!container) return;
+            var items = JSON.parse(localStorage.getItem('customItems') || '[]');
+            var html = '';
+            items.forEach(function (item, i) {
+                var id = 'custom_' + i;
+                html += '<div><label><input type="checkbox" data-id="' + id + '"> ' + item + '</label> <button onclick="removeCustomItem(' + i + ')">×</button></div>';
+            });
+            container.innerHTML = html;
+            bindCheckboxes();
+        }
+
+        function removeCustomItem(i) {
+            var items = JSON.parse(localStorage.getItem('customItems') || '[]');
+            items.splice(i, 1);
+            localStorage.setItem('customItems', JSON.stringify(items));
+            renderCustomItems();
+        }
+
+        function bindCheckboxes() {
+            Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]')).forEach(function (cb) {
+                var id = cb.getAttribute('data-id');
+                if (localStorage.getItem(id) === 'true') cb.checked = true;
+                cb.addEventListener('change', function () {
+                    localStorage.setItem(id, cb.checked ? 'true' : 'false');
+                });
+            });
+        }
+
+        // ===== Tallennus (sisältää kohteen + pakkauslistan) =====
+        function saveTrip() {
+            var name = (document.getElementById('tripName').value || '').trim() || 'Nimetön retki';
+
+            if (!selectedDest) {
+                alert('Valitse kohde painamalla ensin "Valitse tämä kohde" karttanäkymässä.');
+                return;
+            }
+
+            var trip = {
+                name: name,
+                destination: selectedDest,
+                length: document.getElementById('lengthSelect').value,
+                season: document.getElementById('seasonSelect').value,
+                checkedItems: {},
+                customItems: JSON.parse(localStorage.getItem('customItems') || '[]')
+            };
+
+            Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]')).forEach(function (cb) {
+                trip.checkedItems[cb.getAttribute('data-id')] = !!cb.checked;
+            });
+
+            var trips = JSON.parse(localStorage.getItem('savedTrips') || '{}');
+            trips[name] = trip;
+            localStorage.setItem('savedTrips', JSON.stringify(trips));
+            localStorage.setItem('lastTripName', name);
+
+            alert('Retki "' + name + '" tallennettu!');
+            populateSavedTrips();
+        }
+
+        function populateSavedTrips() {
+            var select = document.getElementById('savedTrips');
+            if (!select) return;
+            var trips = JSON.parse(localStorage.getItem('savedTrips') || '{}');
+            select.innerHTML = '<option value="">Avaa tallennettu retki</option>';
+            Object.keys(trips).sort().forEach(function (name) {
+                var opt = document.createElement('option');
+                opt.value = name;
+                opt.textContent = name;
+                select.appendChild(opt);
+            });
+
+            var last = localStorage.getItem('lastTripName');
+            if (last && trips[last]) select.value = last;
+        }
+
+        function loadTrip() {
+            var select = document.getElementById('savedTrips');
+            var name = select ? select.value : '';
+            if (!name) return;
+
+            var trips = JSON.parse(localStorage.getItem('savedTrips') || '{}');
+            var trip = trips[name];
+            if (!trip) return;
+
+            document.getElementById('lengthSelect').value = trip.length;
+            document.getElementById('seasonSelect').value = trip.season;
+
+            selectedDest = trip.destination || null;
+            previewDest = null;
+            updateSelectedNotice();
+
+            localStorage.setItem('customItems', JSON.stringify(trip.customItems || []));
+            Object.keys(trip.checkedItems || {}).forEach(function (k) {
+                localStorage.setItem(k, trip.checkedItems[k] ? 'true' : 'false');
+            });
+
+            localStorage.setItem('lastTripName', name);
+            initPackingList();
+        }
+
+        function clearChecklist() {
+            // Tyhjennä vain checklistiin liittyvät avaimet (ei poisteta tallennettuja reissuja)
+            var toRemove = [];
+            for (var i = 0; i < localStorage.length; i++) {
+                var k = localStorage.key(i);
+                if (!k) continue;
+                if (k.indexOf('list_') === 0 || k.indexOf('custom_') === 0) toRemove.push(k);
+            }
+            toRemove.forEach(function (k) { localStorage.removeItem(k); });
+            localStorage.removeItem('customItems');
+            initPackingList();
+        }
+
+        function printPDF() { window.print(); }
+
+        // ===== Jakaminen: Clipboard API voi olla estetty (permissions policy). Lisätään varafallbackit. =====
+        function shareList() {
+            var url = window.location.href;
+
+            // 1) Moderni Clipboard API (voi olla estetty esim. sandboxissa)
+            if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+                navigator.clipboard.writeText(url)
+                    .then(function () {
+                        alert('Linkki kopioitu!');
+                    })
+                    .catch(function (err) {
+                        // 2) Fallback: execCommand("copy")
+                        var ok = legacyCopyToClipboard(url);
+                        if (ok) {
+                            alert('Linkki kopioitu!');
+                        } else {
+                            // 3) Viimeinen fallback: prompt, josta käyttäjä voi kopioida käsin
+                            window.prompt('Kopioi linkki (Ctrl/Cmd+C):', url);
+                        }
+                        console.warn('Clipboard writeText epäonnistui:', err);
+                    });
+                return;
+            }
+
+            // 2/3) Vanha fallback/prompt
+            var ok = legacyCopyToClipboard(url);
+            if (ok) alert('Linkki kopioitu!');
+            else window.prompt('Kopioi linkki (Ctrl/Cmd+C):', url);
+        }
+
+        function legacyCopyToClipboard(text) {
+            try {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                ta.style.top = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                ta.setSelectionRange(0, ta.value.length);
+                var success = document.execCommand('copy');
+                document.body.removeChild(ta);
+                return !!success;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // ===== Kevyet "testit" (console.assert) =====
+        function runSelfTests() {
+            console.assert(typeof showScreen === 'function', 'showScreen puuttuu');
+            console.assert(Array.isArray(destinations) && destinations.length > 0, 'destinations on tyhjä');
+            console.assert(typeof initPackingList === 'function', 'initPackingList puuttuu');
+            console.assert(typeof shareList === 'function', 'shareList puuttuu');
+        }
+
+        // Alustus
+        window.addEventListener('load', function () {
+            updateSelectedNotice();
+            populateSavedTrips();
+            runSelfTests();
+        });</script>
+</body>
+</html>
