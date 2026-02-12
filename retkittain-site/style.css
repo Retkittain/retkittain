@@ -405,3 +405,77 @@ img.responsive {
     height: 1px;
     overflow: hidden;
 }
+/* Retkitt?in ? polkuosio */
+.polku {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 20px;
+}
+
+    .polku h2 {
+        margin: 0 0 12px;
+    }
+
+    .polku > p {
+        max-width: 75ch;
+        margin: 0 0 22px;
+    }
+
+.polku-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.polku-card {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+    .polku-card h3 {
+        margin-top: 0;
+    }
+
+.btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    background: #2f5d50;
+    color: #fff;
+}
+
+    .btn:hover {
+        filter: brightness(.98);
+    }
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid rgba(47,93,80,.35);
+    color: #2f5d50;
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(0,0,0,.12);
+    color: #2f2f2f;
+}
+
+@media (max-width: 900px) {
+    .polku-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ===== SIS?LT?SIVUJEN HERO (esim. kurssit) ===== */
+.hero.content-hero {
+    background-image: none;
+    height: auto;
+    padding: 0;
+    align-items: flex-start;
+}
