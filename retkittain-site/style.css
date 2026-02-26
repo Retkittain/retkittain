@@ -479,3 +479,18 @@ img.responsive {
     padding: 0;
     align-items: flex-start;
 }
+.socials a {
+  display:inline-block;
+  margin:10px;
+  padding:10px 16px;
+  border-radius:8px;
+  background:#f4f6f5;
+  text-decoration:none;
+  color:#2f5d50;
+  font-weight:bold;
+}
+
+.socials a:hover {
+  background:#2f5d50;
+  color:white;
+}
