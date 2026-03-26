@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retkittäin – Yhteys</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <header>
+        <div class="topbar">
+            <a class="brand" href="index.html">
+                <img src="img/leveabanneri_white.png" alt="Retkittäin logo">
+            </a>
+
+            <nav>
+                <a href="index.html">Etusivu</a>
+                <a href="blog.html">Blogi</a>
+                <a href="minusta.html">Minusta</a>
+                <a href="palvelut.html">Palvelut</a>
+                <a href="tyokalu.html">Retkityökalu</a>
+                <a href="yhteys.html">Yhteys</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-hero">
+            <h1>Yhteys</h1>
+            <p class="lead">
+                Kysy retkestä, pyydä ehdotus kohteesta tai tilaa ohjattu luontoelämys.
+                Vastaan mahdollisimman pian.
+            </p>
+        </section>
+
+        <section class="section">
+            <div class="grid2">
+                <div class="card">
+                    <h2>Ota yhteyttä</h2>
+                    <p class="muted">
+                        Helpoin tapa on sähköposti. Kerro viestissä mielellään:
+                        <br>• retken kesto (päivä / yön yli / useampi päivä)
+                        <br>• vuodenaika / ajankohta
+                        <br>• osallistujamäärä
+                        <br>• toivealue (Etelä / Länsi / Itä / Pohjoinen)
+                        <br>• tavoite: rento luontoelämys vai tavoitteellisempi retki
+                    </p>
+
+                    <div class="card">
+                        <h2>Lähetä viesti</h2>
+                        <p class="muted">Vastaan mahdollisimman pian. Pakolliset kentät on merkitty tähdellä.</p>
+
+                        <form action="https://formspree.io/f/xykwrgyn" method="POST" class="contact-form">
+                            <!-- Honeypot (roskapostin esto) -->
+                            <input type="text" name="bot-field" class="hp" tabindex="-1" autocomplete="off" />
+
+                            <label>
+                                Nimi *
+                                <input type="text" name="name" required>
+                            </label>
+
+                            <label>
+                                Sähköposti *
+                                <input type="email" name="email" required>
+                            </label>
+
+                            <label>
+                                Retken kesto
+                                <select name="length">
+                                    <option value="">Valitse</option>
+                                    <option value="päiväretki">Päiväretki</option>
+                                    <option value="yön yli">Yön yli</option>
+                                    <option value="useampi päivä">Useampi päivä</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Vuodenaika / ajankohta
+                                <input type="text" name="season" placeholder="esim. helmi–maaliskuu / kesä / syksy">
+                            </label>
+
+                            <label>
+                                Osallistujamäärä
+                                <input type="text" name="group_size" placeholder="esim. 2–6">
+                            </label>
+
+                            <label>
+                                Toivealue
+                                <select name="area">
+                                    <option value="">Valitse</option>
+                                    <option value="Etelä-Suomi">Etelä-Suomi</option>
+                                    <option value="Länsi-Suomi">Länsi-Suomi</option>
+                                    <option value="Itä-Suomi">Itä-Suomi</option>
+                                    <option value="Pohjois-Suomi">Pohjois-Suomi</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Viesti *
+                                <textarea name="message" rows="8" required placeholder="Hei!
+
+Olen kiinnostunut Retkittäimen ohjatusta retkestä / retkisuunnittelusta.
+
+Retken tyyppi: (päivä / yön yli / useampi päivä)
+Ajankohta / vuodenaika:
+Osallistujamäärä:
+Toivealue:
+Tavoite: (rentoutuminen, luonnossa liikkuminen, oppiminen, muu)
+
+Lisätietoja / kysymyksiä:
+"></textarea>
+
+                            </label>
+
+                            <!-- Sähköpostin otsikkoon järkevä aihe -->
+                            <input type="hidden" name="_subject" value="Retkittäin – yhteydenotto">
+
+                            <!-- Ohjaa onnistumisen jälkeen kiitos-sivulle (tehdään kohta) -->
+                            <input type="hidden" name="_redirect" value="thanks.html">
+
+                            <button class="btn primary" type="submit">Lähetä viesti</button>
+                            <p class="muted" style="margin-top:10px;">Voit halutessasi liittää viestiin myös retkityökalun valinnat.</p>
+                        </form>
+                    </div>
+
+                    <!-- Halutessasi puhelin/IG tähän -->
+                    <p class="muted" style="margin-top:10px;">
+                        tiktok.com@retkittain
+                        youtube.com@retkittain
+                    </p>
+                </div>
+
+                <div class="card subtle">
+                    <h2>Nopea alku retkityökalulla</h2>
+                    <p class="muted">
+                        Jos et ole varma kohteesta, aloita retkityökalulla: valitse kesto ja vuodenaika.
+                        Saat kohdevinkit ja pakkauslistan. Voit liittää valinnat viestiin.
+                    </p>
+                    <a class="btn secondary" href="tyokalu.html">Avaa retkityökalu</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="card">
+                <h2>Yhteistyö & ryhmät</h2>
+                <p class="muted">
+                    Jos kyseessä on työporukka, yhdistys tai pieni ryhmä, kerro tavoite ja toiveet.
+                    Räätälöin retken ryhmän kunnon ja kiinnostuksen mukaan.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>© Retkittäin</footer>
+
+</body>
+</html>

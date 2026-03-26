@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Retkittäin – Blogi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="topbar">
+            <a class="brand" href="index.html">
+                <img src="img/leveabanneri_white.png" alt="Retkittäin logo">
+            </a>
+
+            <nav>
+                <a href="index.html">Etusivu</a>
+                <a href="blog.html">Blogi</a>
+                <a href="minusta.html">Minusta</a>
+                <a href="palvelut.html">Palvelut</a>
+                <a href="tyokalu.html">Retkityökalu</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Uusimmat blogikirjoitukset</h1>
+        <div id="blogPosts">Ladataan blogeja...</div>
+    </main>
+
+    <script>async function loadBlog() {
+            const rssUrl = "https://retkittain.wordpress.com/feed/";
+            const api = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl);
+            const res = await fetch(api);
+            const data = await res.json();
+            let html = "";
+            data.items.slice(0, 5).forEach(post => {
+                const text = post.description.replace(/<[^>]*>?/gm, '').substring(0, 200);
+                html += `
+              <article class="blog-card">
+                <h3>${post.title}</h3>
+                <small>${new Date(post.pubDate).toLocaleDateString('fi-FI')}</small>
+                <p>${text}...</p>
+                <a class="button" href="${post.link}" target="_blank">Lue lisää →</a>
+              </article>
+            `;
+            });
+            document.getElementById("blogPosts").innerHTML = html;
+        }
+        loadBlog();</script>
+
+    <footer>© Retkittäin</footer>
+</body>
+</html>
