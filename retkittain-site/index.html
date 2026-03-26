@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fi">
 <head>
@@ -408,6 +409,44 @@
         }
     </style>
 </head>
+<div id="cookieBanner" style="
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#2f5d50;
+color:white;
+padding:12px;
+text-align:center;
+font-size:14px;
+z-index:9999;
+">
+    Tämä sivusto käyttää evästeitä käyttökokemuksen parantamiseen.
+    <button id="acceptCookiesBtn" style="
+    margin-left:10px;
+    padding:6px 10px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;">
+        OK
+    </button>
+</div>
+
+<script>document.addEventListener("DOMContentLoaded", function () {
+        const banner = document.getElementById("cookieBanner");
+        const btn = document.getElementById("acceptCookiesBtn");
+
+        // Jos hyväksytty aiemmin → piilota
+        if (localStorage.getItem("cookiesAccepted") === "true") {
+            banner.style.display = "none";
+        }
+
+        // Klikkaus toimii varmasti
+        btn.addEventListener("click", function () {
+            localStorage.setItem("cookiesAccepted", "true");
+            banner.style.display = "none";
+        });
+    });</script>
 
 <body>
     <header>
@@ -590,11 +629,13 @@
 
     <footer>
         <div class="socials" style="text-align:center; margin-top:40px;">
-  <a href="https://instagram.com/retkittain" target="_blank">Instagram</a>
-  <a href="https://tiktok.com/@retkittain" target="_blank">TikTok</a>
-  <a href="https://youtube.com/@retkittain" target="_blank">YouTube</a>
-</div>
+            <a href="https://instagram.com/retkittain" target="_blank">Instagram</a>
+            <a href="https://tiktok.com/@retkittain" target="_blank">TikTok</a>
+            <a href="https://youtube.com/@retkittain" target="_blank">YouTube</a>
+        </div>
         © Retkittäin • <a href="tyokalu.html">Retkityökalu</a>
+        <a href="tietosuoja.html">Tietosuoja</a>
+        </a>
     </footer>
 
     <script>async function loadLatestPosts() {
@@ -620,30 +661,30 @@
                     const excerptText = stripHtml(post.excerpt || "").trim();
 
                     return `
-              <article class="blog-card">
-                ${img ? `<img class="thumb" src="${escapeAttr(img)}" alt="">` : `<div class="thumb"></div>`}
-                <div class="content">
-                  <h3>${escapeHtml(post.title || "Uusi julkaisu")}</h3>
-                  <div class="meta">${date}</div>
-                  <p>${escapeHtml(truncate(excerptText, 160))}</p>
-                  <a href="${escapeAttr(post.URL)}" target="_blank" rel="noopener">Lue lisää →</a>
-                </div>
-              </article>
-            `;
+                          <article class="blog-card">
+                            ${img ? `<img class="thumb" src="${escapeAttr(img)}" alt="">` : `<div class="thumb"></div>`}
+                            <div class="content">
+                              <h3>${escapeHtml(post.title || "Uusi julkaisu")}</h3>
+                              <div class="meta">${date}</div>
+                              <p>${escapeHtml(truncate(excerptText, 160))}</p>
+                              <a href="${escapeAttr(post.URL)}" target="_blank" rel="noopener">Lue lisää →</a>
+                            </div>
+                          </article>
+                        `;
                 }).join("");
 
                 container.innerHTML = html;
             } catch (err) {
                 console.warn("Blogien lataus epäonnistui:", err);
                 container.innerHTML = `
-            <div class="card">
-              Blogipostauksia ei saatu ladattua juuri nyt.
-              <br><br>
-              <a class="btn secondary" href="https://retkittain.wordpress.com" target="_blank" rel="noopener">
-                Avaa blogi
-              </a>
-            </div>
-          `;
+                        <div class="card">
+                          Blogipostauksia ei saatu ladattua juuri nyt.
+                          <br><br>
+                          <a class="btn secondary" href="https://retkittain.wordpress.com" target="_blank" rel="noopener">
+                            Avaa blogi
+                          </a>
+                        </div>
+                      `;
             }
         }
 
