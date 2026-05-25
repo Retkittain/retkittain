@@ -1,11 +1,160 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-<meta charset="UTF-8">
-<title>Retkittäin – Blogi</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retkittäin – Navigaatiokomponentti</title>
+  <style>
+    :root {
+      --vihrea: #2d6a4f;
+      --vihrea-tumma: #1b4332;
+      --vihrea-vaalea: #d8f3dc;
+      --teksti: #1a1a1a;
+      --harmaa: #555;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8faf8; color: var(--teksti); }
+
+    /* =====================
+       NAVIGAATIO
+    ===================== */
+    .rt-nav {
+      background: var(--vihrea-tumma);
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .rt-nav__logo img { height: 38px; display: block; }
+    .rt-nav__links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.1rem;
+      list-style: none;
+    }
+    .rt-nav__links a {
+      color: #b7e4c7;
+      text-decoration: none;
+      font-size: 0.88rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 4px;
+      transition: background 0.18s, color 0.18s;
+      white-space: nowrap;
+    }
+    .rt-nav__links a:hover {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+    .rt-nav__links a.aktiivinen {
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+      font-weight: 600;
+    }
+    .rt-nav__some {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: 0.5rem;
+      padding-left: 0.75rem;
+      border-left: 1px solid rgba(255,255,255,0.15);
+    }
+    .rt-nav__some a {
+      color: #95d5b2;
+      display: flex;
+      align-items: center;
+      transition: color 0.18s, transform 0.18s;
+    }
+    .rt-nav__some a:hover { color: #fff; transform: translateY(-1px); }
+    .rt-nav__some svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* Mobiilihamburger */
+    .rt-nav__toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.3rem;
+      color: #b7e4c7;
+    }
+    .rt-nav__toggle svg { width: 24px; height: 24px; fill: currentColor; }
+
+    @media (max-width: 720px) {
+      .rt-nav__toggle { display: flex; }
+      .rt-nav__menu {
+        display: none;
+        width: 100%;
+        order: 3;
+        flex-direction: column;
+        gap: 0;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+      .rt-nav__menu.auki { display: flex; }
+      .rt-nav__links {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 0;
+      }
+      .rt-nav__links a {
+        display: block;
+        width: 100%;
+        padding: 0.6rem 0.5rem;
+        font-size: 0.95rem;
+      }
+      .rt-nav__some {
+        border-left: none;
+        padding-left: 0.5rem;
+        margin-left: 0;
+        padding-top: 0.75rem;
+        margin-top: 0.25rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+    }
+
+    /* =====================
+       FOOTER
+    ===================== */
+    .rt-footer {
+      background: #111e17;
+      color: #95d5b2;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 0.88rem;
+      line-height: 1.8;
+    }
+    .rt-footer__some {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .rt-footer__some a {
+      color: #95d5b2;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      transition: color 0.18s;
+      font-size: 0.9rem;
+    }
+    .rt-footer__some a:hover { color: #fff; }
+    .rt-footer__some svg { width: 18px; height: 18px; fill: currentColor; }
+    .rt-footer__links { margin-bottom: 0.5rem; }
+    .rt-footer__links a {
+      color: #6ab48a;
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: color 0.18s;
+    }
+    .rt-footer__links a:hover { color: #fff; }
+    .rt-footer__copy { color: #4a7c5f; }
     <nav class="rt-nav">
   <a class="rt-nav__logo" href="https://retkittain.fi/">
     <img src="https://retkittain.fi/img/leveabanneri_white.png" alt="Retkittäin" />
