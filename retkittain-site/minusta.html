@@ -1,56 +1,352 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-<meta charset="UTF-8">
-<title>Retkittäin – Minusta</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kuka on Retkittäin? Erä- ja luonto-opas, opettaja ja luontoihminen pääkaupunkiseudulta." />
+  <link rel="canonical" href="https://retkittain.fi/minusta" />
+  <title>Minusta – Retkittäin</title>
+  <style>
+    :root {
+      --vihrea: #2d6a4f;
+      --vihrea-tumma: #1b4332;
+      --vihrea-vaalea: #d8f3dc;
+      --teksti: #1a1a1a;
+      --harmaa: #555;
+      --taustaharmonia: #f8faf8;
+      --valkoinen: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--valkoinen);
+      color: var(--teksti);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--vihrea-tumma);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    nav a.logo img { height: 40px; }
+    nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.25rem; }
+    nav ul li a {
+      color: #cde;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    nav ul li a:hover, nav ul li a.aktiivinen {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--vihrea-tumma) 0%, var(--vihrea) 100%);
+      color: white;
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #d8f3dc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #b7e4c7;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* SECTIONS */
+    section { padding: 3.5rem 1.5rem; }
+    section:nth-child(even) { background: var(--taustaharmonia); }
+    .container { max-width: 820px; margin: 0 auto; }
+
+    h2 {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      color: var(--vihrea-tumma);
+      margin-bottom: 0.5rem;
+    }
+    .alaotsikko {
+      color: var(--harmaa);
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+    }
+
+    /* PROFIILI */
+    .profiili {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .profiili-kuva {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    }
+    .profiili-kuva img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .profiili-teksti p {
+      color: #444;
+      margin-bottom: 1rem;
+      font-size: 0.97rem;
+      line-height: 1.75;
+    }
+
+    /* PÄTEVYYS-KORTIT */
+    .patevyydet {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .patevyys-kortti {
+      background: white;
+      border: 1px solid #d0e8d8;
+      border-radius: 10px;
+      padding: 1.25rem 1.25rem 1.25rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .patevyys-ikoni {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .patevyys-kortti h3 {
+      font-size: 0.95rem;
+      color: var(--vihrea-tumma);
+      margin-bottom: 0.2rem;
+    }
+    .patevyys-kortti p {
+      font-size: 0.85rem;
+      color: var(--harmaa);
+    }
+
+    /* ARVOT */
+    .arvot {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .arvo {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e0ede6;
+    }
+    .arvo-ikoni { font-size: 2rem; margin-bottom: 0.75rem; }
+    .arvo h3 { font-size: 1rem; color: var(--vihrea-tumma); margin-bottom: 0.4rem; }
+    .arvo p { font-size: 0.88rem; color: var(--harmaa); }
+
+    /* CTA */
+    .cta-palkki {
+      background: var(--vihrea-tumma);
+      color: white;
+      text-align: center;
+      padding: 3rem 1.5rem;
+    }
+    .cta-palkki h2 { color: white; margin-bottom: 0.75rem; }
+    .cta-palkki p { color: #b7e4c7; margin-bottom: 2rem; font-size: 1.05rem; }
+    .cta-napit { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .nappi-vaalea {
+      background: white;
+      color: var(--vihrea-tumma);
+      padding: 0.8rem 1.8rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .nappi-vaalea:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+    .nappi-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.6);
+      padding: 0.8rem 1.8rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .nappi-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* FOOTER */
+    footer {
+      background: #111e17;
+      color: #b7e4c7;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+    }
+    footer a { color: #b7e4c7; text-decoration: none; margin: 0 0.5rem; }
+    footer a:hover { color: white; }
+
+    @media (max-width: 640px) {
+      .profiili { grid-template-columns: 1fr; }
+      .profiili-kuva { max-width: 280px; margin: 0 auto; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="topbar">
-            <a class="brand" href="index.html">
-                <img src="img/leveabanneri_white.png" alt="Retkittäin logo">
-            </a>
 
-            <nav>
-                <a href="index.html">Etusivu</a>
-                <a href="tyokalu.html">Retkityökalu</a>
-                <a href="juoksu.html">Juoksu</a>
-                <a href="palvelut.html">Palvelut</a>
-                <a href="blog.html">Blogi</a>
-                <a href="minusta.html">Minusta</a>
-                <a href="yhteys.html">Yhteys</a>
-            </nav>
+<!-- NAV -->
+<nav>
+  <a class="logo" href="index.html">
+    <img src="img/leveabanneri_white.png" alt="Retkittäin logo" />
+  </a>
+  <ul>
+    <li><a href="index.html">Etusivu</a></li>
+    <li><a href="tyokalu.html">Retkityökalu</a></li>
+    <li><a href="juoksu.html">Juoksu</a></li>
+    <li><a href="palvelut.html">Palvelut</a></li>
+    <li><a href="blog.html">Blogi</a></li>
+    <li><a href="minusta.html" class="aktiivinen">Minusta</a></li>
+    <li><a href="yhteys.html">Yhteys</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🌲 Erä- ja luonto-opas · Opettaja</div>
+  <h1>Luonto kuuluu kaikille —<br>autan sinut sinne</h1>
+  <p>Olen liikkunut luonnossa yli neljäkymmentä vuotta. Nyt haluan auttaa muita löytämään saman rauhan.</p>
+</div>
+
+<!-- TARINA -->
+<section>
+  <div class="container">
+    <div class="profiili">
+      <div class="profiili-kuva">
+        <img src="img/profiili.jpg" alt="Retkittäin — luonnossa" />
+      </div>
+      <div class="profiili-teksti">
+        <h2>Kuka olen?</h2>
+        <p style="color: var(--harmaa); margin-bottom: 1.5rem; font-size: 0.95rem;">Opettaja, erä- ja luonto-opas, luontoihminen</p>
+        <p>Olen taustaltani luokanopettaja ja toiminut siinä ammatissa lähes kaksikymmentä vuotta. Minulla on terveystiedon aineenopettajan pätevyys ja olen erikoistunut myös liikunnan opettamiseen. Tällä hetkellä opetan ammatillisessa oppilaitoksessa digitaitoja nuorille ja aikuisille.</p>
+        <p>Työssäni ja vapaa-ajalla olen nähnyt digimurroksen ja älylaitteiden vaikutuksen lapsiin ja nuoriin. Valinnaiskursseja luonnossa vetäessäni olen huomannut luonnon rauhoittavan vaikutuksen lapsiin — ja saman vaikutuksen olen huomannut myös itsessäni.</p>
+        <p>Luontorakkauden vuoksi opiskelin työn ohessa erä- ja luonto-oppaaksi Savon ammattiopistosta. Haluan kaiken digihömpän keskellä tarjota myös muille mahdollisimman tärkeitä ja vaikuttavia luontoelämyksiä.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PÄTEVYYS -->
+<section>
+  <div class="container">
+    <h2>Koulutus ja tausta</h2>
+    <p class="alaotsikko">Kokemusta luonnosta, ihmisistä ja ryhmien ohjaamisesta.</p>
+    <div class="patevyydet">
+      <div class="patevyys-kortti">
+        <div class="patevyys-ikoni">🏅</div>
+        <div>
+          <h3>Erä- ja luonto-oppaan tutkinto</h3>
+          <p>Savon ammattiopisto — suoritettu työn ohessa</p>
         </div>
-    </header>
+      </div>
+      <div class="patevyys-kortti">
+        <div class="patevyys-ikoni">🎓</div>
+        <div>
+          <h3>Luokanopettaja & aineenopettaja</h3>
+          <p>Lähes 20 vuoden kokemus opettamisesta ja ryhmien ohjaamisesta</p>
+        </div>
+      </div>
+      <div class="patevyys-kortti">
+        <div class="patevyys-ikoni">🏃</div>
+        <div>
+          <h3>Liikunta ja terveys</h3>
+          <p>Terveystiedon aineenopettajan pätevyys, erikoistunut liikunnan opettamiseen</p>
+        </div>
+      </div>
+      <div class="patevyys-kortti">
+        <div class="patevyys-ikoni">🌲</div>
+        <div>
+          <h3>Yli 40 vuotta luonnossa</h3>
+          <p>Trail- ja maantiejuoksu, pyöräily, vaellus — ympäri Suomea ja Skandinaviaa</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ARVOT -->
+<section>
+  <div class="container">
+    <h2>Miksi Retkittäin?</h2>
+    <p class="alaotsikko">Retkittäin tarjoaa vinkkejä, inspiraatiota ja konkreettisia työkaluja retkeilyyn.</p>
+    <div class="arvot">
+      <div class="arvo">
+        <div class="arvo-ikoni">🚪</div>
+        <h3>Matala kynnys</h3>
+        <p>Luontoon ei tarvita erikoisvarusteita tai suuria suunnitelmia. Lähipuisto riittää.</p>
+      </div>
+      <div class="arvo">
+        <div class="arvo-ikoni">📵</div>
+        <h3>Irtiotto digimaailmasta</h3>
+        <p>Luonto rauhoittaa — sen olen nähnyt sekä lapsissa että aikuisissa. Se on tieteellinen fakta ja oma kokemukseni.</p>
+      </div>
+      <div class="arvo">
+        <div class="arvo-ikoni">🤝</div>
+        <h3>Luonto kuuluu kaikille</h3>
+        <p>Jokamiehenoikeus on suomalainen aarre. Autan sinua hyödyntämään sen.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <main>
-        <div class="card">
-            <h2>Kuka olen?</h2>
-            <img src="img/teltta1.jpg" class="responsive" alt="Retkikuva">
-            <h2>Minusta</h2>
+<!-- CTA -->
+<div class="cta-palkki">
+  <h2>Lähde mukaan</h2>
+  <p>Haluatko ohjatun luontoelämyksen, kysyä kursseista<br>tai tehdä yhteistyötä?</p>
+  <div class="cta-napit">
+    <a href="yhteys.html" class="nappi-vaalea">Ota yhteyttä</a>
+    <a href="palvelut.html" class="nappi-outline">Katso palvelut</a>
+  </div>
+</div>
 
-            <p>Olen taustaltani luokanopettaja ja toiminut siinä ammatissa lähes kaksikymmentä vuotta. Minulla on terveystiedon aineenopettajan pätevyys ja olen erikoistunut myös liikunnan opettamiseen. Tällä hetkellä opetan ammatillisessa oppilaitoksessa digitaitoja nuorille ja aikuisille.</p>
+<!-- FOOTER -->
+<footer>
+  <p style="margin-bottom: 0.5rem">
+    <a href="https://instagram.com/retkittain" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://tiktok.com/@retkittain" target="_blank" rel="noopener">TikTok</a>
+    <a href="https://youtube.com/@retkittain" target="_blank" rel="noopener">YouTube</a>
+  </p>
+  <p>© Retkittäin · <a href="tyokalu.html">Retkityökalu</a> · <a href="tietosuoja.html">Tietosuoja</a></p>
+</footer>
 
-            <p>Työssäni ja vapaa-ajalla olen nähnyt digimurroksen ja älylaitteiden vaikutuksen lapsiin ja nuoriin. Valinnaiskursseja luonnossa vetäessäni olen huomannut luonnon rauhoittavan vaikutuksen lapsiin.</p>
-
-            <p>Saman rauhoittavan vaikutuksen olen huomannut myös itsessäni. Olen aina viihtynyt luonnossa ja saanut sieltä arvokkaita kokemuksia. Olen liikkunut luonnossa jo yli neljäkymmentä vuotta. Läheskään aina minun ei ole tarvinnut mennä niin sanotusti merta edemmäksi kalaan, vaan luonnossa liikkumiseen on riittänyt lähipuisto tai mahdollisimman lähellä oleva luontokohde.</p>
-
-            <p>Luontorakkauden vuoksi opiskelin vuosi sitten työn ohessa erä- ja luonto-oppaaksi Savon ammattiopistosta. Haluan kaiken digihömpän keskellä tarjota myös muille mahdollisimman tärkeitä ja vaikuttavia luontoelämyksiä.</p>
-
-            <h3>Retkittäin – erä- ja luontopalvelut</h3>
-
-            <p>Retkittäin tarjoaa vinkkejä, inspiraatiota ja konkreettisia työkaluja retkeilyyn. Tavoitteeni on madaltaa kynnystä lähteä luontoon – oli kyseessä ensikertalainen, perhe, kouluryhmä tai yrityksen virkistyspäivä.</p>
-
-            <p>Luonto kuuluu kaikille. Autan sinua löytämään oman tapasi nauttia siitä.</p>
-
-            <h3>Lähde mukaan</h3>
-            <p>Jos haluat kysyä palveluistani, tehdä yhteistyötä tai muuten olla yhteydessä, löydät yhteystietoni <a href="yhteys.html">Yhteys-sivulta</a>.</p>
-    </main>
-
-    <footer>© Retkittäin</footer>
 </body>
 </html>
-
- 
