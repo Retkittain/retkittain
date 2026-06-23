@@ -925,17 +925,86 @@ function jsEscape(str) {
 
             var html = '<p>Retken kesto: ' + length + ' | Vuodenaika: ' + season + '</p>';
 
+            // Perusvarusteet kaikille
             var categories = {
-                'Perusvarusteet': ['Reppu / rinkka', 'Kartta ja kompassi', 'GPS-laite tai offline-karttasovellus', 'Puukko', 'Matkapuhelin + varavirtalähde', 'Vedenpitäviä säilytyspusseja', 'Tulitikkuja vedenpitävässä rasiassa', 'Pilli', 'Naru / paracord', 'Telttapaikkausteippi tai pieni korjaussetti'],
-                'Vaatetus': ['Vaelluskengät, leirikengät, kahluu kengät', 'Merinovillainen aluskerrasto ja vaihtokerrasto', 'Varasukat', 'Sadetakki ja -housut', 'Taukovaatetus', 'Hyttysverkko / -huppu'],
-                'Ruokailu': ['Ruoka', 'Keitin', 'Vesipullo', 'Muki ja ruokailuvälineet', 'Polttoaine keitintä varten'],
-                'Yöpyminen': ['Majoite – teltta tai riippumatto', 'Makuupussi', 'Makuualusta'],
-                'Hygienia & ensiapu': ['Henkilökohtaiset lääkkeet', 'Hammasharja ja -tahna', 'Ensiaputarvikkeet', 'Käsidesi', 'Vessapaperi vedenpitävässä pussissa', 'Biohajoavaa pesuainetta', 'Aurinkorasva ja huulirasva', 'Pyyhe', 'Hyttyskarkote', 'Aurinkolasit'],
-                'Muu': ['Roskapussi (Leave No Trace -periaate)', 'Retki-ilmoitus lähipiirille tai sovellukseen', 'Käteistä/maksuväline']
+                'Perusvarusteet': (function () {
+                    var base = ['Kartta ja kompassi', 'Puukko', 'Matkapuhelin + varavirtalähde',
+                        'Vedenpitäviä säilytyspusseja', 'Tulitikkuja vedenpitävässä rasiassa', 'Pilli'];
+                    if (length !== 'päivä') {
+                        base.push('GPS-laite tai offline-karttasovellus');
+                        base.push('Naru / paracord');
+                        base.push('Telttapaikkausteippi tai pieni korjaussetti');
+                    }
+                    if (length === 'pitkä') {
+                        base.push('Reppu / rinkka');
+                    } else {
+                        base.unshift('Reppu / päiväreppu');
+                    }
+                    return base;
+                })(),
+
+                'Vaatetus': (function () {
+                    var base = ['Vaelluskengät', 'Varasukat', 'Sadetakki ja -housut', 'Hyttysverkko / -huppu'];
+                    if (length !== 'päivä') {
+                        base.push('Merinovillainen aluskerrasto ja vaihtokerrasto');
+                        base.push('Taukovaatetus');
+                        base.push('Leirikengät');
+                    }
+                    return base;
+                })(),
+
+                'Ruokailu': (function () {
+                    var base = ['Vesipullo', 'Muki ja ruokailuvälineet'];
+                    if (length === 'päivä') {
+                        base.push('Eväät');
+                    } else {
+                        base.push('Ruoka');
+                        base.push('Keitin');
+                        base.push('Polttoaine keitintä varten');
+                    }
+                    return base;
+                })()
             };
 
+            // Yöpyminen vain yön yli ja pitkille retkille
+            if (length !== 'päivä') {
+                categories['Yöpyminen'] = ['Majoite – teltta tai riippumatto', 'Makuupussi', 'Makuualusta'];
+            }
+
+            // Hygienia — kevyempi päiväretkellä
+            if (length === 'päivä') {
+                categories['Hygienia & ensiapu'] = [
+                    'Ensiaputarvikkeet', 'Aurinkorasva ja huulirasva',
+                    'Käsidesi', 'Hyttyskarkote', 'Aurinkolasit'
+                ];
+            } else {
+                categories['Hygienia & ensiapu'] = [
+                    'Henkilökohtaiset lääkkeet', 'Hammasharja ja -tahna',
+                    'Ensiaputarvikkeet', 'Käsidesi', 'Vessapaperi vedenpitävässä pussissa',
+                    'Biohajoavaa pesuainetta', 'Aurinkorasva ja huulirasva',
+                    'Pyyhe', 'Hyttyskarkote', 'Aurinkolasit'
+                ];
+            }
+
+            // Muu — päiväretkellä suppeampi
+            if (length === 'päivä') {
+                categories['Muu'] = ['Roskapussi (Leave No Trace -periaate)'];
+            } else {
+                categories['Muu'] = [
+                    'Roskapussi (Leave No Trace -periaate)',
+                    'Retki-ilmoitus lähipiirille tai sovellukseen',
+                    'Käteistä/maksuväline'
+                ];
+            }
+
+            // Talvivarusteet vain talvella + yö tai pitkä
             if (season === 'talvi') {
-                categories['Talvivarusteet'] = ['Lämmin takki', 'Toppahousut', 'Hanskat', 'Pipo', 'Välikerrasto', 'Monot ja sukset', 'Ahkio tai muu kuljetusväline', 'Routamatto telttaa varten'];
+                categories['Talvivarusteet'] = ['Lämmin takki', 'Toppahousut', 'Hanskat',
+                    'Pipo', 'Välikerrasto', 'Aurinkolasit / laskettelulasit'];
+                if (length !== 'päivä') {
+                    categories['Talvivarusteet'].push('Monot ja sukset tai lumikengät');
+                    categories['Talvivarusteet'].push('Routamatto telttaa varten');
+                }
             }
 
             html += buildCategoryLists(categories, 'list_');
