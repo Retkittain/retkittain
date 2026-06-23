@@ -536,7 +536,8 @@
             <img src="https://retkittain.fi/img/leveabanneri_white.png" alt="Retkittäin logo" />
         </a>
         <ul>
-            <li></li><a href="index.html">Etusivu</a></li>
+            <li></li>
+            <a href="index.html">Etusivu</a></li>
             <li><a href="tyokalu.html">Retkityökalu</a></li>
             <li><a href="juoksu.html">Juoksu</a></li>
             <li><a href="palvelut.html">Palvelut</a></li>
@@ -643,7 +644,7 @@
                             <li>PDF-viikkosuunnitelma</li>
                             <li>Luonto treenialustana</li>
                         </ul>
-                        <button class="kurssi-nappi vihrea" onclick="avaaModal('peruskurssi')">Ilmoittaudu jonoon →</button>
+                        <a href="https://payhip.com/b/CLupS" class="kurssi-nappi vihrea" target="_blank" rel="noopener">Osta kurssi 14 € →</a>
                     </div>
                 </div>
 
@@ -670,8 +671,7 @@
                             <li>PDF-viikkosuunnitelma</li>
                             <li>Sopii perusohjelman jälkeen</li>
                         </ul>
-                        <button class="kurssi-nappi vihrea" onclick="avaaModal('jatkokurssi')">Ilmoittaudu jonoon →</button>
-                    </div>
+                        <a href="https://payhip.com/b/z7niZ" class="kurssi-nappi vihrea" target="_blank" rel="noopener">Osta kurssi 34 € →</a>                    </div>
                 </div>
 
             </div>
@@ -699,10 +699,6 @@
                     <h3>Missä treenit tehdään?</h3>
                     <p>Missä itse haluat — lähipuistossa, metsäpolulla tai puistotiellä. Luonto on suositeltava ympäristö mutta ei pakollinen.</p>
                 </div>
-                <div class="ukk-item">
-                    <h3>Milloin maksulliset kurssit julkaistaan?</h3>
-                    <p>Pian. Ilmoittautumalla jonoon saat tiedon heti kun kurssi on saatavilla — ja mahdollisesti myös julkaisualennuksen.</p>
-                </div>
             </div>
         </div>
     </section>
@@ -726,68 +722,6 @@
         </a>
     </footer>
 
-    <!-- JONO-MODAL -->
-    <div class="modal-tausta" id="modal" onclick="suljeModalTausta(event)">
-        <div class="modal">
-            <button class="modal-sulje" onclick="suljeModal()">✕</button>
-            <div id="modal-lomake">
-                <h3 id="modal-otsikko">Ilmoittaudu jonoon</h3>
-                <p id="modal-teksti">Lähetä sähköpostisi niin ilmoitan heti kun kurssi on saatavilla.</p>
-                <form id="jono-lomake" action="https://formspree.io/f/xpqnjvol" method="POST">
-                    <input type="hidden" name="kurssi" id="jono-kurssi" value="" />
-                    <input type="text" name="nimi" placeholder="Nimi" required />
-                    <input type="email" name="email" placeholder="Sähköposti" required />
-                    <button type="submit" class="laheta">Ilmoittaudu →</button>
-                </form>
-            </div>
-            <div class="modal-kiitos" id="modal-kiitos">
-                <h3>🌿 Ilmoittauduttu!</h3>
-                <p>Lähetän sinulle viestin heti kun kurssi on saatavilla.</p>
-            </div>
-        </div>
-    </div>
-
-    <script>const kurssit = {
-    peruskurssi: { otsikko: "4 viikon perusohjelma — jono", teksti: "Ilmoittaudu jonoon ja saat tiedon heti kun kurssi julkaistaan." },
-    jatkokurssi: { otsikko: "Juokse ensimmäinen 5 km — jono", teksti: "Ilmoittaudu jonoon ja saat tiedon heti kun kurssi julkaistaan." }
-  };
-
-  function avaaModal(kurssi) {
-    document.getElementById('modal-otsikko').textContent = kurssit[kurssi].otsikko;
-    document.getElementById('modal-teksti').textContent = kurssit[kurssi].teksti;
-    document.getElementById('jono-kurssi').value = kurssi;
-    document.getElementById('modal-lomake').style.display = 'block';
-    document.getElementById('modal-kiitos').style.display = 'none';
-    document.getElementById('modal').classList.add('auki');
-  }
-
-  function suljeModal() {
-    document.getElementById('modal').classList.remove('auki');
-  }
-
-  function suljeModalTausta(e) {
-    if (e.target === document.getElementById('modal')) suljeModal();
-  }
-
-  const jonoLomake = document.getElementById('jono-lomake');
-  if (jonoLomake) {
-    jonoLomake.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const data = new FormData(jonoLomake);
-      try {
-        const res = await fetch(jonoLomake.action, {
-          method: 'POST', body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          document.getElementById('modal-lomake').style.display = 'none';
-          document.getElementById('modal-kiitos').style.display = 'block';
-        }
-      } catch(err) {
-        alert('Lähetys epäonnistui. Kokeile sähköpostia suoraan.');
-      }
-    });
-  }</script>
 
 </body>
 </html>
