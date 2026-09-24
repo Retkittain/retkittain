@@ -633,32 +633,42 @@ img.responsive {
   bottom: 0;
   left: 0;
   width: 100%;
+  box-sizing: border-box;
   background: var(--vihrea-tumma);
   color: white;
-  padding: 12px;
+  padding: 14px 20px;
   text-align: center;
   font-size: 14px;
+  line-height: 1.5;
   z-index: 9999;
 }
 
-#acceptCookiesBtn {
-  margin-left: 10px;
-  padding: 6px 14px;
-  border: none;
+#acceptCookiesBtn,
+#rejectCookiesBtn {
+  margin-left: 8px;
+  padding: 7px 16px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#acceptCookiesBtn {
+  border: 1px solid white;
   background: white;
   color: var(--vihrea-tumma);
-  font-weight: 700;
 }
 
 #rejectCookiesBtn {
-  margin-left: 6px;
-  padding: 6px 14px;
-  border: 1px solid rgba(255,255,255,0.7);
-  border-radius: 5px;
-  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.75);
   background: transparent;
   color: white;
-  font-weight: 600;
+}
+
+#acceptCookiesBtn:hover {
+  background: #f0f0f0;
+}
+
+#rejectCookiesBtn:hover {
+  background: rgba(255,255,255,0.1);
 }
