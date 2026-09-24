@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SDRL34QMX7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-SDRL34QMX7');
+<script>
+  function enableGoogleAnalytics() {
+    if (window.googleAnalyticsLoaded) return;
+
+    window.googleAnalyticsLoaded = true;
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+
+    gtag('js', new Date());
+
+    gtag('consent', 'update', {
+      'analytics_storage': 'granted'
+    });
+
+    gtag('config', 'G-SDRL34QMX7');
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SDRL34QMX7';
+    document.head.appendChild(script);
+  }
 </script>
     
     <meta charset="UTF-8">
@@ -16,6 +32,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- EVÄSTEBANNERI -->
+<div id="cookieBanner">
+  Tämä sivusto käyttää evästeitä käyttökokemuksen ja sivuston kehittämiseen.
+  <button id="acceptCookiesBtn">Hyväksyn</button>
+  <button id="rejectCookiesBtn">En hyväksy</button>
+</div>
     <header>
         <div class="topbar">
             <a class="brand" href="index.html">
@@ -61,5 +83,33 @@
         loadBlog();</script>
 
     <footer>© Retkittäin</footer>
+    
+     <script>
+  // Evästebanneri
+  const banner = document.getElementById("cookieBanner");
+  const acceptBtn = document.getElementById("acceptCookiesBtn");
+  const rejectBtn = document.getElementById("rejectCookiesBtn");
+
+  const cookieConsent = localStorage.getItem("retkittainCookieConsent");
+
+  if (cookieConsent === "accepted" || cookieConsent === "rejected") {
+    banner.style.display = "none";
+  }
+
+  acceptBtn.addEventListener("click", function () {
+    localStorage.setItem("retkittainCookieConsent", "accepted");
+    banner.style.display = "none";
+
+    if (typeof enableGoogleAnalytics === "function") {
+      enableGoogleAnalytics();
+    }
+  });
+
+  rejectBtn.addEventListener("click", function () {
+    localStorage.setItem("retkittainCookieConsent", "rejected");
+    banner.style.display = "none";
+  });
+</script>
+    
 </body>
 </html>
