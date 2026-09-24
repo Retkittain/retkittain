@@ -494,9 +494,12 @@
 
   const cookieConsent = localStorage.getItem("retkittainCookieConsent");
 
-  if (cookieConsent === "accepted" || cookieConsent === "rejected") {
-    banner.style.display = "none";
-  }
+  if (cookieConsent === "accepted") {
+  banner.style.display = "none";
+  enableGoogleAnalytics();
+} else if (cookieConsent === "rejected") {
+  banner.style.display = "none";
+}
 
   acceptBtn.addEventListener("click", function () {
     localStorage.setItem("retkittainCookieConsent", "accepted");
