@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
+    
+    <script>
+  function enableGoogleAnalytics() {
+    if (window.googleAnalyticsLoaded) return;
+
+    window.googleAnalyticsLoaded = true;
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+
+    gtag('js', new Date());
+
+    gtag('consent', 'update', {
+      'analytics_storage': 'granted'
+    });
+
+    gtag('config', 'G-SDRL34QMX7');
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SDRL34QMX7';
+    document.head.appendChild(script);
+  }
+</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Aloita juoksu luonnossa omalla tahdilla — ilmainen minikurssi sekä ohjatut peruskurssi ja jatkokurssi aloittelijoille. Retkittäin." />
@@ -66,6 +91,51 @@
                         background: rgba(255,255,255,0.15);
                         color: #fff;
                     }
+        /* EVÄSTEBANNERI */
+#cookieBanner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--vihrea-tumma);
+    color: white;
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    z-index: 9999;
+}
+
+#acceptCookiesBtn,
+#rejectCookiesBtn {
+    margin-left: 8px;
+    padding: 7px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#acceptCookiesBtn {
+    border: 1px solid white;
+    background: white;
+    color: var(--vihrea-tumma);
+}
+
+#rejectCookiesBtn {
+    border: 1px solid rgba(255,255,255,0.75);
+    background: transparent;
+    color: white;
+}
+
+#acceptCookiesBtn:hover {
+    background: #f0f0f0;
+}
+
+#rejectCookiesBtn:hover {
+    background: rgba(255,255,255,0.1);
+}
 
         /* HERO */
         .hero {
@@ -529,7 +599,14 @@
     </style>
 </head>
 <body>
-
+    
+<!-- EVÄSTEBANNERI -->
+<div id="cookieBanner">
+  Tämä sivusto käyttää evästeitä käyttökokemuksen ja sivuston kehittämiseen.
+  <button id="acceptCookiesBtn">Hyväksyn</button>
+  <button id="rejectCookiesBtn">En hyväksy</button>
+</div>
+    
     <!-- NAV -->
     <nav>
         <a class="logo" href="https://retkittain.fi/">
@@ -719,9 +796,36 @@
         </div>
         © Retkittäin • <a href="tyokalu.html">Retkityökalu</a>
         <a href="tietosuoja.html">Tietosuoja</a>
-        </a>
+    
     </footer>
+    
+<script>
+  // Evästebanneri
+  const banner = document.getElementById("cookieBanner");
+  const acceptBtn = document.getElementById("acceptCookiesBtn");
+  const rejectBtn = document.getElementById("rejectCookiesBtn");
 
+  const cookieConsent = localStorage.getItem("retkittainCookieConsent");
+
+  if (cookieConsent === "accepted") {
+    banner.style.display = "none";
+    enableGoogleAnalytics();
+  } else if (cookieConsent === "rejected") {
+    banner.style.display = "none";
+  }
+
+  acceptBtn.addEventListener("click", function () {
+    localStorage.setItem("retkittainCookieConsent", "accepted");
+    banner.style.display = "none";
+
+    enableGoogleAnalytics();
+  });
+
+  rejectBtn.addEventListener("click", function () {
+    localStorage.setItem("retkittainCookieConsent", "rejected");
+    banner.style.display = "none";
+  });
+</script>
 
 </body>
 </html>
