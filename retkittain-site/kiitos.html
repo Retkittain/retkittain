@@ -1,200 +1,248 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fi">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kiitos – Retkittäin</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kiitos yhteydenotosta – Retkittäin</title>
+
+    <meta name="description" content="Kiitos yhteydenotosta. Retkittäin palaa asiaan mahdollisimman pian.">
+
+    <link rel="canonical" href="https://retkittain.fi/thanks.html">
+
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        :root {
-            --bg: #eef3ef;
-            --brand: #2f5d50;
-            --muted: #4a625b;
-            --border: #d9e3df;
-            --shadow: 0 10px 30px rgba(0,0,0,.10);
-            --radius: 14px;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial,sans-serif;
-            background: var(--bg);
-            color: #12322b;
-            line-height: 1.5;
-        }
-
-        header {
-            background: var(--brand);
-            padding: 14px 18px;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 6px 18px rgba(0,0,0,.12);
-        }
-
-        .topbar {
-            max-width: 1100px;
-            margin: 0 auto;
+        .thanks-page {
+            min-height: 65vh;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            padding: 70px 20px;
+        }
+
+        .thanks-card {
+            width: 100%;
+            max-width: 760px;
+            padding: 52px 44px;
+            text-align: center;
+            background: var(--valkoinen, #ffffff);
+            border: 1px solid var(--border, #d8ded8);
+            border-radius: 22px;
+            box-shadow: 0 12px 32px rgba(32, 60, 53, 0.07);
+        }
+
+        .thanks-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--salvia, #dde5db);
+            color: var(--metsan-tumma, #203c35);
+            font-size: 1.8rem;
+        }
+
+        .thanks-card h1 {
+            margin: 0 0 20px;
+            color: var(--metsan-tumma, #203c35);
+            line-height: 1.2;
+        }
+
+        .thanks-card > p {
+            max-width: 600px;
+            margin: 0 auto 14px;
+            color: var(--teksti, #26332f);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .thanks-card .muted {
+            color: var(--harmaa, #65716d);
+            font-size: 0.95rem;
+        }
+
+        .thanks-actions {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
             gap: 12px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 800;
-            letter-spacing: .2px;
-            font-size: 20px;
-            white-space: nowrap;
-        }
-
-            .brand img {
-                height: 34px;
-                width: auto;
-                display: block;
-            }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-            margin-left: 14px;
-            opacity: .95;
-        }
-
-            nav a:hover {
-                opacity: 1;
-                text-decoration: underline;
-            }
-
-        main {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 18px;
-        }
-
-        .card {
-            margin-top: 18px;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 22px;
-        }
-
-        h1, h2 {
-            color: var(--brand);
-            margin: 0 0 10px;
-        }
-
-        p {
-            margin: 0 0 12px;
-            color: var(--muted);
-        }
-
-        .cta {
-            display: flex;
-            gap: 10px;
             flex-wrap: wrap;
-            margin-top: 10px;
         }
 
-        .btn {
+        .thanks-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 16px;
+            padding: 13px 20px;
             border-radius: 10px;
-            border: 0;
-            cursor: pointer;
-            font-weight: 800;
             text-decoration: none;
-            white-space: nowrap;
+            font-weight: 700;
+            transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
-            .btn.primary {
-                background: var(--brand);
-                color: #fff;
+            .thanks-button:hover {
+                opacity: 0.9;
+                transform: translateY(-1px);
             }
 
-                .btn.primary:hover {
-                    background: #264b41;
-                }
-
-            .btn.secondary {
-                background: #e8f2ee;
-                color: var(--brand);
-                border: 1px solid var(--border);
+            .thanks-button.primary {
+                background: var(--metsan-tumma, #203c35);
+                color: var(--valkoinen, #ffffff);
             }
 
-                .btn.secondary:hover {
-                    background: #dceee7;
+            .thanks-button.secondary {
+                background: var(--salvia, #dde5db);
+                color: var(--metsan-tumma, #203c35);
+            }
+
+        @media (max-width: 700px) {
+            .thanks-page {
+                padding: 45px 16px;
+            }
+
+            .thanks-card {
+                padding: 38px 24px;
+                border-radius: 18px;
+            }
+
+                .thanks-card h1 {
+                    font-size: 1.8rem;
                 }
 
-        footer {
-            margin-top: 28px;
-            padding: 22px 18px;
-            background: var(--brand);
-            color: #fff;
-            text-align: center;
+            .thanks-actions {
+                flex-direction: column;
+            }
+
+            .thanks-button {
+                width: 100%;
+                box-sizing: border-box;
+            }
         }
     </style>
+
 </head>
+
 <body>
 
+    <!-- NAVIGAATIO -->
     <header>
         <div class="topbar">
+
             <a class="brand" href="index.html">
                 <img src="img/leveabanneri_white.png" alt="Retkittäin logo">
             </a>
+
             <nav>
                 <a href="index.html">Etusivu</a>
+                <a href="palvelut.html">Retket</a>
+                <a href="juoksu.html">Luonto &amp; liike</a>
                 <a href="tyokalu.html">Retkityökalu</a>
-                <a href="juoksu.html">Juoksu</a>
                 <a href="blog.html">Blogi</a>
+                <a href="minusta.html">Minusta</a>
+                <a href="yhteys.html">Yhteys</a>
             </nav>
+
         </div>
     </header>
 
+
     <main>
-        <section class="card">
-            <h1>🌿 Kiitos – hienoa että aloitit</h1>
-            <p>
-                Olet nyt ottanut ensimmäisen askeleen. Minikurssin idea ei ole suorittaa, vaan huomata:
-                <strong>“minäkin pystyn tähän.”</strong>
-            </p>
 
-            <h2 style="margin-top:16px;">Seuraavaksi</h2>
-            <ol style="color:var(--muted); padding-left:18px; margin:0;">
-                <li>Avaa Payhipistä kurssimateriaalit (video + audio + PDF).</li>
-                <li>Tee ohjattu harjoitus silloin kun sinulle sopii.</li>
-                <li>Pidä kynnys matalana – myös 10–15 minuuttia riittää.</li>
-            </ol>
+        <section class="thanks-page">
 
-            <div class="cta">
-                <a class="btn primary" href="juoksu.html">Seuraava askel: pääkurssi</a>
-                <a class="btn secondary" href="tyokalu.html">🧭 Retkityökalu</a>
-                <a class="btn secondary" href="index.html">Takaisin etusivulle</a>
+            <div class="thanks-card">
+
+                <div class="thanks-icon">
+                    ✓
+                </div>
+
+                <h1>Kiitos yhteydenotostasi!</h1>
+
+                <p>
+                    Viestisi on tullut perille.
+                    Palaan asiaan mahdollisimman pian.
+                </p>
+
+                <p class="muted">
+                    Jos kysymyksesi liittyi retkeen tai muuhun
+                    Retkittäinin palveluun, voidaan seuraavat askeleet
+                    suunnitella yhdessä.
+                </p>
+
+                <div class="thanks-actions">
+
+                    <a class="thanks-button primary"
+                       href="index.html">
+                        Takaisin etusivulle
+                    </a>
+
+                    <a class="thanks-button secondary"
+                       href="palvelut.html">
+                        Tutustu retkiin
+                    </a>
+
+                    <a class="thanks-button secondary"
+                       href="tyokalu.html">
+                        Retkityökalu
+                    </a>
+
+                </div>
+
             </div>
+
         </section>
 
-        <section class="card" style="background:#f7faf8;">
-            <h2>Yksi lause auttaa paljon</h2>
-            <p>
-                Kun olet tehnyt harjoituksen, lähetä minulle yksi lause siitä miltä tuntui (nimettömänäkin käy).
-                Näistä syntyy luottamusta muille aloittajille.
-            </p>
-            <p style="margin-bottom:0;"><strong>Vinkki:</strong> voit laittaa viestin vaikka Instagramissa tai yhteyssivun kautta.</p>
-            <div class="cta">
-                <a class="btn secondary" href="yhteys.html">Avaa yhteys</a>
-            </div>
-        </section>
     </main>
 
-    <footer>© Retkittäin</footer>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-inner">
+
+            <p>© Retkittäin</p>
+
+            <div class="footer-links">
+
+                <a href="https://www.instagram.com/retkittain/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Instagram
+                </a>
+
+                <a href="https://www.tiktok.com/@retkittain"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    TikTok
+                </a>
+
+                <a href="https://www.youtube.com/@retkittain"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    YouTube
+                </a>
+
+                <a href="tyokalu.html">
+                    Retkityökalu
+                </a>
+
+                <a href="tietosuoja.html">
+                    Tietosuoja
+                </a>
+
+                <a href="yhteys.html">
+                    Yhteys
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
 </body>
 </html>
