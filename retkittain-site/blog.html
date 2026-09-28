@@ -2,39 +2,427 @@
 <html lang="fi">
 <head>
 
-<script>
-  function enableGoogleAnalytics() {
-    if (window.googleAnalyticsLoaded) return;
+    <!-- Google Analytics -->
+    <script>function enableGoogleAnalytics() {
+        if (window.googleAnalyticsLoaded) return;
 
-    window.googleAnalyticsLoaded = true;
+        window.googleAnalyticsLoaded = true;
 
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag;
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
 
-    gtag('js', new Date());
+        gtag('js', new Date());
 
-    gtag('consent', 'update', {
-      'analytics_storage': 'granted'
-    });
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted'
+        });
 
-    gtag('config', 'G-SDRL34QMX7');
+        gtag('config', 'G-SDRL34QMX7');
 
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SDRL34QMX7';
-    document.head.appendChild(script);
-  }
-</script>
-    
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SDRL34QMX7';
+        document.head.appendChild(script);
+      }</script>
+
     <meta charset="UTF-8">
-    <title>Retkittäin – Blogi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blogi – Retkittäin</title>
+
+    <meta name="description" content="Retkittäinin blogi: ajatuksia luonnosta, retkeilystä, liikkumisesta ja pienistä seikkailuista.">
+
+    <link rel="canonical" href="https://retkittain.fi/blog.html">
+
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .blog-hero {
+            padding: 72px 20px 48px;
+            text-align: center;
+        }
+
+        .blog-hero-inner {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .blog-badge {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: var(--salvia, #dde5db);
+            color: var(--metsan-tumma, #203c35);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .blog-hero h1 {
+            margin: 0 0 20px;
+            color: var(--metsan-tumma, #203c35);
+        }
+
+        .blog-hero p {
+            max-width: 680px;
+            margin: 0 auto;
+            color: var(--harmaa, #65716d);
+            font-size: 1.08rem;
+            line-height: 1.7;
+        }
+
+        .blog-section {
+            padding: 20px 20px 80px;
+        }
+
+        .blog-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 28px;
+        }
+
+        .blog-card {
+            background: var(--valkoinen, #ffffff);
+            border: 1px solid var(--border, #d8ded8);
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 8px 24px rgba(32, 60, 53, 0.06);
+        }
+
+            .blog-card h2 {
+                margin: 10px 0 10px;
+                color: var(--metsan-tumma, #203c35);
+                font-size: 1.35rem;
+                line-height: 1.3;
+            }
+
+        .blog-date {
+            color: var(--harmaa, #65716d);
+            font-size: 0.9rem;
+        }
+
+        .blog-card p {
+            margin: 16px 0 22px;
+            color: var(--teksti, #26332f);
+            line-height: 1.7;
+        }
+
+        .blog-card a {
+            display: inline-block;
+            color: var(--metsan-tumma, #203c35);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .blog-card a:hover {
+                text-decoration: underline;
+            }
+
+        .blog-loading,
+        .blog-error,
+        .blog-empty {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 28px;
+            text-align: center;
+            background: var(--salvia, #dde5db);
+            border-radius: 16px;
+            color: var(--teksti, #26332f);
+        }
+
+            .blog-error a {
+                color: var(--metsan-tumma, #203c35);
+                font-weight: 700;
+            }
+
+        @media (max-width: 760px) {
+            .blog-hero {
+                padding: 56px 20px 36px;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .blog-card {
+                padding: 24px;
+            }
+        }
+    </style>
+
 </head>
+
 <body>
+
     <!-- EVÄSTEBANNERI -->
-<div id="cookieBanner">
-  Tämä sivusto käyttää evästeitä käyttökokemuksen ja sivuston kehittämiseen.
+    <div id="cookieBanner">
+        Tämä sivusto käyttää evästeitä käyttökokemuksen ja sivuston kehittämiseen.
+        <button id="acceptCookiesBtn">Hyväksyn</button>
+        <button id="rejectCookiesBtn">En hyväksy</button>
+    </div>
+
+    <!-- NAVIGAATIO -->
+    <header>
+        <div class="topbar">
+
+            <a class="brand" href="index.html">
+                <img src="img/leveabanneri_white.png" alt="Retkittäin logo">
+            </a>
+
+            <nav>
+                <a href="index.html">Etusivu</a>
+                <a href="palvelut.html">Retket</a>
+                <a href="juoksu.html">Luonto &amp; liike</a>
+                <a href="tyokalu.html">Retkityökalu</a>
+                <a href="blog.html">Blogi</a>
+                <a href="minusta.html">Minusta</a>
+                <a href="yhteys.html">Yhteys</a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+        <section class="blog-hero">
+
+            <div class="blog-hero-inner">
+
+                <div class="blog-badge">
+                    Retkittäin blogi
+                </div>
+
+                <h1>
+                    Ajatuksia luonnosta,<br>
+                    liikkumisesta ja retkeilystä.
+                </h1>
+
+                <p>
+                    Retkittäinin blogissa pohditaan luonnossa liikkumista,
+                    retkeilyä, lähiluontoa ja pieniä seikkailuja.
+                    Joskus käytännön vinkkejä, joskus ajatuksia siitä,
+                    miksi ylipäätään kannattaa lähteä ulos.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- BLOGIT -->
+        <section class="blog-section">
+
+            <div id="blogPosts" class="blog-grid">
+
+                <div class="blog-loading">
+                    Ladataan kirjoituksia…
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-inner">
+
+            <p>© Retkittäin</p>
+
+            <div class="footer-links">
+                <a href="https://www.instagram.com/retkittain/" target="_blank" rel="noopener noreferrer">
+                    Instagram
+                </a>
+
+                <a href="https://www.tiktok.com/@retkittain" target="_blank" rel="noopener noreferrer">
+                    TikTok
+                </a>
+
+                <a href="https://www.youtube.com/@retkittain" target="_blank" rel="noopener noreferrer">
+                    YouTube
+                </a>
+
+                <a href="tyokalu.html">
+                    Retkityökalu
+                </a>
+
+                <a href="tietosuoja.html">
+                    Tietosuoja
+                </a>
+
+                <a href="yhteys.html">
+                    Yhteys
+                </a>
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- BLOGIN LATAUS -->
+    <script>async function loadBlog() {
+
+            const blogPosts = document.getElementById("blogPosts");
+
+            const rssUrl = "https://retkittain.wordpress.com/feed/";
+            const api =
+                "https://api.rss2json.com/v1/api.json?rss_url=" +
+                encodeURIComponent(rssUrl);
+
+            try {
+
+                const res = await fetch(api);
+
+                if (!res.ok) {
+                    throw new Error("Blogin lataaminen epäonnistui.");
+                }
+
+                const data = await res.json();
+
+                if (!data.items || data.items.length === 0) {
+
+                    blogPosts.innerHTML = `
+                        <div class="blog-empty">
+                            <p>Blogikirjoituksia ei löytynyt juuri nyt.</p>
+                        </div>
+                    `;
+
+                    return;
+                }
+
+                let html = "";
+
+                data.items.slice(0, 6).forEach(post => {
+
+                    const tempDiv = document.createElement("div");
+                    tempDiv.innerHTML = post.description || "";
+
+                    const text =
+                        tempDiv.textContent
+                            .replace(/\s+/g, " ")
+                            .trim()
+                            .substring(0, 220);
+
+                    const date = new Date(post.pubDate)
+                        .toLocaleDateString("fi-FI");
+
+                    html += `
+                        <article class="blog-card">
+
+                            <div class="blog-date">
+                                ${date}
+                            </div>
+
+                            <h2>
+                                ${post.title}
+                            </h2>
+
+                            <p>
+                                ${text}${text.length >= 220 ? "…" : ""}
+                            </p>
+
+                            <a
+                                href="${post.link}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Lue kirjoitus →
+                            </a>
+
+                        </article>
+                    `;
+                });
+
+                blogPosts.innerHTML = html;
+
+            } catch (error) {
+
+                blogPosts.innerHTML = `
+                    <div class="blog-error">
+
+                        <p>
+                            Blogikirjoituksia ei voitu ladata juuri nyt.
+                        </p>
+
+                        <p>
+                            <a
+                                href="https://retkittain.wordpress.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Voit lukea kirjoitukset suoraan Retkittäinin blogista →
+                            </a>
+                        </p>
+
+                    </div>
+                `;
+            }
+        }
+
+        loadBlog();</script>
+
+
+    <!-- EVÄSTEBANNERI + ANALYTICS -->
+    <script>const banner = document.getElementById("cookieBanner");
+        const acceptBtn = document.getElementById("acceptCookiesBtn");
+        const rejectBtn = document.getElementById("rejectCookiesBtn");
+
+        const cookieConsent =
+            localStorage.getItem("retkittainCookieConsent");
+
+        if (
+            cookieConsent === "accepted" ||
+            cookieConsent === "rejected"
+        ) {
+            banner.style.display = "none";
+        }
+
+        acceptBtn.addEventListener("click", function () {
+
+            localStorage.setItem(
+                "retkittainCookieConsent",
+                "accepted"
+            );
+
+            banner.style.display = "none";
+
+            if (typeof enableGoogleAnalytics === "function") {
+                enableGoogleAnalytics();
+            }
+
+        });
+
+        rejectBtn.addEventListener("click", function () {
+
+            localStorage.setItem(
+                "retkittainCookieConsent",
+                "rejected"
+            );
+
+            banner.style.display = "none";
+
+        });
+
+        /*
+         * Jos käyttäjä on aiemmin hyväksynyt analytiikan,
+         * otetaan Google Analytics käyttöön myös tällä sivulla.
+         */
+        if (cookieConsent === "accepted") {
+            enableGoogleAnalytics();
+        }</script>
+
+</body>
+</html>  Tämä sivusto käyttää evästeitä käyttökokemuksen ja sivuston kehittämiseen.
   <button id="acceptCookiesBtn">Hyväksyn</button>
   <button id="rejectCookiesBtn">En hyväksy</button>
 </div>
