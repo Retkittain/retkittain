@@ -1,37 +1,460 @@
-<h1>Tietosuojaseloste</h1>
-<p>Tämä tietosuojaseloste kertoo, miten Retkittäin käsittelee henkilötietoja ja miten sivustolla käytetään analytiikkapalveluita.</p>
-<h2>Rekisterinpitäjä</h2>
-<p>Yrityksen nimi: Retkittäin</p> <p>Y-tunnus: 3461995-2</p> <p>Sähköposti: retkittain@gmail.com</p>
-<h2>Mitä tietoja käsittelemme</h2>
-<p>Voimme käsitellä seuraavia tietoja:</p>
-<h3>Yhteydenottolomake</h3>
-<ul> <li>Nimi ja sähköpostiosoite, jos asiakas ottaa yhteyttä</li> <li>Viestin sisältö</li> </ul>
-<h3>Sivuston käyttöä koskevat tiedot</h3>
-<p>Sivustolla käytetään Google Analytics 4 -palvelua sivuston käytön ja toimivuuden analysointiin. Analytiikan yhteydessä voidaan käsitellä esimerkiksi seuraavia tietoja:</p>
-<ul> <li>tietoja sivuston käytöstä ja katsotuista sivuista</li> <li>tietoja käytetystä laitteesta ja selaimesta</li> <li>IP-osoite tai siihen liittyviä teknisiä tietoja</li> <li>tietoja siitä, miten sivustolla liikutaan ja mitä toimintoja käytetään</li> </ul>
-<p>Google Analytics käsittelee tietoja omien tietosuojakäytäntöjensä mukaisesti. Retkittäin ei käytä Google Analyticsia käyttäjien henkilöllisyyden selvittämiseen.</p>
-<h2>Mihin tietoja käytetään</h2>
-<p>Tietoja käytetään seuraaviin tarkoituksiin:</p>
-<ul> <li>asiakaspalveluun ja yhteydenottoihin vastaamiseen</li> <li>palveluiden kehittämiseen</li> <li>sivuston toimivuuden ja käytön analysointiin</li> <li>sivuston sisällön kehittämiseen</li> </ul>
-<h2>Kurssien ostaminen ja maksaminen</h2>
-<p>Kurssien ostaminen ja maksaminen tapahtuu kolmannen osapuolen palvelussa, Payhipissä.</p>
-<p>Payhip toimii verkkokauppa- ja maksupalveluna ja käsittelee henkilötietoja sekä maksamiseen liittyviä tietoja omien tietosuojakäytäntöjensä mukaisesti.</p>
-<p>Payhipin palvelua käyttäessäsi tutustuthan myös Payhipin omaan tietosuojaselosteeseen.</p>
-<h2>Google Analytics</h2>
-<p>Retkittäin käyttää Google Analytics 4 -palvelua verkkosivuston käytön analysointiin ja sivuston kehittämiseen.</p>
-<p>Google Analyticsin avulla voidaan tarkastella esimerkiksi sivuston kävijämääriä, liikenteen lähteitä, sivujen käyttöä sekä muita sivuston käyttöön liittyviä tietoja.</p>
-<p>Google Analytics voi käyttää evästeitä ja muita vastaavia teknologioita tietojen keräämiseen. Analytiikan käyttöön ja mahdolliseen suostumukseen liittyvät asetukset määräytyvät sivustolla käytettävän eväste- ja suostumusratkaisun perusteella.</p>
-<p>Google toimii analytiikkapalvelun tarjoajana ja käsittelee tietoja omien tietosuojakäytäntöjensä mukaisesti.</p>
-<h2>Tietojen säilytys</h2>
-<p>Henkilötietoja säilytetään vain niin kauan kuin se on tarpeellista käsittelyn tarkoituksen kannalta tai lain perusteella edellytetään.</p>
-<p>Kirjanpitoon liittyviä tietoja säilytetään kirjanpitolainsäädännön edellyttämän ajan.</p>
-<p>Google Analyticsin analytiikkatietoja säilytetään palvelun asetusten mukaisesti.</p>
-<h2>Kolmannet osapuolet</h2>
-<p>Retkittäin käyttää palveluntarjoajia, jotka voivat käsitellä tietoja palveluiden tuottamisen yhteydessä. Näitä ovat esimerkiksi:</p>
-<ul> <li>Google Analytics – verkkosivuston analytiikka</li> <li>Payhip – kurssien verkkokauppa ja maksaminen</li> <li>verkkosivuston tekninen palveluntarjoaja – verkkosivuston ylläpito ja tekninen toteutus</li> </ul>
-<h2>Oikeutesi</h2>
-<p>Sinulla on soveltuvan tietosuojalainsäädännön mukaisesti oikeus pyytää pääsyä henkilötietoihisi sekä niiden oikaisemista tai poistamista silloin, kun siihen on lain mukainen peruste.</p>
-<p>Sinulla voi olla myös muita tietosuoja-asetuksen mukaisia oikeuksia, kuten oikeus pyytää henkilötietojen käsittelyn rajoittamista tai vastustaa käsittelyä tilanteissa, joissa lainsäädäntö antaa siihen oikeuden.</p>
-<p>Tietopyynnöt voi lähettää osoitteeseen: retkittain@gmail.com</p>
-<h2>Yhteystiedot</h2>
-<p> Retkittäin<br> Sähköposti: retkittain@gmail.com </p>
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tietosuojaseloste – Retkittäin</title>
+
+    <meta name="description" content="Retkittäinin tietosuojaseloste. Tietoa henkilötietojen käsittelystä, yhteydenottolomakkeesta, Google Analyticsista ja kolmansien osapuolten palveluista.">
+
+    <link rel="canonical" href="https://retkittain.fi/tietosuoja.html">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .privacy-hero {
+            padding: 65px 20px 40px;
+            text-align: center;
+        }
+
+        .privacy-hero-inner {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .privacy-badge {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: var(--salvia, #dde5db);
+            color: var(--metsan-tumma, #203c35);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .privacy-hero h1 {
+            margin: 0 0 18px;
+            color: var(--metsan-tumma, #203c35);
+        }
+
+        .privacy-hero p {
+            max-width: 680px;
+            margin: 0 auto;
+            color: var(--harmaa, #65716d);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .privacy-section {
+            padding: 15px 20px 75px;
+        }
+
+        .privacy-content {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px;
+            background: var(--valkoinen, #ffffff);
+            border: 1px solid var(--border, #d8ded8);
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(32, 60, 53, 0.05);
+        }
+
+            .privacy-content h2 {
+                margin: 32px 0 12px;
+                color: var(--metsan-tumma, #203c35);
+                font-size: 1.35rem;
+            }
+
+                .privacy-content h2:first-child {
+                    margin-top: 0;
+                }
+
+            .privacy-content h3 {
+                margin: 24px 0 8px;
+                color: var(--metsan-vihrea, #3e6b5c);
+                font-size: 1.05rem;
+            }
+
+            .privacy-content p {
+                margin: 0 0 14px;
+                color: var(--teksti, #26332f);
+                line-height: 1.75;
+            }
+
+            .privacy-content ul {
+                margin: 8px 0 18px;
+                padding-left: 22px;
+                color: var(--teksti, #26332f);
+            }
+
+            .privacy-content li {
+                margin-bottom: 8px;
+                line-height: 1.6;
+            }
+
+        .privacy-contact {
+            margin-top: 30px;
+            padding: 22px;
+            background: var(--salvia, #dde5db);
+            border-radius: 14px;
+        }
+
+            .privacy-contact p {
+                margin-bottom: 5px;
+            }
+
+        .privacy-content a {
+            color: var(--metsan-tumma, #203c35);
+            font-weight: 600;
+        }
+
+        .privacy-updated {
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border, #d8ded8);
+            color: var(--harmaa, #65716d);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 700px) {
+            .privacy-hero {
+                padding: 50px 20px 30px;
+            }
+
+            .privacy-content {
+                padding: 28px 22px;
+                border-radius: 16px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVIGAATIO -->
+    <header>
+        <div class="topbar">
+
+            <a class="brand" href="index.html">
+                <img src="img/leveabanneri_white.png" alt="Retkittäin logo">
+            </a>
+
+            <nav>
+                <a href="index.html">Etusivu</a>
+                <a href="palvelut.html">Retket</a>
+                <a href="juoksu.html">Luonto &amp; liike</a>
+                <a href="tyokalu.html">Retkityökalu</a>
+                <a href="blog.html">Blogi</a>
+                <a href="minusta.html">Minusta</a>
+                <a href="yhteys.html">Yhteys</a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="privacy-hero">
+
+            <div class="privacy-hero-inner">
+
+                <div class="privacy-badge">
+                    Retkittäin
+                </div>
+
+                <h1>Tietosuojaseloste</h1>
+
+                <p>
+                    Tässä selosteessa kerrotaan, miten Retkittäin käsittelee
+                    henkilötietoja ja miten verkkosivustolla käytetään
+                    analytiikkapalveluita.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="privacy-section">
+
+            <div class="privacy-content">
+
+                <h2>Rekisterinpitäjä</h2>
+
+                <p>
+                    <strong>Yrityksen nimi:</strong> Retkittäin
+                </p>
+
+                <p>
+                    <strong>Y-tunnus:</strong> 3461995-2
+                </p>
+
+                <p>
+                    <strong>Sähköposti:</strong>
+                    <a href="mailto:retkittain@gmail.com">
+                        retkittain@gmail.com
+                    </a>
+                </p>
+
+
+                <h2>Mitä tietoja käsittelemme?</h2>
+
+                <h3>Yhteydenottolomake</h3>
+
+                <p>
+                    Kun lähetät Retkittäinin verkkosivuston yhteydenottolomakkeen,
+                    voimme käsitellä seuraavia tietoja:
+                </p>
+
+                <ul>
+                    <li>nimi</li>
+                    <li>sähköpostiosoite</li>
+                    <li>viestin sisältö</li>
+                    <li>muut tiedot, jotka annat itse viestissäsi</li>
+                </ul>
+
+
+                <h3>Sivuston käyttöä koskevat tiedot</h3>
+
+                <p>
+                    Sivustolla käytetään Google Analytics 4 -palvelua
+                    verkkosivuston käytön, toimivuuden ja sisällön
+                    kehittämiseen.
+                </p>
+
+                <p>
+                    Analytiikan yhteydessä voidaan käsitellä esimerkiksi
+                    tietoja sivuston käytöstä, katsotuista sivuista,
+                    liikenteen lähteistä sekä käytetystä laitteesta ja
+                    selaimesta.
+                </p>
+
+                <p>
+                    Google Analytics ei Googlen ilmoituksen mukaan lokita tai
+                    tallenna EU-alueen käyttäjien IP-osoitteita. IP-osoitetta
+                    voidaan kuitenkin käyttää teknisesti esimerkiksi
+                    sijaintitiedon johtamiseen ennen sen poistamista
+                    käsittelystä.
+                </p>
+
+
+                <h2>Mihin tietoja käytetään?</h2>
+
+                <p>
+                    Tietoja voidaan käyttää seuraaviin tarkoituksiin:
+                </p>
+
+                <ul>
+                    <li>yhteydenottoihin vastaamiseen ja asiakaspalveluun</li>
+                    <li>retkien ja muiden palveluiden suunnitteluun ja toteuttamiseen</li>
+                    <li>palveluiden kehittämiseen</li>
+                    <li>verkkosivuston toimivuuden ja käytön analysointiin</li>
+                    <li>verkkosivuston sisällön kehittämiseen</li>
+                </ul>
+
+
+                <h2>Kurssien ostaminen ja maksaminen</h2>
+
+                <p>
+                    Retkittäinin verkkosivustolla tarjottavien digitaalisten
+                    kurssien ostaminen ja maksaminen tapahtuu Payhip-palvelussa.
+                </p>
+
+                <p>
+                    Payhip toimii verkkokauppa- ja maksupalveluna ja käsittelee
+                    ostamiseen sekä maksamiseen liittyviä tietoja omien
+                    käytäntöjensä mukaisesti.
+                </p>
+
+                <p>
+                    Payhip-palvelua käyttäessäsi tutustuthan myös Payhipin
+                    omaan tietosuojaselosteeseen.
+                </p>
+
+
+                <h2>Google Analytics</h2>
+
+                <p>
+                    Retkittäin käyttää Google Analytics 4 -palvelua
+                    verkkosivuston käytön analysointiin ja sivuston
+                    kehittämiseen.
+                </p>
+
+                <p>
+                    Google Analyticsin avulla voidaan tarkastella esimerkiksi
+                    kävijämääriä, liikenteen lähteitä, sivujen käyttöä ja
+                    muita verkkosivuston käyttöön liittyviä tietoja.
+                </p>
+
+                <p>
+                    Analytiikan käyttö edellyttää sivustolla käyttäjän
+                    suostumusta. Kun käyttäjä hyväksyy analytiikan käytön,
+                    sivusto välittää Google Analyticsille suostumussignaalin
+                    ja ottaa analytiikan käyttöön.
+                </p>
+
+                <p>
+                    Jos käyttäjä ei hyväksy analytiikkaa, Retkittäin ei ota
+                    Google Analyticsia käyttöön kyseisessä selaimessa.
+                    Google Analyticsin suostumusasetukset perustuvat Googlen
+                    Consent Mode -ratkaisuun.
+                </p>
+
+
+                <h2>Tietojen säilytys</h2>
+
+                <p>
+                    Henkilötietoja säilytetään vain niin kauan kuin se on
+                    tarpeellista käsittelyn tarkoituksen kannalta tai
+                    lainsäädäntö edellyttää niiden säilyttämistä.
+                </p>
+
+                <p>
+                    Kirjanpitoon liittyviä tietoja säilytetään
+                    kirjanpitolainsäädännön edellyttämän ajan.
+                </p>
+
+                <p>
+                    Google Analyticsin analytiikkatietoja säilytetään
+                    Google Analytics -palvelun asetusten mukaisesti.
+                </p>
+
+
+                <h2>Kolmannet osapuolet</h2>
+
+                <p>
+                    Retkittäin käyttää palveluntarjoajia, jotka voivat
+                    käsitellä tietoja palveluiden tuottamisen yhteydessä.
+                    Näitä ovat esimerkiksi:
+                </p>
+
+                <ul>
+                    <li>
+                        <strong>Google Analytics</strong> –
+                        verkkosivuston analytiikka
+                    </li>
+
+                    <li>
+                        <strong>Payhip</strong> –
+                        digitaalisten kurssien verkkokauppa ja maksaminen
+                    </li>
+
+                    <li>
+                        <strong>Formspree</strong> –
+                        yhteydenottolomakkeen tekninen käsittely
+                    </li>
+
+                    <li>
+                        <strong>verkkosivuston tekniset palveluntarjoajat</strong> –
+                        verkkosivuston ylläpito ja tekninen toteutus
+                    </li>
+                </ul>
+
+
+                <h2>Oikeutesi</h2>
+
+                <p>
+                    Soveltuvan tietosuojalainsäädännön mukaisesti sinulla
+                    voi olla oikeus pyytää pääsyä henkilötietoihisi,
+                    tietojesi oikaisemista tai poistamista sekä tietyissä
+                    tilanteissa käsittelyn rajoittamista tai käsittelyn
+                    vastustamista.
+                </p>
+
+                <p>
+                    Oikeutesi riippuvat käsittelyn oikeusperusteesta ja
+                    sovellettavasta lainsäädännöstä.
+                </p>
+
+
+                <div class="privacy-contact">
+
+                    <p>
+                        <strong>Tietopyynnöt ja tietosuojaa koskevat kysymykset</strong>
+                    </p>
+
+                    <p>
+                        <a href="mailto:retkittain@gmail.com">
+                            retkittain@gmail.com
+                        </a>
+                    </p>
+
+                </div>
+
+
+                <h2>Yhteystiedot</h2>
+
+                <p>
+                    Retkittäin<br>
+                    Sähköposti:
+                    <a href="mailto:retkittain@gmail.com">
+                        retkittain@gmail.com
+                    </a>
+                </p>
+
+
+                <p class="privacy-updated">
+                    Tätä tietosuojaselostetta päivitetään tarvittaessa,
+                    jos Retkittäinin palvelut, tietojenkäsittely tai
+                    käytetyt tekniset ratkaisut muuttuvat.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-inner">
+
+            <p>© Retkittäin</p>
+
+            <div class="footer-links">
+
+                <a href="https://www.instagram.com/retkittain/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Instagram
+                </a>
+
+                <a href="https://www.tiktok.com/@retkittain"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    TikTok
+                </a>
+
+                <a href="https://www.youtube.com/@retkittain"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    YouTube
+                </a>
+
+                <a href="tyokalu.html">
+                    Retkityökalu
+                </a>
+
+                <a href="tietosuoja.html">
+                    Tietosuoja
+                </a>
+
+                <a href="yhteys.html">
+                    Yhteys
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
