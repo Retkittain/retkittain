@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-    
-    <script>
-  function enableGoogleAnalytics() {
-    if (window.googleAnalyticsLoaded) return;
 
-    window.googleAnalyticsLoaded = true;
+    <!-- Google Analytics – latautuu vasta evästesuostumuksen jälkeen -->
+    <script>function enableGoogleAnalytics() {
+            if (window.googleAnalyticsLoaded) return;
 
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag;
+            window.googleAnalyticsLoaded = true;
 
-    gtag('js', new Date());
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
 
-    gtag('consent', 'update', {
-      'analytics_storage': 'granted'
-    });
+            gtag('js', new Date());
 
-    gtag('config', 'G-SDRL34QMX7');
+            gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+            });
 
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SDRL34QMX7';
-    document.head.appendChild(script);
-  }
-</script>
+            gtag('config', 'G-SDRL34QMX7');
+
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SDRL34QMX7';
+            document.head.appendChild(script);
+        }</script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Aloita juoksu luonnossa omalla tahdilla — ilmainen minikurssi sekä ohjatut peruskurssi ja jatkokurssi aloittelijoille. Retkittäin." />
-    <link rel="canonical" href="https://retkittain.fi/juoksu" />
-    <title>Juoksu askel kerrallaan – Retkittäin</title>
+
+    <meta name="description"
+          content="Luontoa, liikettä ja oma tapa olla aktiivinen. Retkittäinin juoksukurssit auttavat aloittamaan juoksun rauhassa ja omalla tahdilla." />
+
+    <link rel="canonical"
+          href="https://retkittain.fi/juoksu.html" />
+
+    <title>Luonto & liike – Retkittäin</title>
+
     <style>
+
         :root {
-            --vihrea: #2d6a4f;
-            --vihrea-tumma: #1b4332;
-            --vihrea-vaalea: #d8f3dc;
-            --teksti: #1a1a1a;
-            --harmaa: #555;
-            --taustaharmonia: #f8faf8;
+            --metsan-tumma: #203c35;
+            --metsan-vihrea: #3e6b5c;
+            --sammal: #71866d;
+            --salvia: #dde5db;
+            --hiekka: #e9e2d4;
+            --luu: #f7f4ed;
+            --teksti: #26332f;
+            --harmaa: #65716d;
             --valkoinen: #ffffff;
-            --korostus: #f4a261;
+            --border: #d8ded8;
+            --korostus: #b58b52;
         }
 
         * {
@@ -49,783 +59,1404 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: var(--valkoinen);
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--luu);
             color: var(--teksti);
             line-height: 1.7;
         }
 
-        /* NAV */
-        nav {
-            background: var(--vihrea-tumma);
-            padding: 1rem 2rem;
+        a {
+            color: inherit;
+        }
+
+        /* =========================
+           NAVIGAATIO
+        ========================= */
+
+        header {
+            background: var(--metsan-tumma);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .topbar {
+            max-width: 1180px;
+            margin: 0 auto;
+            min-height: 76px;
+            padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
+            gap: 24px;
         }
 
-            nav a.logo img {
-                height: 40px;
+        .brand {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+            .brand img {
+                width: auto;
+                height: 42px;
+                display: block;
             }
 
-            nav ul {
-                list-style: none;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.25rem;
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+            nav a {
+                color: rgba(255, 255, 255, 0.88);
+                text-decoration: none;
+                font-size: 0.92rem;
+                padding: 8px 10px;
+                border-radius: 7px;
+                transition: background 0.2s ease, color 0.2s ease;
             }
 
-                nav ul li a {
-                    color: #cde;
-                    text-decoration: none;
-                    font-size: 0.9rem;
-                    padding: 0.3rem 0.6rem;
-                    border-radius: 4px;
-                    transition: background 0.2s;
+                nav a:hover,
+                nav a.active {
+                    background: rgba(255, 255, 255, 0.12);
+                    color: var(--valkoinen);
                 }
 
-                    nav ul li a:hover, nav ul li a.aktiivinen {
-                        background: rgba(255,255,255,0.15);
-                        color: #fff;
-                    }
-        /* EVÄSTEBANNERI */
-#cookieBanner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-    background: var(--vihrea-tumma);
-    color: white;
-    padding: 14px 20px;
-    text-align: center;
-    font-size: 14px;
-    line-height: 1.5;
-    z-index: 9999;
-}
+        /* =========================
+           YLEISET
+        ========================= */
 
-#acceptCookiesBtn,
-#rejectCookiesBtn {
-    margin-left: 8px;
-    padding: 7px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-}
+        .container {
+            width: min(1100px, calc(100% - 40px));
+            margin: 0 auto;
+        }
 
-#acceptCookiesBtn {
-    border: 1px solid white;
-    background: white;
-    color: var(--vihrea-tumma);
-}
+        .section {
+            padding: 78px 0;
+        }
 
-#rejectCookiesBtn {
-    border: 1px solid rgba(255,255,255,0.75);
-    background: transparent;
-    color: white;
-}
+        .section-alt {
+            background: var(--hiekka);
+        }
 
-#acceptCookiesBtn:hover {
-    background: #f0f0f0;
-}
+        .section-soft {
+            background: var(--salvia);
+        }
 
-#rejectCookiesBtn:hover {
-    background: rgba(255,255,255,0.1);
-}
+        .eyebrow {
+            color: var(--sammal);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
 
-        /* HERO */
+        h1,
+        h2,
+        h3 {
+            line-height: 1.2;
+        }
+
+        h2 {
+            color: var(--metsan-tumma);
+            font-size: clamp(1.8rem, 4vw, 2.45rem);
+            margin-bottom: 14px;
+        }
+
+        h3 {
+            color: var(--metsan-tumma);
+        }
+
+        .lead {
+            color: var(--harmaa);
+            font-size: 1.1rem;
+            max-width: 720px;
+        }
+
+        .section-heading {
+            max-width: 720px;
+            margin-bottom: 38px;
+        }
+
+        .muted {
+            color: var(--harmaa);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
         .hero {
-            background: linear-gradient(135deg, var(--vihrea-tumma) 0%, var(--vihrea) 100%);
-            color: white;
-            padding: 4rem 2rem 3rem;
-            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient( 135deg, var(--metsan-tumma) 0%, var(--metsan-vihrea) 100% );
+            color: var(--valkoinen);
+            padding: 94px 0 86px;
+        }
+
+            .hero::after {
+                content: "";
+                position: absolute;
+                width: 420px;
+                height: 420px;
+                right: -180px;
+                top: -180px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.045);
+            }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 790px;
         }
 
         .hero-badge {
             display: inline-block;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: #d8f3dc;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+            padding: 7px 13px;
+            border: 1px solid rgba(255,255,255,0.24);
+            border-radius: 999px;
+            background: rgba(255,255,255,0.10);
+            color: #edf3eb;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
             text-transform: uppercase;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            margin-bottom: 1.5rem;
         }
 
         .hero h1 {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: var(--valkoinen);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 700;
-            margin-bottom: 1rem;
-            line-height: 1.2;
+            letter-spacing: -0.025em;
+            margin-bottom: 22px;
         }
 
         .hero p {
-            font-size: 1.1rem;
-            color: #b7e4c7;
-            max-width: 580px;
-            margin: 0 auto 2rem;
+            max-width: 690px;
+            color: rgba(255,255,255,0.84);
+            font-size: 1.16rem;
+            line-height: 1.75;
+            margin-bottom: 30px;
         }
 
-        .hero-napit {
+        .hero-buttons {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
             flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .nappi-vaalea {
-            background: white;
-            color: var(--vihrea-tumma);
-            padding: 0.8rem 1.8rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: transform 0.15s, box-shadow 0.15s;
-        }
-
-            .nappi-vaalea:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-            }
-
-        .nappi-outline {
-            background: transparent;
-            color: white;
-            border: 2px solid rgba(255,255,255,0.6);
-            padding: 0.8rem 1.8rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: background 0.2s;
-        }
-
-            .nappi-outline:hover {
-                background: rgba(255,255,255,0.1);
-            }
-
-        /* SECTIONS */
-        section {
-            padding: 3.5rem 1.5rem;
-        }
-
-            section:nth-child(even) {
-                background: var(--taustaharmonia);
-            }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            font-size: clamp(1.4rem, 3vw, 2rem);
-            color: var(--vihrea-tumma);
-            margin-bottom: 0.5rem;
-        }
-
-        .alaotsikko {
-            color: var(--harmaa);
-            margin-bottom: 2.5rem;
-            font-size: 1.05rem;
-        }
-
-        /* POLKU */
-        .polku {
-            display: flex;
+        .btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0;
-            flex-wrap: wrap;
-            margin: 2rem 0;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
         }
 
-        .polku-askel {
-            text-align: center;
-            padding: 1.25rem 1.5rem;
-            background: white;
-            border: 2px solid #e0ede6;
+            .btn:hover {
+                transform: translateY(-1px);
+            }
+
+        .btn-primary {
+            background: var(--valkoinen);
+            color: var(--metsan-tumma);
+        }
+
+            .btn-primary:hover {
+                box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+            }
+
+        .btn-outline {
+            color: var(--valkoinen);
+            border: 1px solid rgba(255,255,255,0.55);
+            background: transparent;
+        }
+
+            .btn-outline:hover {
+                background: rgba(255,255,255,0.10);
+            }
+
+        .btn-green {
+            background: var(--metsan-vihrea);
+            color: var(--valkoinen);
+        }
+
+            .btn-green:hover {
+                background: var(--metsan-tumma);
+            }
+
+        .btn-secondary {
+            background: var(--hiekka);
+            color: var(--metsan-tumma);
+            border: 1px solid var(--border);
+        }
+
+            .btn-secondary:hover {
+                background: var(--salvia);
+            }
+
+        /* =========================
+           LUONTO & LIIKE
+        ========================= */
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .intro-text p {
+            color: var(--harmaa);
+            margin-bottom: 16px;
+        }
+
+        .idea-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .idea-item {
+            padding: 18px 20px;
+            background: var(--valkoinen);
+            border: 1px solid var(--border);
             border-radius: 10px;
-            min-width: 160px;
-            flex: 1;
-            max-width: 220px;
         }
 
-            .polku-askel.ilmainen {
-                border-color: var(--vihrea);
+            .idea-item strong {
+                display: block;
+                color: var(--metsan-tumma);
+                margin-bottom: 4px;
             }
 
-            .polku-askel .hinta {
-                font-size: 1.4rem;
-                font-weight: 800;
-                color: var(--vihrea-tumma);
-                margin-bottom: 0.2rem;
-            }
-
-                .polku-askel .hinta.ilmainen-hinta {
-                    color: var(--vihrea);
-                }
-
-            .polku-askel p {
-                font-size: 0.85rem;
+            .idea-item span {
                 color: var(--harmaa);
+                font-size: 0.94rem;
             }
 
-        .polku-nuoli {
-            font-size: 1.5rem;
-            color: #95d5b2;
-            padding: 0 0.5rem;
-            flex-shrink: 0;
+        /* =========================
+           KURSSIT
+        ========================= */
+
+        .courses {
+            display: grid;
+            gap: 22px;
         }
 
-        /* KURSSIKORTIT */
-        .kurssit {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .kurssikortti {
-            background: white;
-            border: 1px solid #e0ede6;
+        .course-card {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            background: var(--valkoinen);
+            border: 1px solid var(--border);
             border-radius: 14px;
             overflow: hidden;
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            transition: box-shadow 0.2s;
+            box-shadow: 0 4px 16px rgba(32,60,53,0.035);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
         }
 
-            .kurssikortti:hover {
-                box-shadow: 0 6px 24px rgba(45,106,79,0.1);
+            .course-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 9px 28px rgba(32,60,53,0.08);
             }
 
-        .kurssi-vasen {
-            background: linear-gradient(160deg, var(--vihrea-tumma), var(--vihrea));
-            color: white;
-            padding: 2rem 1.5rem;
+        .course-side {
+            padding: 28px 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            background: linear-gradient( 160deg, var(--metsan-tumma), var(--metsan-vihrea) );
+            color: var(--valkoinen);
         }
 
-            .kurssi-vasen.ilmainen-bg {
-                background: linear-gradient(160deg, #1b4332, #40916c);
-            }
+        .course-card.free .course-side {
+            background: linear-gradient( 160deg, #304e43, #71866d );
+        }
 
-        .kurssi-tag {
-            font-size: 0.75rem;
+        .course-tag {
+            color: #dce9df;
+            font-size: 0.74rem;
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #b7e4c7;
-            margin-bottom: 0.5rem;
+            margin-bottom: 9px;
         }
 
-        .kurssi-vasen h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
+        .course-side h3 {
+            color: var(--valkoinen);
+            font-size: 1.28rem;
+            margin-bottom: 9px;
         }
 
-        .kurssi-vasen .kesto {
-            font-size: 0.85rem;
-            color: #b7e4c7;
-            margin-bottom: 1.5rem;
+        .course-duration {
+            color: rgba(255,255,255,0.74);
+            font-size: 0.88rem;
         }
 
-        .kurssi-hinta {
+        .course-price {
+            margin-top: 30px;
             font-size: 2rem;
-            font-weight: 900;
+            font-weight: 800;
         }
 
-        .kurssi-hinta-selite {
+        .course-price-note {
+            color: rgba(255,255,255,0.72);
             font-size: 0.8rem;
-            color: #b7e4c7;
-            margin-top: 0.1rem;
         }
 
-        .kurssi-oikea {
-            padding: 2rem;
+        .course-content {
+            padding: 30px;
         }
 
-            .kurssi-oikea p {
-                font-size: 0.95rem;
-                color: #444;
-                margin-bottom: 1.25rem;
-                line-height: 1.65;
+            .course-content p {
+                color: var(--harmaa);
+                margin-bottom: 20px;
             }
 
-        .kurssi-lista {
+        .course-list {
             list-style: none;
-            margin-bottom: 1.5rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.3rem 1rem;
+            gap: 8px 22px;
+            margin-bottom: 24px;
         }
 
-            .kurssi-lista li {
-                font-size: 0.9rem;
-                color: #555;
-                padding-left: 1.3rem;
+            .course-list li {
                 position: relative;
+                padding-left: 22px;
+                color: var(--harmaa);
+                font-size: 0.92rem;
             }
 
-                .kurssi-lista li::before {
+                .course-list li::before {
                     content: "✓";
                     position: absolute;
                     left: 0;
-                    color: var(--vihrea);
-                    font-weight: 700;
+                    top: 0;
+                    color: var(--metsan-vihrea);
+                    font-weight: 800;
                 }
 
-        .kurssi-nappi {
-            display: inline-block;
-            padding: 0.75rem 1.75rem;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: transform 0.15s, box-shadow 0.15s;
-            cursor: pointer;
-            border: none;
+        /* =========================
+           KENELLE
+        ========================= */
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
         }
 
-            .kurssi-nappi.vihrea {
-                background: var(--vihrea);
-                color: white;
-            }
-
-                .kurssi-nappi.vihrea:hover {
-                    background: var(--vihrea-tumma);
-                    transform: translateY(-1px);
-                }
-
-            .kurssi-nappi.outline {
-                background: white;
-                color: var(--vihrea-tumma);
-                border: 2px solid var(--vihrea);
-            }
-
-                .kurssi-nappi.outline:hover {
-                    background: var(--vihrea-vaalea);
-                }
-
-        /* JONO-MODAL */
-        .modal-tausta {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-            .modal-tausta.auki {
-                display: flex;
-            }
-
-        .modal {
-            background: white;
+        .audience-card {
+            padding: 26px 24px;
+            background: var(--valkoinen);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 2rem;
-            max-width: 460px;
-            width: 100%;
-            position: relative;
         }
 
-            .modal h3 {
-                color: var(--vihrea-tumma);
-                font-size: 1.2rem;
-                margin-bottom: 0.5rem;
+            .audience-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 8px;
             }
 
-            .modal p {
+            .audience-card p {
+                color: var(--harmaa);
+                font-size: 0.94rem;
+            }
+
+        /* =========================
+           UKK
+        ========================= */
+
+        .faq {
+            max-width: 820px;
+        }
+
+        .faq-item {
+            padding: 22px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+            .faq-item:first-child {
+                border-top: 1px solid var(--border);
+            }
+
+            .faq-item h3 {
+                font-size: 1.05rem;
+                margin-bottom: 7px;
+            }
+
+            .faq-item p {
                 color: var(--harmaa);
                 font-size: 0.95rem;
-                margin-bottom: 1.25rem;
             }
 
-        .modal-sulje {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.4rem;
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            background: var(--metsan-tumma);
+            color: var(--valkoinen);
+            padding: 78px 0;
+        }
+
+        .cta-inner {
+            max-width: 760px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            color: var(--valkoinen);
+        }
+
+        .cta p {
+            color: rgba(255,255,255,0.78);
+            margin: 0 auto 28px;
+            max-width: 650px;
+        }
+
+        /* =========================
+           EVÄSTEBANNERI
+        ========================= */
+
+        #cookieBanner {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            z-index: 9999;
+            padding: 14px 20px;
+            background: var(--metsan-tumma);
+            color: var(--valkoinen);
+            text-align: center;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            box-shadow: 0 -4px 18px rgba(0,0,0,0.10);
+        }
+
+        #acceptCookiesBtn,
+        #rejectCookiesBtn {
+            margin-left: 8px;
+            padding: 7px 16px;
+            border-radius: 6px;
             cursor: pointer;
-            color: var(--harmaa);
-        }
-
-        .modal input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #c8ddd0;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            margin-bottom: 0.75rem;
-            font-family: inherit;
-        }
-
-            .modal input:focus {
-                outline: none;
-                border-color: var(--vihrea);
-            }
-
-        .modal .laheta {
-            width: 100%;
-            background: var(--vihrea);
-            color: white;
-            border: none;
-            padding: 0.85rem;
-            border-radius: 6px;
-            font-size: 1rem;
+            font: inherit;
+            font-size: 0.88rem;
             font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
         }
 
-            .modal .laheta:hover {
-                background: var(--vihrea-tumma);
-            }
-
-        .modal-kiitos {
-            display: none;
-            text-align: center;
-            padding: 1rem 0;
+        #acceptCookiesBtn {
+            border: 1px solid var(--valkoinen);
+            background: var(--valkoinen);
+            color: var(--metsan-tumma);
         }
 
-            .modal-kiitos h3 {
-                color: var(--vihrea);
-                margin-bottom: 0.5rem;
-            }
-
-        /* UKK */
-        .ukk-lista {
-            margin-top: 1.5rem;
+        #rejectCookiesBtn {
+            border: 1px solid rgba(255,255,255,0.65);
+            background: transparent;
+            color: var(--valkoinen);
         }
 
-        .ukk-item {
-            border-bottom: 1px solid #e0ede6;
-            padding: 1.25rem 0;
+        #acceptCookiesBtn:hover {
+            background: var(--salvia);
         }
 
-            .ukk-item h3 {
-                font-size: 1rem;
-                color: var(--vihrea-tumma);
-                margin-bottom: 0.4rem;
-            }
-
-            .ukk-item p {
-                font-size: 0.95rem;
-                color: #555;
-            }
-
-        /* CTA-PALKKI */
-        .cta-palkki {
-            background: var(--vihrea-tumma);
-            color: white;
-            text-align: center;
-            padding: 3rem 1.5rem;
+        #rejectCookiesBtn:hover {
+            background: rgba(255,255,255,0.08);
         }
 
-            .cta-palkki h2 {
-                color: white;
-                margin-bottom: 0.75rem;
-            }
+        /* =========================
+           FOOTER
+        ========================= */
 
-            .cta-palkki p {
-                color: #b7e4c7;
-                margin-bottom: 2rem;
-                font-size: 1.05rem;
-            }
-
-        /* FOOTER */
         footer {
-            background: #111e17;
-            color: #b7e4c7;
+            background: #172823;
+            color: rgba(255,255,255,0.72);
+            padding: 34px 20px 40px;
             text-align: center;
-            padding: 2rem 1rem;
             font-size: 0.9rem;
         }
 
-            footer a {
-                color: #b7e4c7;
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px 22px;
+            margin-bottom: 15px;
+        }
+
+            .footer-links a {
+                color: rgba(255,255,255,0.78);
                 text-decoration: none;
-                margin: 0 0.5rem;
             }
 
-                footer a:hover {
-                    color: white;
+                .footer-links a:hover {
+                    color: var(--valkoinen);
                 }
 
-        @media (max-width: 680px) {
-            .kurssikortti {
+        .footer-tagline {
+            color: rgba(255,255,255,0.52);
+        }
+
+        /* =========================
+           MOBIILI
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-top: 15px;
+                padding-bottom: 15px;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .intro-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .course-card {
                 grid-template-columns: 1fr;
             }
 
-            .kurssi-vasen {
-                padding: 1.5rem;
+            .course-side {
+                padding: 24px;
             }
 
-            .kurssi-lista {
+            .course-content {
+                padding: 25px;
+            }
+
+            .audience-grid {
                 grid-template-columns: 1fr;
             }
+        }
 
-            .polku-nuoli {
-                transform: rotate(90deg);
+        @media (max-width: 600px) {
+
+            .container {
+                width: min(100% - 28px, 1100px);
             }
 
-            .polku {
+            .section {
+                padding: 58px 0;
+            }
+
+            .hero {
+                padding: 68px 0 62px;
+            }
+
+                .hero h1 {
+                    font-size: clamp(2.25rem, 12vw, 3.2rem);
+                }
+
+                .hero p {
+                    font-size: 1rem;
+                }
+
+            .hero-buttons {
                 flex-direction: column;
                 align-items: stretch;
             }
 
-            .polku-askel {
-                max-width: 100%;
+            .btn {
+                width: 100%;
+            }
+
+            .course-list {
+                grid-template-columns: 1fr;
+            }
+
+            #cookieBanner {
+                padding: 13px 14px 16px;
+                font-size: 0.82rem;
+            }
+
+            #acceptCookiesBtn,
+            #rejectCookiesBtn {
+                margin-top: 9px;
+                margin-left: 4px;
+                margin-right: 4px;
+            }
+
+            nav a {
+                font-size: 0.84rem;
+                padding: 7px 8px;
+            }
+
+            .brand img {
+                height: 38px;
             }
         }
     </style>
 </head>
+
+
 <body>
-    
-<!-- EVÄSTEBANNERI -->
-<div id="cookieBanner">
-  Tämä sivusto käyttää evästeitä käyttökokemuksen ja sivuston kehittämiseen.
-  <button id="acceptCookiesBtn">Hyväksyn</button>
-  <button id="rejectCookiesBtn">En hyväksy</button>
-</div>
-    
-    <!-- NAV -->
-    <nav>
-        <a class="logo" href="https://retkittain.fi/">
-            <img src="https://retkittain.fi/img/leveabanneri_white.png" alt="Retkittäin logo" />
-        </a>
-        <ul>
-            <li></li>
-            <a href="index.html">Etusivu</a></li>
-            <li><a href="tyokalu.html">Retkityökalu</a></li>
-            <li><a href="juoksu.html">Juoksu</a></li>
-            <li><a href="palvelut.html">Palvelut</a></li>
-            <li><a href="blog.html">Blogi</a></li>
-            <li><a href="minusta.html">Minusta</a></li>
-            <li><a href="yhteys.html">Yhteys</a></li>
-        </ul>
-    </nav>
 
-    <!-- HERO -->
-    <div class="hero">
-        <div class="hero-badge">🏃 Juoksukurssit aloittelijoille</div>
-        <h1>Aloita juoksu luonnossa —<br>omalla tahdilla</h1>
-        <p>Ei suorituspaineita, ei kelloja, ei tavoitteita. Vain sinä, metsä ja askel kerrallaan eteenpäin.</p>
-        <div class="hero-napit">
-            <a href="https://payhip.com/b/Ckc5Z" class="nappi-vaalea">Lataa ilmainen minikurssi</a>
-            <a href="#kurssit" class="nappi-outline">Katso kaikki kurssit</a>
+    <!-- =========================
+         NAVIGAATIO
+    ========================= -->
+
+    <header>
+        <div class="topbar">
+
+            <a class="brand" href="index.html">
+                <img src="img/leveabanneri_white.png"
+                     alt="Retkittäin logo">
+            </a>
+
+            <nav>
+                <a href="index.html">Etusivu</a>
+                <a href="palvelut.html">Retket</a>
+                <a href="juoksu.html" class="active">Luonto & liike</a>
+                <a href="tyokalu.html">Retkityökalu</a>
+                <a href="blog.html">Blogi</a>
+                <a href="minusta.html">Minusta</a>
+                <a href="yhteys.html">Yhteys</a>
+            </nav>
+
         </div>
-    </div>
+    </header>
 
-    <!-- POLKU -->
-    <section>
-        <div class="container">
-            <h2>Kolme askelta matkalla juoksijaksi</h2>
-            <p class="alaotsikko">Aloita ilmaiseksi. Etene omaan tahtiisi.</p>
-            <div class="polku">
-                <div class="polku-askel ilmainen">
-                    <div class="hinta ilmainen-hinta">0 €</div>
-                    <strong>Minikurssi</strong>
-                    <p>Lempeä aloitus — kokeile ensin</p>
-                </div>
-                <div class="polku-nuoli">→</div>
-                <div class="polku-askel">
-                    <div class="hinta">14 €</div>
-                    <strong>4 viikon perusohjelma</strong>
-                    <p>Rakenna juoksupohja</p>
-                </div>
-                <div class="polku-nuoli">→</div>
-                <div class="polku-askel">
-                    <div class="hinta">34 €</div>
-                    <strong>5 viikon jatkokurssi</strong>
-                    <p>Juokse ensimmäinen 5 km</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- KURSSIT -->
-    <section id="kurssit">
-        <div class="container">
-            <h2>Kurssit</h2>
-            <p class="alaotsikko">Kaikki kurssit on suunniteltu aloittelijalle joka haluaa edetä rauhassa.</p>
+    <main>
 
-            <div class="kurssit">
+        <!-- =========================
+             HERO
+        ========================= -->
 
-                <!-- MINIKURSSI -->
-                <div class="kurssikortti">
-                    <div class="kurssi-vasen ilmainen-bg">
-                        <div>
-                            <div class="kurssi-tag">Aloita tästä</div>
-                            <h3>Juoksu askel kerrallaan — Minikurssi</h3>
-                            <div class="kesto">Ohjeita juoksun aloittamiseen · oma tahti</div>
-                        </div>
-                        <div>
-                            <div class="kurssi-hinta">0 €</div>
-                            <div class="kurssi-hinta-selite">Täysin ilmainen</div>
-                        </div>
+        <section class="hero">
+
+            <div class="container">
+
+                <div class="hero-content">
+
+                    <div class="hero-badge">
+                        Luonto & liike
                     </div>
-                    <div class="kurssi-oikea">
-                        <p>Rauhallinen johdatus juoksuun luonnossa. Sopii erityisesti jos juoksu kiinnostaa mutta jännittää — ei vaadita mitään aiempaa kokemusta.</p>
-                        <ul class="kurssi-lista">
-                            <li>ääniohjaus juoksun aloitukseen</li>
-                            <li>motivaatiovideo</li>
-                            <li>PDF-tuki ja tehtävät</li>
-                            <li>Juoksu ilman suorituspainetta</li>
-                            <li>Kävely + juoksu yhdessä</li>
-                            <li>Luonto juoksun tukena</li>
-                            <li>Oma tahti, ei aikatauluja</li>
-                        </ul>
-                        <a href="https://payhip.com/b/Ckc5Z" class="kurssi-nappi vihrea">Lataa ilmaiseksi →</a>
-                    </div>
-                </div>
 
-                <!-- PERUSKURSSI -->
-                <div class="kurssikortti">
-                    <div class="kurssi-vasen">
-                        <div>
-                            <div class="kurssi-tag">Perusohjelma</div>
-                            <h3>3-4 viikon juoksuohjelma aloittelijoille</h3>
-                            <div class="kesto">3-4 viikkoa · audio-ohjattu · oma tahti</div>
-                        </div>
-                        <div>
-                            <div class="kurssi-hinta">14 €</div>
-                            <div class="kurssi-hinta-selite">Kertamaksu · ei sitoutumista</div>
-                        </div>
-                    </div>
-                    <div class="kurssi-oikea">
-                        <p>Neljän viikon ohjelma joka rakentaa juoksupohjan turvallisesti. Audio-ohjatut treenit voit tehdä omassa metsässäsi tai lähipuistossa — kelloa ei tarvita.</p>
-                        <ul class="kurssi-lista">
-                            <li>Audio-ohjatut treenit</li>
-                            <li>3-4 viikon rakenne</li>
-                            <li>Sopii täysin aloittelijalle</li>
-                            <li>Ei kelloa tai mittaria</li>
-                            <li>PDF-viikkosuunnitelma</li>
-                            <li>Luonto treenialustana</li>
-                        </ul>
-                        <a href="https://payhip.com/b/CLupS" class="kurssi-nappi vihrea" target="_blank" rel="noopener">Osta kurssi 14 € →</a>
-                    </div>
-                </div>
+                    <h1>
+                        Luontoa, liikettä ja<br>
+                        oma tapa olla aktiivinen.
+                    </h1>
 
-                <!-- JATKOKURSSI -->
-                <div class="kurssikortti">
-                    <div class="kurssi-vasen">
-                        <div>
-                            <div class="kurssi-tag">Jatkokurssi</div>
-                            <h3>Juokse ensimmäinen 5 km</h3>
-                            <div class="kesto">5 viikkoa · audio-ohjattu · oma tahti</div>
-                        </div>
-                        <div>
-                            <div class="kurssi-hinta">34 €</div>
-                            <div class="kurssi-hinta-selite">Kertamaksu · ei sitoutumista</div>
-                        </div>
+                    <p>
+                        Kävelyä, juoksua ja muuta liikkumista luonnossa –
+                        ilman turhaa suorittamista. Löydä tapa liikkua,
+                        joka sopii juuri sinun arkeesi.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a href="#juoksukurssit"
+                           class="btn btn-primary">
+                            Tutustu juoksukursseihin
+                        </a>
+
+                        <a href="yhteys.html"
+                           class="btn btn-outline">
+                            Kysy lisää
+                        </a>
+
                     </div>
-                    <div class="kurssi-oikea">
-                        <p>Jatka siitä mihin perusohjelma jäi. Viiden viikon ohjelma vie sinut ensimmäiseen yhtenäiseen 5 kilometrin juoksuun — rauhallisesti, luonnossa, omalla tavalla.</p>
-                        <ul class="kurssi-lista">
-                            <li>Audio-ohjatut treenit</li>
-                            <li>5 viikon etenevä ohjelma</li>
-                            <li>Tavoite: ensimmäinen 5 km</li>
-                            <li>Ei kelloa tai mittaria</li>
-                            <li>PDF-viikkosuunnitelma</li>
-                            <li>Sopii perusohjelman jälkeen</li>
-                        </ul>
-                        <a href="https://payhip.com/b/z7niZ" class="kurssi-nappi vihrea" target="_blank" rel="noopener">Osta kurssi 34 € →</a>                    </div>
+
                 </div>
 
             </div>
-        </div>
-    </section>
 
-    <!-- UKK -->
-    <section>
-        <div class="container">
-            <h2>Usein kysyttyä</h2>
-            <div class="ukk-lista">
-                <div class="ukk-item">
-                    <h3>Tarvitsenko juoksukellon tai sovelluksen?</h3>
-                    <p>Et tarvitse. Kurssit on suunniteltu niin että pärjäät täysin ilman mittareita. Halutessasi voit käyttää niitä, mutta ne eivät ole pakollisia.</p>
+        </section>
+
+
+        <!-- =========================
+             LUONTO & LIIKE
+        ========================= -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="intro-grid">
+
+                    <div class="intro-text">
+
+                        <div class="section-heading">
+
+                            <p class="eyebrow">
+                                Retkittäinin ajatus
+                            </p>
+
+                            <h2>
+                                Liikkumisen ei tarvitse olla suoritus.
+                            </h2>
+
+                        </div>
+
+                        <p>
+                            Luonto tarjoaa hyvän ympäristön liikkumiselle,
+                            mutta ennen kaikkea se voi tehdä liikkumisesta
+                            mukavampaa ja mielekkäämpää.
+                        </p>
+
+                        <p>
+                            Joskus se tarkoittaa rauhallista kävelyä metsässä.
+                            Joskus lenkkiä polulla, pyöräilyä lähialueilla
+                            tai ensimmäisiä juoksuaskelia.
+                        </p>
+
+                        <p>
+                            Retkittäinin tavoitteena on kannustaa löytämään
+                            oma tapa liikkua – ilman ajatusta siitä, että
+                            kaiken pitäisi olla tavoitteellista tai mitattavaa.
+                        </p>
+
+                    </div>
+
+
+                    <div class="idea-list">
+
+                        <div class="idea-item">
+                            <strong>Kävely ja lähiluonto</strong>
+                            <span>
+                                Helppo tapa lisätä liikettä ja viettää aikaa ulkona.
+                            </span>
+                        </div>
+
+                        <div class="idea-item">
+                            <strong>Juoksu</strong>
+                            <span>
+                                Askel kerrallaan, kävelyä ja juoksua yhdistäen.
+                            </span>
+                        </div>
+
+                        <div class="idea-item">
+                            <strong>Polut ja maastot</strong>
+                            <span>
+                                Luonto voi olla myös treenipaikka ja seikkailu.
+                            </span>
+                        </div>
+
+                        <div class="idea-item">
+                            <strong>Oma taso</strong>
+                            <span>
+                                Liikkumisen ei tarvitse näyttää samalta kuin muiden.
+                            </span>
+                        </div>
+
+                    </div>
+
                 </div>
-                <div class="ukk-item">
-                    <h3>Entä jos en jaksa juosta kuin vähän?</h3>
-                    <p>Se on täysin ok — ja juuri sinulle nämä kurssit on tehty. Kaikki ohjelmat perustuvat kävelyn ja juoksun yhdistämiseen. Pienestäkin liikkeestä voi aloittaa.</p>
-                </div>
-                <div class="ukk-item">
-                    <h3>Pitääkö kurssit tehdä järjestyksessä?</h3>
-                    <p>Suositellaan aloittamaan minikurssista, sitten peruskurssista ja lopuksi jatkokurssista. Mutta jos olet jo jonkin aikaa juossut, voit aloittaa suoraan jatkokurssista.</p>
-                </div>
-                <div class="ukk-item">
-                    <h3>Missä treenit tehdään?</h3>
-                    <p>Missä itse haluat — lähipuistossa, metsäpolulla tai puistotiellä. Luonto on suositeltava ympäristö mutta ei pakollinen.</p>
-                </div>
+
             </div>
-        </div>
-    </section>
 
-    <!-- CTA -->
-    <div class="cta-palkki">
-        <h2>Aloita tänään — ilmaiseksi</h2>
-        <p>Lataa minikurssi ja katso sopiiko tämä tapa liikkua sinulle.<br>Ei rekisteröitymistä, ei sitoutumista.</p>
-        <a href="https://payhip.com/b/Ckc5Z" class="nappi-vaalea">Lataa minikurssi ilmaiseksi →</a>
-    </div>
+        </section>
 
-    <!-- FOOTER -->
+
+        <!-- =========================
+             JUOKSUKURSSIT
+        ========================= -->
+
+        <section class="section section-alt"
+                 id="juoksukurssit">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Juoksu askel kerrallaan
+                    </p>
+
+                    <h2>
+                        Juoksukursseja rauhalliseen aloitukseen.
+                    </h2>
+
+                    <p class="lead">
+                        Jos juoksu kiinnostaa, mutta et kaipaa
+                        suorituspainetta tai monimutkaisia mittareita,
+                        näistä kursseista voit aloittaa.
+                    </p>
+
+                </div>
+
+
+                <div class="courses">
+
+                    <!-- =====================
+                         MINIKURSSI
+                    ====================== -->
+
+                    <article class="course-card free">
+
+                        <div class="course-side">
+
+                            <div>
+
+                                <div class="course-tag">
+                                    Aloita tästä
+                                </div>
+
+                                <h3>
+                                    Juoksu askel kerrallaan – minikurssi
+                                </h3>
+
+                                <div class="course-duration">
+                                    Lempeä johdatus juoksuun
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div class="course-price">
+                                    0 €
+                                </div>
+
+                                <div class="course-price-note">
+                                    Täysin ilmainen
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="course-content">
+
+                            <p>
+                                Rauhallinen johdatus juoksuun luonnossa.
+                                Sopii erityisesti sinulle, jos juoksu
+                                kiinnostaa mutta et oikein tiedä,
+                                miten aloittaa.
+                            </p>
+
+                            <ul class="course-list">
+
+                                <li>ääniohjaus juoksun aloittamiseen</li>
+                                <li>motivaatiovideo</li>
+                                <li>PDF-tuki ja tehtävät</li>
+                                <li>kävely ja juoksu yhdessä</li>
+                                <li>luonto juoksun tukena</li>
+                                <li>oma tahti</li>
+
+                            </ul>
+
+                            <a href="https://payhip.com/b/Ckc5Z"
+                               class="btn btn-green"
+                               target="_blank"
+                               rel="noopener">
+                                Lataa ilmaiseksi →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- =====================
+                         PERUSOHJELMA
+                    ====================== -->
+
+                    <article class="course-card">
+
+                        <div class="course-side">
+
+                            <div>
+
+                                <div class="course-tag">
+                                    Perusohjelma
+                                </div>
+
+                                <h3>
+                                    3–4 viikon juoksuohjelma
+                                </h3>
+
+                                <div class="course-duration">
+                                    Audio-ohjattu · oma tahti
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div class="course-price">
+                                    14 €
+                                </div>
+
+                                <div class="course-price-note">
+                                    Kertamaksu
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="course-content">
+
+                            <p>
+                                Ohjelma auttaa rakentamaan juoksun
+                                peruspohjaa vähitellen. Treenit voi tehdä
+                                omassa metsässä, lähipuistossa tai
+                                muussa itselle sopivassa ympäristössä.
+                            </p>
+
+                            <ul class="course-list">
+
+                                <li>audio-ohjatut treenit</li>
+                                <li>3–4 viikon rakenne</li>
+                                <li>sopii aloittelijalle</li>
+                                <li>ei edellytä juoksukelloa</li>
+                                <li>PDF-viikkosuunnitelma</li>
+                                <li>luonto treeniympäristönä</li>
+
+                            </ul>
+
+                            <a href="https://payhip.com/b/CLupS"
+                               class="btn btn-green"
+                               target="_blank"
+                               rel="noopener">
+                                Osta kurssi 14 € →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- =====================
+                         5 KM
+                    ====================== -->
+
+                    <article class="course-card">
+
+                        <div class="course-side">
+
+                            <div>
+
+                                <div class="course-tag">
+                                    Jatkokurssi
+                                </div>
+
+                                <h3>
+                                    Juokse ensimmäinen 5 km
+                                </h3>
+
+                                <div class="course-duration">
+                                    5 viikkoa · audio-ohjattu
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <div class="course-price">
+                                    34 €
+                                </div>
+
+                                <div class="course-price-note">
+                                    Kertamaksu
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="course-content">
+
+                            <p>
+                                Jatka siitä, mihin perusohjelma jäi.
+                                Viiden viikon ohjelma auttaa etenemään
+                                kohti ensimmäistä yhtenäistä 5 kilometrin
+                                juoksua rauhallisesti ja omaan tahtiin.
+                            </p>
+
+                            <ul class="course-list">
+
+                                <li>audio-ohjatut treenit</li>
+                                <li>5 viikon etenevä ohjelma</li>
+                                <li>tavoitteena ensimmäinen 5 km</li>
+                                <li>ei edellytä juoksukelloa</li>
+                                <li>PDF-viikkosuunnitelma</li>
+                                <li>sopii perusohjelman jälkeen</li>
+
+                            </ul>
+
+                            <a href="https://payhip.com/b/z7niZ"
+                               class="btn btn-green"
+                               target="_blank"
+                               rel="noopener">
+                                Osta kurssi 34 € →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             KENELLE
+        ========================= -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Kenelle?
+                    </p>
+
+                    <h2>
+                        Liikuntaa ilman turhaa suorittamista.
+                    </h2>
+
+                    <p class="lead">
+                        Näissä sisällöissä tärkeintä ei ole vauhti,
+                        matka tai vertailu muihin.
+                    </p>
+
+                </div>
+
+
+                <div class="audience-grid">
+
+                    <div class="audience-card">
+
+                        <h3>
+                            Olet vasta aloittamassa
+                        </h3>
+
+                        <p>
+                            Juoksu tai säännöllinen liikkuminen on vasta
+                            ajatuksena. Haluat aloittaa rauhallisesti
+                            ja löytää itsellesi sopivan tavan.
+                        </p>
+
+                    </div>
+
+
+                    <div class="audience-card">
+
+                        <h3>
+                            Haluat liikkua luonnossa
+                        </h3>
+
+                        <p>
+                            Metsä, polut ja lähiluonto tuntuvat
+                            kiinnostavammilta kuin kuntosali tai
+                            sisätilat.
+                        </p>
+
+                    </div>
+
+
+                    <div class="audience-card">
+
+                        <h3>
+                            Et kaipaa suorituspainetta
+                        </h3>
+
+                        <p>
+                            Haluat liikkua oman arjen, jaksamisen ja
+                            lähtötason mukaan ilman jatkuvaa
+                            mittaamista.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             UKK
+        ========================= -->
+
+        <section class="section section-soft">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Usein kysyttyä
+                    </p>
+
+                    <h2>
+                        Juoksusta kysytään usein näitä.
+                    </h2>
+
+                </div>
+
+
+                <div class="faq">
+
+                    <div class="faq-item">
+
+                        <h3>
+                            Tarvitsenko juoksukellon tai sovelluksen?
+                        </h3>
+
+                        <p>
+                            Et tarvitse. Kurssit on suunniteltu niin,
+                            että voit tehdä harjoitukset ilman mittareita.
+                            Halutessasi voit toki käyttää juoksukelloa
+                            tai sovellusta.
+                        </p>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <h3>
+                            Entä jos en jaksa juosta kuin vähän?
+                        </h3>
+
+                        <p>
+                            Se on hyvä lähtökohta. Harjoittelussa voidaan
+                            yhdistää kävelyä ja juoksua, eikä alussa tarvitse
+                            pystyä juoksemaan pitkiä matkoja.
+                        </p>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <h3>
+                            Pitääkö kurssit tehdä järjestyksessä?
+                        </h3>
+
+                        <p>
+                            Minikurssi on helppo tapa tutustua sisältöön.
+                            Perusohjelma sopii juoksun aloittamiseen ja
+                            5 kilometrin kurssi on suunnattu jo hieman
+                            juoksua tehneelle. Jos sinulla on jo kokemusta,
+                            voit valita lähtötasoosi sopivan kurssin.
+                        </p>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <h3>
+                            Missä harjoitukset tehdään?
+                        </h3>
+
+                        <p>
+                            Siellä missä sinulle sopii: metsäpolulla,
+                            lähipuistossa, ulkoilureitillä tai vaikka
+                            rauhallisella tiellä. Luonto on yksi
+                            suositeltava ympäristö, mutta ei pakollinen.
+                        </p>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <h3>
+                            Sopivatko kurssit minulle, jos olen täysin aloittelija?
+                        </h3>
+
+                        <p>
+                            Minikurssi ja perusohjelma on suunnattu erityisesti
+                            juoksun aloittamiseen. Jos olet epävarma omasta
+                            tilanteestasi, voit myös ottaa yhteyttä ja kysyä
+                            lisää ennen kurssin hankkimista.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CTA
+        ========================= -->
+
+        <section class="cta">
+
+            <div class="container">
+
+                <div class="cta-inner">
+
+                    <p class="eyebrow" style="color:#cbd9cf;">
+                        Ensimmäinen askel voi olla pieni
+                    </p>
+
+                    <h2>
+                        Kokeile ensin ilmaiseksi.
+                    </h2>
+
+                    <p>
+                        Lataa Retkittäinin ilmainen juoksun minikurssi
+                        ja tutustu rauhalliseen tapaan aloittaa.
+                    </p>
+
+                    <a href="https://payhip.com/b/Ckc5Z"
+                       class="btn btn-primary"
+                       target="_blank"
+                       rel="noopener">
+                        Lataa minikurssi ilmaiseksi →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
     <footer>
-        <div class="socials" style="text-align:center; margin-top:40px;">
-            <a href="https://instagram.com/retkittain" target="_blank">Instagram</a>
-            <a href="https://tiktok.com/@retkittain" target="_blank">TikTok</a>
-            <a href="https://youtube.com/@retkittain" target="_blank">YouTube</a>
+
+        <div class="footer-links">
+
+            <a href="https://www.instagram.com/retkittain/" target="_blank" rel="noopener">
+                Instagram
+            </a>
+
+            <a href="https://www.tiktok.com/@retkittain" target="_blank" rel="noopener">
+                TikTok
+            </a>
+
+            <a href="https://www.youtube.com/@retkittain" target="_blank" rel="noopener">
+                YouTube
+            </a>
+
+            <a href="tyokalu.html">
+                Retkityökalu
+            </a>
+
+            <a href="tietosuoja.html">
+                Tietosuoja
+            </a>
+
+            <a href="yhteys.html">
+                Yhteys
+            </a>
+
         </div>
-        © Retkittäin • <a href="tyokalu.html">Retkityökalu</a>
-        <a href="tietosuoja.html">Tietosuoja</a>
-    
+
+        <div class="footer-tagline">
+            © Retkittäin · Luontoa, liikettä ja pieniä seikkailuja.
+        </div>
+
     </footer>
-    
-<script>
-  // Evästebanneri
-  const banner = document.getElementById("cookieBanner");
-  const acceptBtn = document.getElementById("acceptCookiesBtn");
-  const rejectBtn = document.getElementById("rejectCookiesBtn");
 
-  const cookieConsent = localStorage.getItem("retkittainCookieConsent");
 
-  if (cookieConsent === "accepted") {
-    banner.style.display = "none";
-    enableGoogleAnalytics();
-  } else if (cookieConsent === "rejected") {
-    banner.style.display = "none";
-  }
+    <!-- =========================
+         EVÄSTESUOSTUMUS
+    ========================= -->
 
-  acceptBtn.addEventListener("click", function () {
-    localStorage.setItem("retkittainCookieConsent", "accepted");
-    banner.style.display = "none";
+    <div id="cookieBanner">
 
-    enableGoogleAnalytics();
-  });
+        Tämä sivusto käyttää evästeitä käyttökokemuksen
+        ja sivuston kehittämiseen.
 
-  rejectBtn.addEventListener("click", function () {
-    localStorage.setItem("retkittainCookieConsent", "rejected");
-    banner.style.display = "none";
-  });
-</script>
+        <button id="acceptCookiesBtn">
+            Hyväksyn
+        </button>
+
+        <button id="rejectCookiesBtn">
+            En hyväksy
+        </button>
+
+    </div>
+
+
+    <script>const banner = document.getElementById("cookieBanner");
+        const acceptBtn = document.getElementById("acceptCookiesBtn");
+        const rejectBtn = document.getElementById("rejectCookiesBtn");
+
+        const cookieConsent =
+            localStorage.getItem("retkittainCookieConsent");
+
+        if (cookieConsent === "accepted") {
+
+            banner.style.display = "none";
+
+            enableGoogleAnalytics();
+
+        } else if (cookieConsent === "rejected") {
+
+            banner.style.display = "none";
+
+        }
+
+
+        acceptBtn.addEventListener("click", function () {
+
+            localStorage.setItem(
+                "retkittainCookieConsent",
+                "accepted"
+            );
+
+            banner.style.display = "none";
+
+            enableGoogleAnalytics();
+
+        });
+
+
+        rejectBtn.addEventListener("click", function () {
+
+            localStorage.setItem(
+                "retkittainCookieConsent",
+                "rejected"
+            );
+
+            banner.style.display = "none";
+
+        });</script>
 
 </body>
 </html>
