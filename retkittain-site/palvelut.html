@@ -1,9 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="fi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Retkittäin – Palvelut</title>
+  <meta name="description" content="Tutustu Retkittäin-palveluihin: ohjatut luontoretket, lähiluontoillat, yritysten luontoelämykset ja maastojuoksuretket pääkaupunkiseudulla ja lähialueilla." />
+  <meta name="theme-color" content="#1b4332" />
+  <title>Retket ja palvelut – Retkittäin</title>
+  <link rel="canonical" href="https://retkittain.fi/palvelut.html" />
+
   <style>
     :root {
       --vihrea: #2d6a4f;
@@ -12,22 +17,49 @@
       --vihrea-keskivaalea: #95d5b2;
       --teksti: #1a1a1a;
       --harmaa: #555;
-      --taustaharmonia: #f8faf8;
-      --valkoinen: #ffffff;
+      --tausta: #f8faf8;
+      --valkoinen: #fff;
       --korostus: #f4a261;
+      --reuna: #d9e3df;
+      --varjo: 0 8px 24px rgba(27, 67, 50, 0.07);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 5rem;
+    }
 
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--valkoinen);
       color: var(--teksti);
       line-height: 1.7;
     }
 
-    /* NAV */
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--korostus);
+      outline-offset: 3px;
+    }
+
+    /* Navigaatio: sama rakenne ja tyyli kuin etusivulla */
     nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
       background: var(--vihrea-tumma);
       padding: 1rem 2rem;
       display: flex;
@@ -36,544 +68,909 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
-    nav a.logo img { height: 40px; }
+
+    nav a.logo {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    nav a.logo img {
+      display: block;
+      height: 40px;
+      width: auto;
+    }
+
     nav ul {
       list-style: none;
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 0.25rem;
     }
+
     nav ul li a {
-      color: #cde;
+      display: inline-block;
+      color: #e2eee7;
       text-decoration: none;
       font-size: 0.9rem;
-      padding: 0.3rem 0.6rem;
+      padding: 0.35rem 0.6rem;
       border-radius: 4px;
-      transition: background 0.2s;
+      transition: background 0.2s ease;
     }
+
     nav ul li a:hover,
-    nav ul li a.aktiivinen {
-      background: rgba(255,255,255,0.15);
+    nav ul li a[aria-current="page"] {
+      background: rgba(255, 255, 255, 0.15);
       color: #fff;
     }
 
-    /* HERO */
+    /* Yläosa */
     .hero {
-      background: linear-gradient(135deg, var(--vihrea-tumma) 0%, var(--vihrea) 100%);
-      color: white;
-      padding: 4rem 2rem 3rem;
+      background: linear-gradient(135deg, var(--vihrea-tumma), var(--vihrea));
+      color: #fff;
+      padding: 4.5rem 1.5rem 4rem;
       text-align: center;
     }
-    .hero .patevyys {
+
+    .hero-sisalto {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
       display: inline-block;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #d8f3dc;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      margin-bottom: 1.5rem;
-    }
-    .hero h1 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--vihrea-tumma);
+      background: var(--vihrea-vaalea);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
       font-weight: 700;
-      margin-bottom: 1rem;
-      line-height: 1.2;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.25rem;
     }
+
+    .hero .eyebrow {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #e2f4e8;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+      margin-bottom: 1.1rem;
+    }
+
     .hero p {
-      font-size: 1.1rem;
-      color: #b7e4c7;
-      max-width: 600px;
+      color: #e0f0e6;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      max-width: 680px;
       margin: 0 auto 2rem;
     }
+
     .hero-napit {
       display: flex;
-      gap: 1rem;
       justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
       flex-wrap: wrap;
     }
-    .nappi-vaalea {
-      background: white;
-      color: var(--vihrea-tumma);
-      padding: 0.8rem 1.8rem;
+
+    /* Painikkeet */
+    .nappi {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 46px;
+      padding: 0.75rem 1.2rem;
       border-radius: 6px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 1rem;
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
     }
-    .nappi-vaalea:hover {
+
+    .nappi:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
     }
+
+    .nappi-vaalea {
+      background: #fff;
+      color: var(--vihrea-tumma);
+    }
+
+    .nappi-vaalea:hover {
+      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.18);
+    }
+
     .nappi-outline {
-      background: transparent;
-      color: white;
-      border: 2px solid rgba(255,255,255,0.6);
-      padding: 0.8rem 1.8rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: background 0.2s;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.65);
     }
-    .nappi-outline:hover { background: rgba(255,255,255,0.1); }
 
-    /* SECTIONS */
-    section { padding: 3.5rem 1.5rem; }
-    section:nth-child(even) { background: var(--taustaharmonia); }
+    .nappi-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
 
-    .container { max-width: 900px; margin: 0 auto; }
+    .nappi-vihrea {
+      background: var(--vihrea);
+      color: #fff;
+    }
+
+    .nappi-vihrea:hover {
+      background: var(--vihrea-tumma);
+    }
+
+    /* Yhteinen asettelu */
+    section {
+      padding: 4rem 0;
+    }
+
+    .tausta-vaalea {
+      background: var(--tausta);
+    }
+
+    .container {
+      width: min(1080px, calc(100% - 3rem));
+      margin: 0 auto;
+    }
+
+    .osio-otsikko {
+      max-width: 760px;
+      margin-bottom: 2rem;
+    }
 
     h2 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
       color: var(--vihrea-tumma);
-      margin-bottom: 0.5rem;
-    }
-    .alaotsikko {
-      color: var(--harmaa);
-      margin-bottom: 2.5rem;
-      font-size: 1.05rem;
+      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.8rem;
     }
 
-    /* PAKETIT */
-    .paketit {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .paketti {
-      background: white;
-      border: 1px solid #e0ede6;
-      border-radius: 12px;
-      padding: 2rem 1.5rem;
-      position: relative;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .paketti:hover {
-      box-shadow: 0 6px 24px rgba(45,106,79,0.12);
-      transform: translateY(-3px);
-    }
-    .paketti.suosittu {
-      border-color: var(--vihrea);
-      box-shadow: 0 4px 16px rgba(45,106,79,0.15);
-    }
-    .suosittu-merkki {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--vihrea);
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.9rem;
-      border-radius: 12px;
-    }
-    .paketti-ikoni { font-size: 2rem; margin-bottom: 0.75rem; }
-    .paketti h3 {
-      font-size: 1.2rem;
-      color: var(--vihrea-tumma);
-      margin-bottom: 0.25rem;
-    }
-    .paketti-kesto {
-      font-size: 0.85rem;
+    .alaotsikko {
       color: var(--harmaa);
+      font-size: 1.05rem;
+      max-width: 720px;
+    }
+
+    h3 {
+      color: var(--vihrea-tumma);
+      line-height: 1.3;
+    }
+
+    /* Palvelukortit */
+    .palvelut-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.4rem;
+    }
+
+    .palvelu-kortti {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--reuna);
+      border-radius: 12px;
+      box-shadow: var(--varjo);
+    }
+
+    .palvelu-kuva {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background-color: #557b62;
+      color: #fff;
+    }
+
+    .palvelu-sisalto {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+      padding: 1.5rem;
+    }
+
+    .palvelu-ikoni {
+      font-size: 1.7rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .palvelu-kortti h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .palvelu-meta {
+      color: var(--harmaa);
+      font-size: 0.88rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .palvelu-kortti p {
+      color: #414941;
       margin-bottom: 1rem;
     }
-    .paketti p {
-      font-size: 0.95rem;
-      color: #444;
-      margin-bottom: 1.25rem;
-      line-height: 1.6;
-    }
-    .paketti ul {
+
+    .palvelu-kortti ul {
       list-style: none;
-      margin-bottom: 1.5rem;
+      margin: 0 0 1.3rem;
     }
-    .paketti ul li {
-      font-size: 0.9rem;
-      color: #555;
-      padding: 0.25rem 0;
-      padding-left: 1.4rem;
+
+    .palvelu-kortti li {
       position: relative;
+      padding: 0.25rem 0 0.25rem 1.45rem;
+      color: #414941;
+      font-size: 0.94rem;
     }
-    .paketti ul li::before {
+
+    .palvelu-kortti li::before {
       content: "✓";
       position: absolute;
       left: 0;
       color: var(--vihrea);
-      font-weight: 700;
-    }
-    .paketti-hinta {
-      font-size: 1.5rem;
       font-weight: 800;
-      color: var(--vihrea-tumma);
     }
-    .paketti-hinta span {
-      font-size: 0.85rem;
-      font-weight: 400;
+
+    .palvelu-hinta {
+      margin-top: auto;
+      margin-bottom: 1rem;
+      color: var(--vihrea-tumma);
+      font-weight: 800;
+      font-size: 1.12rem;
+    }
+
+    .palvelu-hinta small {
+      display: block;
       color: var(--harmaa);
+      font-size: 0.8rem;
+      font-weight: 400;
     }
 
-    /* OPAS-KORTIT */
-    .opas-info {
-      display: flex;
-      gap: 2rem;
-      align-items: flex-start;
-      flex-wrap: wrap;
+    .tekstinappi {
+      color: var(--vihrea);
+      font-weight: 750;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
     }
-    .opas-teksti { flex: 1; min-width: 260px; }
-    .opas-teksti p { color: #444; margin-bottom: 1rem; }
-    .patevyys-lista {
-      list-style: none;
-      margin-top: 1rem;
-    }
-    .patevyys-lista li {
-      padding: 0.6rem 0.8rem;
-      background: var(--vihrea-vaalea);
-      border-radius: 6px;
-      margin-bottom: 0.5rem;
-      font-size: 0.95rem;
+
+    .tekstinappi:hover {
       color: var(--vihrea-tumma);
-      font-weight: 600;
-      padding-left: 1rem;
-    }
-    .patevyys-lista li::before {
-      content: "🏅 ";
     }
 
-    /* MITEN ETENEE */
+    .huomio-rivi {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-top: 1.75rem;
+      padding: 1.2rem 1.3rem;
+      background: var(--vihrea-vaalea);
+      border-radius: 8px;
+      color: var(--vihrea-tumma);
+    }
+
+    .huomio-rivi .ikoni {
+      font-size: 1.5rem;
+      line-height: 1.4;
+    }
+
+    .huomio-rivi p {
+      font-size: 0.95rem;
+    }
+
+    /* Oppaan esittely */
+    .opas-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(250px, 0.85fr);
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
+    }
+
+    .opas-teksti p {
+      color: #414941;
+      margin-bottom: 1rem;
+    }
+
+    .opas-tunnisteet {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 1.3rem;
+    }
+
+    .opas-tunniste {
+      padding: 0.7rem 0.9rem;
+      background: #fff;
+      border-left: 3px solid var(--vihrea-keskivaalea);
+      border-radius: 0 6px 6px 0;
+      color: var(--vihrea-tumma);
+      font-size: 0.94rem;
+      font-weight: 600;
+    }
+
+    .opas-kuvapaikka {
+      min-height: 330px;
+      border-radius: 12px;
+      background:
+        radial-gradient(ellipse at 65% 28%, rgba(216, 243, 220, 0.8), transparent 24%),
+        linear-gradient(145deg, #a9c2a3 0%, #62856b 43%, #254b38 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.2rem;
+      color: #fff;
+    }
+
+    .opas-kuvapaikka span {
+      background: rgba(20, 45, 32, 0.76);
+      border-radius: 6px;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.85rem;
+    }
+
+    /* Retken suunnittelun vaiheet */
     .askeleet {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.25rem;
     }
-    .askel {
-      text-align: center;
-      padding: 1.5rem 1rem;
-    }
-    .askel-numero {
-      width: 48px;
-      height: 48px;
-      background: var(--vihrea);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      font-weight: 800;
-      margin: 0 auto 1rem;
-    }
-    .askel h3 {
-      font-size: 1rem;
-      color: var(--vihrea-tumma);
-      margin-bottom: 0.4rem;
-    }
-    .askel p { font-size: 0.9rem; color: var(--harmaa); }
 
-    /* LOMAKE */
+    .askel {
+      padding: 1.5rem;
+      background: #fff;
+      border: 1px solid var(--reuna);
+      border-radius: 10px;
+    }
+
+    .askel-numero {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--vihrea);
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .askel h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .askel p {
+      color: var(--harmaa);
+      font-size: 0.95rem;
+    }
+
+    /* Yhteydenottolomake */
+    .yhteydenotto {
+      background: var(--vihrea-tumma);
+      color: #fff;
+    }
+
+    .yhteys-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(320px, 1.2fr);
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: start;
+    }
+
+    .yhteydenotto h2 {
+      color: #fff;
+    }
+
+    .yhteydenotto .alaotsikko {
+      color: #dcebe0;
+    }
+
+    .yhteys-lupaus {
+      margin-top: 1.5rem;
+      color: #dcebe0;
+    }
+
     .lomake-wrapper {
-      background: white;
-      border: 1px solid #e0ede6;
+      background: #fff;
+      color: var(--teksti);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 12px;
-      padding: 2.5rem 2rem;
-      max-width: 620px;
-      margin: 2rem auto 0;
+      padding: clamp(1.25rem, 3vw, 2rem);
     }
+
     .lomake-rivi {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.05rem;
     }
+
     .lomake-rivi label {
       display: block;
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--vihrea-tumma);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
+
     .lomake-rivi input,
     .lomake-rivi select,
     .lomake-rivi textarea {
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 0.75rem 0.85rem;
       border: 1px solid #c8ddd0;
       border-radius: 6px;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-family: inherit;
       color: var(--teksti);
       background: #fafcfb;
-      transition: border-color 0.2s;
     }
+
     .lomake-rivi input:focus,
     .lomake-rivi select:focus,
     .lomake-rivi textarea:focus {
-      outline: none;
+      outline: 2px solid var(--vihrea-keskivaalea);
       border-color: var(--vihrea);
-      background: white;
     }
-    .lomake-rivi textarea { resize: vertical; min-height: 120px; }
+
+    .lomake-rivi textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
     .laheta-nappi {
       width: 100%;
-      background: var(--vihrea);
-      color: white;
-      border: none;
-      padding: 0.9rem;
+      border: 0;
       border-radius: 6px;
-      font-size: 1rem;
-      font-weight: 700;
+      background: var(--vihrea);
+      color: #fff;
+      padding: 0.9rem 1rem;
+      font: inherit;
+      font-weight: 800;
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      margin-top: 0.5rem;
+      transition: background 0.2s ease;
     }
+
     .laheta-nappi:hover {
       background: var(--vihrea-tumma);
-      transform: translateY(-1px);
-    }
-    .lomake-huomio {
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--harmaa);
-      margin-top: 1rem;
     }
 
-    /* FOOTER */
-    footer {
-      background: var(--vihrea-tumma);
-      color: #b7e4c7;
+    .laheta-nappi:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .lomake-huomio {
+      margin-top: 0.8rem;
+      color: var(--harmaa);
+      font-size: 0.84rem;
       text-align: center;
-      padding: 2rem 1rem;
+    }
+
+    #lomake-virhe {
+      display: none;
+      color: #8a1c1c;
+      background: #fff0f0;
+      border-radius: 6px;
+      padding: 0.75rem;
+      margin-top: 0.9rem;
+    }
+
+    #kiitos {
+      display: none;
+      padding: 1.5rem;
+      background: var(--vihrea-vaalea);
+      border-radius: 8px;
+      color: var(--vihrea-tumma);
+    }
+
+    #kiitos h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Alatunniste vastaa etusivua */
+    footer {
+      background: #111e17;
+      color: #c9ded0;
+      text-align: center;
+      padding: 1.8rem 1rem;
       font-size: 0.9rem;
     }
-    footer a { color: #b7e4c7; text-decoration: none; margin: 0 0.5rem; }
-    footer a:hover { color: white; }
 
-    /* VIESTI LÄHETYS */
-    #kiitos { display: none; text-align: center; padding: 2rem; color: var(--vihrea-tumma); }
-    #kiitos h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    footer p + p {
+      margin-top: 0.5rem;
+    }
 
-    @media (max-width: 600px) {
-      .hero { padding: 3rem 1.25rem 2.5rem; }
-      .lomake-wrapper { padding: 1.5rem 1.25rem; }
+    footer a {
+      color: #c9ded0;
+      text-decoration: none;
+      margin: 0 0.35rem;
+    }
+
+    footer a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        padding: 0.85rem 1rem;
+      }
+
+      .yhteys-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .askeleet {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      nav {
+        justify-content: center;
+      }
+
+      nav ul {
+        justify-content: center;
+      }
+
+      nav ul li a {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.45rem;
+      }
+
+      .hero {
+        padding: 3.5rem 1rem;
+      }
+
+      section {
+        padding: 3rem 0;
+      }
+
+      .container {
+        width: min(100% - 2rem, 600px);
+      }
+
+      .palvelut-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .palvelu-kuva {
+        height: 210px;
+      }
+
+      .opas-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .opas-kuvapaikka {
+        min-height: 240px;
+      }
+
+      .askeleet {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 430px) {
+      nav a.logo img {
+        height: 34px;
+      }
+
+      .hero-napit {
+        align-items: stretch;
+        flex-direction: column;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      .nappi {
+        width: 100%;
+      }
+
+      .palvelu-sisalto {
+        padding: 1.25rem;
+      }
+
+      .huomio-rivi {
+        gap: 0.7rem;
+        padding: 1rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
+  <nav aria-label="Päänavigaatio">
+    <a class="logo" href="index.html" aria-label="Retkittäin – etusivu">
+      <img src="https://retkittain.fi/img/leveabanneri_white.png" alt="Retkittäin" />
+    </a>
 
-<!-- NAV -->
-<nav>
-  <a class="logo" href="https://retkittain.fi/">
-    <img src="https://retkittain.fi/img/leveabanneri_white.png" alt="Retkittäin logo" />
-  </a>
-  <ul>
-    <li><a href="index.html">Etusivu</a></li>
-        <li><a href="tyokalu.html">Retkityökalu</a></li>
-        <li><a href="juoksu.html">Juoksu</a></li>
-        <li><a href="palvelut.html">Palvelut</a></li>
-        <li><a href="blog.html">Blogi</a></li>
-        <li><a href="minusta.html">Minusta</a></li>
-        <li><a href="yhteys.html">Yhteys</a></li>
-  </ul>
-</nav>
+    <ul>
+      <li><a href="index.html">Etusivu</a></li>
+      <li><a href="tyokalu.html">Retkityökalu</a></li>
+      <li><a href="palvelut.html" aria-current="page">Retket ja palvelut</a></li>
+      <li><a href="blog.html">Blogi</a></li>
+      <li><a href="minusta.html">Minusta</a></li>
+      <li><a href="yhteys.html">Yhteys</a></li>
+    </ul>
+  </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="patevyys">🏅 Erä- ja luonto-opas · Savon ammattiopisto</div>
-  <h1>Ohjattuja luontoelämyksiä<br>pääkaupunkiseudulla</h1>
-  <p>Ammattitaitoinen opas mukanasi — kaveriporukalle, perheelle tai työtiimille. Matala kynnys, korkea tunnelma.</p>
-  <div class="hero-napit">
-    <a href="#yhteydenotto" class="nappi-vaalea">Kysy lisää tai varaa retki</a>
-    <a href="#paketit" class="nappi-outline">Katso paketit</a>
-  </div>
-</div>
-
-<!-- PAKETIT -->
-<section id="paketit">
-  <div class="container">
-    <h2>Valitse sopiva paketti</h2>
-    <p class="alaotsikko">Kaikki retket toteutetaan pääkaupunkiseudulla — Kuusijärvi, Nuuksio tai muu sopiva kohde.</p>
-
-    <div class="paketit">
-
-      <!-- PAKETTI 1 -->
-      <div class="paketti">
-        <div class="paketti-ikoni">🌿</div>
-        <h3>Lähiluontoilta</h3>
-        <div class="paketti-kesto">2–3 tuntia · illalla tai viikonloppuna</div>
-        <p>Rentouttava luontoilta pienryhmälle. Aistiharjoitus metsässä, toiminnallinen tehtävä ja nuotiohetki tikkupullineen.</p>
-        <ul>
-          <li>Aistiharjoitus ja metsärauha</li>
-          <li>Tiimitehtävä luonnossa</li>
-          <li>Nuotio ja tikkupulla</li>
-          <li>Sopii 4–12 henkilölle</li>
-        </ul>
-        <div class="paketti-hinta">alkaen 150 € <span>/ ryhmä</span></div>
-      </div>
-
-      <!-- PAKETTI 2 -->
-      <div class="paketti suosittu">
-        <div class="suosittu-merkki">Suosituin</div>
-        <div class="paketti-ikoni">🥾</div>
-        <h3>Päiväretki luontoon</h3>
-        <div class="paketti-kesto">4–6 tuntia · viikonloppu tai arki-ilta</div>
-        <p>Opastettu päiväretki kansallispuistoon tai lähimaastoon. Tarinoita suomalaisesta luonnosta, käytännön retkeilyvinkit ja evästauko maastossa.</p>
-        <ul>
-          <li>Opastettu reitti kohteessa</li>
-          <li>Jokamiehenoikeus ja luontotieto</li>
-          <li>Evästauko luonnossa</li>
-          <li>Sopii 2–15 henkilölle</li>
-        </ul>
-        <div class="paketti-hinta">alkaen 250 € <span>/ ryhmä</span></div>
-      </div>
-
-      <!-- PAKETTI 3 -->
-      <div class="paketti">
-        <div class="paketti-ikoni">🏢</div>
-        <h3>Yrityspaketti</h3>
-        <div class="paketti-kesto">3–4 tuntia · TYKY tai tiimipäivä</div>
-        <p>Räätälöity luontoelämys yritykselle. Tiimitehtäviä, luontoa ja nuotiohetki — kaikki helposti järjestettynä ilman vaivaa tilaajalle.</p>
-        <ul>
-          <li>Räätälöity ohjelma tiimille</li>
-          <li>Tiimitehtävät ja aktiviteetit</li>
-          <li>Nuotiohetki ja tarjoilu</li>
-          <li>Sopii 8–20 henkilölle</li>
-        </ul>
-        <div class="paketti-hinta">alkaen 400 € <span>/ ryhmä</span></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- OPAS -->
-<section>
-  <div class="container">
-    <h2>Kuka ohjaa?</h2>
-    <p class="alaotsikko">Et lähde tuntemattoman kanssa metsään — tässä lyhyesti taustani.</p>
-    <div class="opas-info">
-      <div class="opas-teksti">
-        <p>Olen opettaja ja koulutettu erä- ja luonto-opas, joka on liikkunut luonnossa yli neljäkymmentä vuotta. Olen juossut, vaeltanut ja pyöräillyt ympäri Suomea ja Skandinaviaa.</p>
-        <p>Luonto on minulle enemmän kuin harrastus — se on tapa palautua, ajatella ja löytää oma rytmi. Haluan tarjota saman kokemuksen myös muille.</p>
-        <p>Retkillä turvallisuus on aina etusijalla, mutta tunnelma pysyy rentona. Ei suorituspaineita, ei kiirettä.</p>
-        <ul class="patevyys-lista">
-          <li>Erä- ja luonto-oppaan tutkinto, Savon ammattiopisto</li>
-          <li>Opettaja, yli 20 vuoden kokemus ryhmien ohjaamisesta</li>
-          <li>Toiminimi Retkittäin — vakuutettu toiminta</li>
-        </ul>
+  <header class="hero">
+    <div class="hero-sisalto">
+      <div class="eyebrow">Erä- ja luonto-opas · Savon ammattiopisto</div>
+      <h1>Luontoelämyksiä omalla tavalla</h1>
+      <p>Ohjattuja retkiä, yhteisiä hetkiä metsässä ja uusia polkuja löydettäväksi. Sinun ei tarvitse olla kokenut retkeilijä — riittää, että haluat lähteä luontoon.</p>
+      <div class="hero-napit">
+        <a class="nappi nappi-vaalea" href="#yhteydenotto">Suunnitellaan retki</a>
+        <a class="nappi nappi-outline" href="#palvelut">Tutustu palveluihin</a>
       </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- MITEN ETENEE -->
-<section>
-  <div class="container">
-    <h2>Miten retki syntyy?</h2>
-    <p class="alaotsikko">Kolme askelta riittää.</p>
-    <div class="askeleet">
-      <div class="askel">
-        <div class="askel-numero">1</div>
-        <h3>Lähetä viesti</h3>
-        <p>Kerro toiveet, ajankohta ja ryhmän koko. Vastaan yleensä saman päivän aikana.</p>
+  <main>
+    <section id="palvelut">
+      <div class="container">
+        <div class="osio-otsikko">
+          <div class="eyebrow">Valitse teille sopiva tapa lähteä</div>
+          <h2>Retkiä ja luontoelämyksiä erilaisiin tarpeisiin</h2>
+          <p class="alaotsikko">Retki voi olla rauhallinen hengähdyshetki, yhteinen seikkailu tai aktiivinen päivä poluilla. Suunnitellaan sisältö, kohde ja tahti osallistujien mukaan.</p>
+        </div>
+
+        <div class="palvelut-grid">
+          <article class="palvelu-kortti">
+            <img class="palvelu-kuva" src="img/lahiluonto.jpg" alt="Kuvaava vaihtoehtoinen teksti" />
+            <div class="palvelu-sisalto">
+              <div class="palvelu-ikoni" aria-hidden="true">🌿</div>
+              <h3>Lähiluontoilta</h3>
+              <div class="palvelu-meta">Noin 2–3 tuntia · pienryhmille</div>
+              <p>Yhteinen hetki luonnossa ilman kiirettä. Tutustumme ympäristöön aistien ja pienten toiminnallisten tehtävien kautta. Sään ja kohteen salliessa iltaan voidaan yhdistää nuotiohetki.</p>
+              <ul>
+                <li>Luonnon havainnointia ja aistiharjoituksia</li>
+                <li>Kevyttä yhteistä tekemistä</li>
+                <li>Rauhallinen tauko arjen keskellä</li>
+              </ul>
+              <div class="palvelu-hinta">Alkaen 150 € / ryhmä<small>Hinta ja sisältö vahvistetaan tarjouksessa.</small></div>
+              <a class="tekstinappi" href="#yhteydenotto" data-palvelu="Lähiluontoilta">Kysy lähiluontoillasta →</a>
+            </div>
+          </article>
+
+          <article class="palvelu-kortti">
+            <img class="palvelu-kuva" src="img/lahimetsa.jpg" alt="Kuvaava vaihtoehtoinen teksti" />
+            <div class="palvelu-sisalto">
+              <div class="palvelu-ikoni" aria-hidden="true">🥾</div>
+              <h3>Ohjattu päiväretki</h3>
+              <div class="palvelu-meta">Noin 4–6 tuntia · pienryhmille</div>
+              <p>Lähde tutustumaan lähiluontoon tai pidemmälle retkikohteeseen oppaan kanssa. Matkalla voidaan pysähtyä luonnon yksityiskohtien, retkeilytaitojen ja eväshetken äärelle.</p>
+              <ul>
+                <li>Reitti ja tahti ryhmän mukaan</li>
+                <li>Luontotietoa ja retkeilyvinkkejä</li>
+                <li>Evästauko luonnon keskellä</li>
+              </ul>
+              <div class="palvelu-hinta">Alkaen 250 € / ryhmä<small>Hinta riippuu kohteesta, kestosta ja ryhmän koosta.</small></div>
+              <a class="tekstinappi" href="#yhteydenotto" data-palvelu="Ohjattu päiväretki">Suunnitellaan päiväretki →</a>
+            </div>
+          </article>
+
+          <article class="palvelu-kortti" id="yrityksille">
+            <img class="palvelu-kuva" src="img/ryhma.jpg" alt="Kuvaava vaihtoehtoinen teksti" />
+            <div class="palvelu-sisalto">
+              <div class="palvelu-ikoni" aria-hidden="true">🤝</div>
+              <h3>Yritysten luontoelämykset</h3>
+              <div class="palvelu-meta">Noin 3–4 tuntia · tiimi- ja virkistyspäiviin</div>
+              <p>Vaihdetaan hetkeksi kokoushuone metsäpolkuun. Rakennetaan ryhmällenne sopiva kokonaisuus, jossa luonto, yhteistyö ja yhdessäolo ovat keskiössä.</p>
+              <ul>
+                <li>Ryhmäkohtaisesti suunniteltu ohjelma</li>
+                <li>Yhteistyötehtäviä ja luonnossa toimimista</li>
+                <li>Mahdollisuus nuotiohetkeen ja tarjoiluun</li>
+              </ul>
+              <div class="palvelu-hinta">Alkaen 400 € / ryhmä<small>Lopullinen hinta sovitaan sisällön ja järjestelyjen mukaan.</small></div>
+              <a class="tekstinappi" href="#yhteydenotto" data-palvelu="Yritysten luontoelämys">Kysy yritysretkestä →</a>
+            </div>
+          </article>
+
+          <article class="palvelu-kortti">
+            <img class="palvelu-kuva" src="img/juoksu.PNG" alt="Kuvaava vaihtoehtoinen teksti" />
+            <div class="palvelu-sisalto">
+              <div class="palvelu-ikoni" aria-hidden="true">👟</div>
+              <h3>Ohjattu maastojuoksuretki</h3>
+              <div class="palvelu-meta">Kesto ja reitti sovitaan erikseen</div>
+              <p>Tutustutaan metsäpolkuihin juosten omaan tahtiin. Retken ydin on luonnossa liikkuminen ja ympäristön kokeminen — ei vauhti, matkaennätykset tai suorittaminen.</p>
+              <ul>
+                <li>Reitti ja eteneminen osallistujien mukaan</li>
+                <li>Poluilla liikkumista ja luonnon havainnointia</li>
+                <li>Sopii osaksi aktiivista luontopäivää</li>
+              </ul>
+              <div class="palvelu-hinta">Hinta sovitaan retken mukaan<small>Kerro kokemuksestasi ja toiveistasi, niin suunnitellaan sopiva retki.</small></div>
+              <a class="tekstinappi" href="#yhteydenotto" data-palvelu="Ohjattu maastojuoksuretki">Kysy maastojuoksuretkestä →</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="huomio-rivi">
+          <div class="ikoni" aria-hidden="true">🌲</div>
+          <p><strong>Ei tarvitse tietää valmiiksi, mikä palvelu sopii.</strong><br />Kerro ryhmästäsi, ajankohdasta ja siitä, millaista kokemusta toivot. Ehdotan sopivaa sisältöä ja kohdetta. Retkien saatavuus, reitti ja lopullinen hinta vahvistetaan aina erikseen.</p>
+        </div>
       </div>
-      <div class="askel">
-        <div class="askel-numero">2</div>
-        <h3>Sovitaan yhdessä</h3>
-        <p>Ehdotan sopivaa pakettia ja kohdetta. Räätälöidään tarpeen mukaan.</p>
+    </section>
+
+    <section class="tausta-vaalea" id="opas">
+      <div class="container opas-grid">
+        <div class="opas-teksti">
+          <div class="eyebrow">Kuka retken ohjaa?</div>
+          <h2>Luontoa tunteva opas, rento retkitunnelma</h2>
+          <p>Olen koulutettu erä- ja luonto-opas sekä opettaja. Luonto on kulkenut mukanani vuosikymmeniä retkeilyn, juoksun ja pyöräilyn kautta.</p>
+          <p>Haluan tehdä luontoon lähtemisestä helppoa ja mukavaa myös silloin, kun retkeily ei ole ennestään tuttua. Retkillä tärkeintä ei ole suoritus vaan yhdessä koettu ympäristö, turvallinen eteneminen ja mahdollisuus löytää luonnosta jotain uutta.</p>
+          <p>Suunnittelen retken ryhmän, olosuhteiden ja osallistujien toiveiden mukaan. Tunnelma saa olla rento, ja kysymyksille on aina tilaa.</p>
+
+          <div class="opas-tunnisteet">
+            <div class="opas-tunniste">Erä- ja luonto-oppaan tutkinto · Savon ammattiopisto</div>
+            <div class="opas-tunniste">Pitkä kokemus ryhmien ohjaamisesta ja opettamisesta</div>
+            <div class="opas-tunniste">Turvallisuus ja osallistujien huomioiminen etusijalla</div>
+          </div>
+
+          <p style="margin-top:1.3rem"><a class="tekstinappi" href="minusta.html">Lue lisää oppaasta →</a></p>
+        </div>
+
+        <div class="opas-kuvapaikka" role="img" aria-label="Kuvapaikka oppaan omalle retkikuvalle">
+          <img class="palvelu-kuva" src="img/marko.jpg" alt="Kuvaava vaihtoehtoinen teksti" />
+        </div>
       </div>
-      <div class="askel">
-        <div class="askel-numero">3</div>
-        <h3>Nautitaan luonnosta</h3>
-        <p>Sinä nauti retkestä. Minä huolehdin käytännön järjestelyistä ja ohjelmasta.</p>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="osio-otsikko">
+          <div class="eyebrow">Helppo aloittaa</div>
+          <h2>Näin retken suunnittelu etenee</h2>
+          <p class="alaotsikko">Ensimmäinen viesti ei sido mihinkään. Katsotaan yhdessä, mikä toimisi teidän ryhmällenne.</p>
+        </div>
+
+        <div class="askeleet">
+          <article class="askel">
+            <div class="askel-numero">1</div>
+            <h3>Kerro toiveistasi</h3>
+            <p>Jätä viesti ja kerro ryhmän koko, ajankohta sekä millaista luontoelämystä etsit.</p>
+          </article>
+
+          <article class="askel">
+            <div class="askel-numero">2</div>
+            <h3>Suunnitellaan yhdessä</h3>
+            <p>Ehdotan sopivaa sisältöä ja kohdetta. Sovimme keston, käytännön järjestelyt ja hinnan.</p>
+          </article>
+
+          <article class="askel">
+            <div class="askel-numero">3</div>
+            <h3>Lähdetään luontoon</h3>
+            <p>Kun yksityiskohdat on vahvistettu, voit keskittyä retkestä nauttimiseen.</p>
+          </article>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- YHTEYDENOTTO -->
-<section id="yhteydenotto">
-  <div class="container">
-    <h2>Kysy lisää tai varaa retki</h2>
-    <p class="alaotsikko">Täytä lomake niin otan yhteyttä. Ei sitoumuksia — kartoitetaan ensin sopiva vaihtoehto.</p>
+    <section class="yhteydenotto" id="yhteydenotto">
+      <div class="container yhteys-grid">
+        <div>
+          <div class="eyebrow">Ota ensimmäinen askel</div>
+          <h2>Millainen retki sopisi teille?</h2>
+          <p class="alaotsikko">Kerro ideastasi, vaikka se olisi vasta hahmottumassa. Vastaan mahdollisimman pian ja katsotaan yhdessä sopiva vaihtoehto.</p>
+          <p class="yhteys-lupaus">Yhteydenotto ei sido varaamaan retkeä. Myös omat ideat ja erityistoiveet ovat tervetulleita.</p>
+        </div>
 
-    <div class="lomake-wrapper">
-      <form id="yhteyslomake" action="https://formspree.io/f/maqkdrny" method="POST">
-        <div class="lomake-rivi">
-          <label for="nimi">Nimi</label>
-          <input type="text" id="nimi" name="nimi" placeholder="Etunimi Sukunimi" required />
+        <div class="lomake-wrapper">
+          <form id="yhteyslomake" action="https://formspree.io/f/maqkdrny" method="POST">
+            <div class="lomake-rivi">
+              <label for="nimi">Nimi *</label>
+              <input type="text" id="nimi" name="nimi" autocomplete="name" placeholder="Etunimi Sukunimi" required />
+            </div>
+
+            <div class="lomake-rivi">
+              <label for="email">Sähköposti *</label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="sinun@email.fi" required />
+            </div>
+
+            <div class="lomake-rivi">
+              <label for="paketti">Mistä palvelusta olet kiinnostunut?</label>
+              <select id="paketti" name="paketti">
+                <option value="">Valitse palvelu (halutessasi)</option>
+                <option value="Lähiluontoilta">🌿 Lähiluontoilta</option>
+                <option value="Ohjattu päiväretki">🥾 Ohjattu päiväretki</option>
+                <option value="Yritysten luontoelämys">🤝 Yritysten luontoelämys</option>
+                <option value="Ohjattu maastojuoksuretki">👟 Ohjattu maastojuoksuretki</option>
+                <option value="Muu tai en osaa vielä sanoa">Muu / en osaa vielä sanoa</option>
+              </select>
+            </div>
+
+            <div class="lomake-rivi">
+              <label for="ryhma">Ryhmän koko ja ajankohta</label>
+              <input type="text" id="ryhma" name="ryhma" placeholder="Esim. 6 henkilöä, toukokuu" />
+            </div>
+
+            <div class="lomake-rivi">
+              <label for="viesti">Lisätietoja ja toiveita</label>
+              <textarea id="viesti" name="viesti" placeholder="Kerro esimerkiksi retken tarkoituksesta, toivotusta kohteesta tai ryhmän kokemuksesta luonnossa."></textarea>
+            </div>
+
+            <button type="submit" class="laheta-nappi" id="laheta-nappi">Lähetä viesti →</button>
+            <p class="lomake-huomio">Viestisi lähetetään yhteydenottoa varten. Ei sitoumuksia.</p>
+            <p id="lomake-virhe" role="alert">Viestin lähettäminen ei onnistunut. Yritä hetken kuluttua uudelleen tai lähetä sähköpostia osoitteeseen retkittain@gmail.com.</p>
+          </form>
+
+          <div id="kiitos" role="status" aria-live="polite">
+            <h3>🌿 Kiitos viestistäsi!</h3>
+            <p>Viesti lähetettiin onnistuneesti. Palaan asiaan mahdollisimman pian.</p>
+          </div>
         </div>
-        <div class="lomake-rivi">
-          <label for="email">Sähköposti</label>
-          <input type="email" id="email" name="email" placeholder="sinun@email.fi" required />
-        </div>
-        <div class="lomake-rivi">
-          <label for="paketti">Kiinnostava paketti</label>
-          <select id="paketti" name="paketti">
-            <option value="">Valitse paketti...</option>
-            <option value="lahiluontoilta">🌿 Lähiluontoilta (alkaen 150 €)</option>
-            <option value="paivaretki">🥾 Päiväretki luontoon (alkaen 250 €)</option>
-            <option value="yrityspaketti">🏢 Yrityspaketti (alkaen 400 €)</option>
-            <option value="muu">Muu / en osaa vielä sanoa</option>
-          </select>
-        </div>
-        <div class="lomake-rivi">
-          <label for="ryhma">Ryhmän koko ja ajankohta (suuntaa-antava)</label>
-          <input type="text" id="ryhma" name="ryhma" placeholder="Esim. 6 henkeä, kesäkuu" />
-        </div>
-        <div class="lomake-rivi">
-          <label for="viesti">Lisätietoja tai toiveet</label>
-          <textarea id="viesti" name="viesti" placeholder="Kerro vapaasti — mikä tilaisuus, millainen ryhmä, onko erityistoiveita..."></textarea>
-        </div>
-        <button type="submit" class="laheta-nappi">Lähetä viesti →</button>
-        <p class="lomake-huomio">Vastaan yleensä saman päivän aikana. Ei sitoumuksia.</p>
-      </form>
-      <div id="kiitos">
-        <h3>🌿 Viesti lähetetty!</h3>
-        <p>Kiitos yhteydenotosta. Otan sinuun yhteyttä pian.</p>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
+  </main>
 
-<footer>
-  <p style="margin-bottom:0.5rem">
-    <a href="https://instagram.com/retkittain">Instagram</a>
-    <a href="https://tiktok.com/@retkittain">TikTok</a>
-    <a href="https://youtube.com/@retkittain">YouTube</a>
-  </p>
-  <p>© Retkittäin · <a href="https://retkittain.fi/tietosuoja">Tietosuoja</a></p>
-</footer>
+  <footer>
+    <p>
+      <a href="https://instagram.com/retkittain" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://tiktok.com/@retkittain" target="_blank" rel="noopener noreferrer">TikTok</a>
+      <a href="https://youtube.com/@retkittain" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </p>
+    <p>© Retkittäin · <a href="tyokalu.html">Retkityökalu</a> · <a href="tietosuoja.html">Tietosuoja</a></p>
+  </footer>
 
-<script>
-  const lomake = document.getElementById('yhteyslomake');
-  const kiitos = document.getElementById('kiitos');
-  if (lomake) {
-    lomake.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const data = new FormData(lomake);
-      try {
-        const res = await fetch(lomake.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          lomake.style.display = 'none';
-          kiitos.style.display = 'block';
-        }
-      } catch(err) {
-        alert('Viestin lähetys epäonnistui. Kokeile sähköpostia: retkittain@gmail.com');
-      }
+  <script>
+    // Palvelukortin linkki valitsee lomakkeelle kyseisen palvelun.
+    document.querySelectorAll("[data-palvelu]").forEach(function(link) {
+      link.addEventListener("click", function() {
+        const valinta = document.getElementById("paketti");
+        if (valinta) valinta.value = link.dataset.palvelu;
+      });
     });
-  }
-</script>
 
+    const lomake = document.getElementById("yhteyslomake");
+    const kiitos = document.getElementById("kiitos");
+    const virhe = document.getElementById("lomake-virhe");
+    const lahetaNappi = document.getElementById("laheta-nappi");
+
+    if (lomake) {
+      lomake.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        virhe.style.display = "none";
+        lahetaNappi.disabled = true;
+        lahetaNappi.textContent = "Lähetetään…";
+
+        try {
+          const response = await fetch(lomake.action, {
+            method: "POST",
+            body: new FormData(lomake),
+            headers: { "Accept": "application/json" }
+          });
+
+          if (response.ok) {
+            lomake.style.display = "none";
+            kiitos.style.display = "block";
+          } else {
+            virhe.style.display = "block";
+            lahetaNappi.disabled = false;
+            lahetaNappi.textContent = "Yritä lähettää uudelleen";
+          }
+        } catch (error) {
+          virhe.style.display = "block";
+          lahetaNappi.disabled = false;
+          lahetaNappi.textContent = "Yritä lähettää uudelleen";
+        }
+      });
+    }
+  </script>
 </body>
 </html>
