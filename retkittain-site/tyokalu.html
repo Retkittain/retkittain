@@ -760,6 +760,355 @@
                 max-width: none;
             }
         }
+
+/* =========================
+   RETKITTÄIN – YHTENÄINEN SIVUSTOTYYLI
+   Etusivun ja palvelut-sivun mukainen
+========================= */
+
+:root {
+    --vihrea: #2d6a4f;
+    --vihrea-tumma: #1b4332;
+    --vihrea-vaalea: #d8f3dc;
+    --teksti: #1a1a1a;
+    --harmaa: #555;
+    --tausta: #f8faf8;
+    --valkoinen: #fff;
+    --border: #d9e3df;
+    --korostus: #f4a261;
+}
+
+body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--valkoinen);
+    color: var(--teksti);
+}
+
+a {
+    color: var(--vihrea);
+}
+
+/* Navigaatio */
+
+header {
+    background: var(--vihrea-tumma);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
+}
+
+.nav-inner {
+    max-width: 1080px;
+    padding: 1rem 0;
+    gap: 1.25rem;
+}
+
+.logo {
+    width: auto;
+    height: 40px;
+}
+
+nav {
+    gap: .25rem;
+}
+
+nav a {
+    color: #e2eee7;
+    font-size: .9rem;
+    font-weight: 500;
+    opacity: 1;
+    padding: .35rem .6rem;
+    border-radius: 4px;
+    transition: background .2s ease;
+}
+
+nav a:hover,
+nav a.active {
+    background: rgba(255, 255, 255, .15);
+    opacity: 1;
+    text-decoration: none;
+}
+
+nav a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--korostus);
+    outline-offset: 3px;
+}
+
+/* Otsake */
+
+.hero {
+    background: linear-gradient(
+        135deg,
+        var(--vihrea-tumma),
+        var(--vihrea)
+    );
+    padding: 4.5rem 1.5rem 4rem;
+}
+
+.hero-inner,
+.content,
+.footer-inner {
+    width: min(1080px, calc(100% - 3rem));
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero h1 {
+    max-width: 760px;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.15;
+    letter-spacing: -.025em;
+}
+
+.hero p {
+    color: #e0f0e6;
+}
+
+.eyebrow {
+    background: rgba(255, 255, 255, .08);
+    border-color: rgba(255, 255, 255, .25);
+    border-radius: 4px;
+}
+
+/* Sisältö */
+
+.content {
+    padding: 3.5rem 0 4rem;
+}
+
+.section-intro h2,
+.screen h2,
+.screen h3,
+.dest-card h4,
+.info-box strong,
+.trip-meta strong {
+    color: var(--vihrea-tumma);
+}
+
+.section-intro p,
+.muted,
+.dest-card p,
+.trip-meta small {
+    color: var(--harmaa);
+}
+
+.screen {
+    border-color: var(--border);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(27, 67, 50, .05);
+}
+
+.info-box,
+.result-summary,
+.packing-intro,
+.card {
+    background: var(--tausta);
+    border-color: var(--border);
+    border-radius: 10px;
+}
+
+.packing-category,
+.dest-card {
+    border-color: var(--border);
+    border-radius: 10px;
+}
+
+.dest-card:hover {
+    border-color: #9ab8a7;
+    box-shadow: 0 6px 18px rgba(27, 67, 50, .09);
+}
+
+.pill {
+    background: var(--vihrea-vaalea);
+    color: var(--vihrea-tumma);
+}
+
+/* Painikkeet */
+
+button,
+.btn {
+    border-radius: 5px;
+    font-weight: 650;
+}
+
+button,
+.btn.primary {
+    background: var(--vihrea);
+    color: var(--valkoinen);
+}
+
+button:hover,
+.btn:hover {
+    filter: brightness(.96);
+}
+
+button.secondary,
+.btn.secondary {
+    background: var(--valkoinen);
+    color: var(--vihrea-tumma);
+    border: 1px solid var(--border);
+}
+
+button.danger,
+.mini-btn.danger {
+    background: #7a3c3c;
+    color: white;
+}
+
+select,
+input[type="text"] {
+    border-color: var(--border);
+    border-radius: 5px;
+}
+
+select:focus,
+input[type="text"]:focus {
+    outline: 2px solid rgba(45, 106, 79, .2);
+    border-color: var(--vihrea);
+}
+
+/* Alareunan yhteydenottokutsu */
+
+.final-cta {
+    background: var(--vihrea-tumma);
+    border-radius: 10px;
+}
+
+/* Alatunniste */
+
+footer {
+    background: #111e17;
+    color: #c9ded0;
+    padding: 1.8rem 1rem;
+}
+
+.footer-inner {
+    width: min(1080px, calc(100% - 2rem));
+    font-size: .9rem;
+}
+
+.footer-links {
+    gap: .35rem;
+}
+
+.footer-links a {
+    color: #c9ded0;
+    text-decoration: none;
+    padding: .2rem .35rem;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mobiili */
+
+@media (max-width: 800px) {
+    .nav-inner {
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: .75rem;
+        padding: .85rem 1rem;
+    }
+
+    nav {
+        justify-content: center;
+        gap: .2rem;
+    }
+
+    nav a {
+        font-size: .85rem;
+        padding: .35rem .45rem;
+    }
+
+    .hero {
+        padding: 3.5rem 1.25rem;
+    }
+
+    .hero-inner,
+    .content {
+        width: min(100% - 2rem, 1080px);
+    }
+
+    .content {
+        padding: 3rem 0;
+    }
+
+    .screen {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .logo {
+        height: 34px;
+        width: auto;
+    }
+
+    .hero h1 {
+        font-size: clamp(2rem, 9vw, 2.5rem);
+    }
+
+    .hero-note {
+        gap: .5rem;
+    }
+
+    .hero-note span {
+        font-size: .82rem;
+    }
+
+    .footer-inner {
+        width: 100%;
+    }
+
+    .footer-links {
+        gap: .35rem;
+    }
+}
+
+/* Tulostus ja PDF */
+
+@media print {
+    header,
+    footer,
+    .hero,
+    .section-intro,
+    .map-toolbar,
+    .cta-row,
+    .final-cta {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .content {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+    }
+
+    .screen {
+        display: none !important;
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    #screen4 {
+        display: block !important;
+    }
+
+    .packing-category {
+        break-inside: avoid;
+    }
+}
     </style>
 </head>
 
@@ -772,15 +1121,14 @@
                 <img src="img/leveabanneri_white.png" alt="Retkittäin" class="logo">
             </a>
 
-            <nav>
-                <a href="index.html">Etusivu</a>
-                <a href="palvelut.html">Retket</a>
-                <a href="juoksu.html">Luonto &amp; liike</a>
-                <a href="tyokalu.html" class="active">Retkityökalu</a>
-                <a href="blog.html">Blogi</a>
-                <a href="minusta.html">Minusta</a>
-                <a href="yhteys.html">Yhteys</a>
-            </nav>
+            <nav aria-label="Päänavigaatio">
+            <a href="index.html">Etusivu</a>
+            <a href="tyokalu.html" class="active" aria-current="page">Retkityökalu</a>
+            <a href="palvelut.html">Retket ja palvelut</a>
+            <a href="blog.html">Blogi</a>
+            <a href="minusta.html">Minusta</a>
+            <a href="yhteys.html">Yhteys</a>
+        </nav>
 
         </div>
     </header>
